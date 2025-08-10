@@ -1,0 +1,286 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-12-10 10:00:00.000000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "remittance_date",
+  "column_break_1",
+  "remittance_period",
+  "status",
+  "section_break_1",
+  "organization_type",
+  "organization_name",
+  "column_break_2",
+  "contact_person",
+  "contact_details",
+  "section_break_2",
+  "tithe_amount",
+  "offering_to_field_amount",
+  "column_break_3",
+  "special_offerings_amount",
+  "other_remittances_amount",
+  "section_break_3",
+  "total_remittance_amount",
+  "column_break_4",
+  "payment_mode",
+  "reference_number",
+  "section_break_4",
+  "remittance_items",
+  "section_break_5",
+  "prepared_by",
+  "preparation_date",
+  "column_break_5",
+  "approved_by",
+  "approval_date",
+  "section_break_6",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "REM-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "remittance_date",
+   "fieldtype": "Date",
+   "label": "Remittance Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remittance_period",
+   "fieldtype": "Select",
+   "label": "Remittance Period",
+   "options": "Weekly\nMonthly\nQuarterly\nAnnual",
+   "default": "Monthly",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending Approval\nApproved\nSent\nReceived",
+   "default": "Draft",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "Organization Details"
+  },
+  {
+   "fieldname": "organization_type",
+   "fieldtype": "Select",
+   "label": "Organization Type",
+   "options": "Conference\nUnion\nDivision\nGeneral Conference\nOther",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "organization_name",
+   "fieldtype": "Data",
+   "label": "Organization Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_person",
+   "fieldtype": "Data",
+   "label": "Contact Person"
+  },
+  {
+   "fieldname": "contact_details",
+   "fieldtype": "Small Text",
+   "label": "Contact Details"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Remittance Amounts"
+  },
+  {
+   "fieldname": "tithe_amount",
+   "fieldtype": "Currency",
+   "label": "Tithe Amount",
+   "precision": 2,
+   "description": "100% of tithe collected"
+  },
+  {
+   "fieldname": "offering_to_field_amount",
+   "fieldtype": "Currency",
+   "label": "Offering to Field Amount",
+   "precision": 2,
+   "description": "58% of regular offerings"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "special_offerings_amount",
+   "fieldtype": "Currency",
+   "label": "Special Offerings Amount",
+   "precision": 2,
+   "description": "Camp meeting and other special offerings"
+  },
+  {
+   "fieldname": "other_remittances_amount",
+   "fieldtype": "Currency",
+   "label": "Other Remittances Amount",
+   "precision": 2
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "total_remittance_amount",
+   "fieldtype": "Currency",
+   "label": "Total Remittance Amount",
+   "read_only": 1,
+   "precision": 2,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_mode",
+   "fieldtype": "Select",
+   "label": "Payment Mode",
+   "options": "Bank Transfer\nCheque\nCash\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number",
+   "description": "Bank reference, cheque number, etc."
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "Detailed Breakdown"
+  },
+  {
+   "fieldname": "remittance_items",
+   "fieldtype": "Table",
+   "label": "Remittance Items",
+   "options": "Remittance Item"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break",
+   "label": "Authorization"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User",
+   "default": "__user"
+  },
+  {
+   "fieldname": "preparation_date",
+   "fieldtype": "Date",
+   "label": "Preparation Date",
+   "default": "Today"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "approval_date",
+   "fieldtype": "Date",
+   "label": "Approval Date"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-10 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Church Management",
+ "name": "Remittance",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Treasurer",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Member",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "organization_name",
+ "track_changes": 1
+}

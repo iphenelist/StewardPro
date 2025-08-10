@@ -83,7 +83,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "stewardpro.install.before_install"
-# after_install = "stewardpro.install.after_install"
+after_install = "stewardpro.church_management.setup.after_install"
 
 # Uninstallation
 # ------------
@@ -148,23 +148,14 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"stewardpro.tasks.all"
-# 	],
-# 	"daily": [
-# 		"stewardpro.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"stewardpro.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"stewardpro.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"stewardpro.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"monthly": [
+		"stewardpro.church_management.tasks.create_monthly_remittance"
+	],
+	"weekly": [
+		"stewardpro.church_management.tasks.create_weekly_remittance"
+	]
+}
 
 # Testing
 # -------

@@ -1,0 +1,73 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>Remittance Manager</h1>
+				<p class="text-muted">Create and manage remittances based on Tithes and Offerings</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h4>Create Manual Remittance</h4>
+				</div>
+				<div class="card-body">
+					<form id="remittance-form">
+						<div class="form-group">
+							<label for="period_start">Period Start Date</label>
+							<input type="date" class="form-control" id="period_start" required>
+						</div>
+						<div class="form-group">
+							<label for="period_end">Period End Date</label>
+							<input type="date" class="form-control" id="period_end" required>
+						</div>
+						<div class="form-group">
+							<label for="remittance_period">Remittance Period</label>
+							<select class="form-control" id="remittance_period">
+								<option value="Monthly">Monthly</option>
+								<option value="Weekly">Weekly</option>
+								<option value="Quarterly">Quarterly</option>
+								<option value="Annual">Annual</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-info" id="preview-btn">Preview Remittance</button>
+							<button type="button" class="btn btn-primary" id="create-btn">Create Remittance</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h4>Remittance Preview</h4>
+				</div>
+				<div class="card-body">
+					<div id="preview-content">
+						<p class="text-muted">Select a period and click "Preview Remittance" to see the data</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row mt-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h4>Recent Remittances</h4>
+				</div>
+				<div class="card-body">
+					<div id="recent-remittances">
+						<p class="text-muted">Loading recent remittances...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
