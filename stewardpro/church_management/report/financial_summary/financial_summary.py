@@ -4,6 +4,7 @@
 import frappe
 from frappe import _
 from frappe.utils import flt, getdate
+from frappe.query_builder.functions import Sum
 
 
 def execute(filters=None):
@@ -147,33 +148,55 @@ def get_data(filters):
 
 
 def get_tithe_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
-	current_month = frappe.db.sql("""
-		SELECT SUM(tithe_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (cm_start, cm_end))[0][0] or 0
-	
-	previous_month = frappe.db.sql("""
-		SELECT SUM(tithe_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (pm_start, pm_end))[0][0] or 0
-	
-	year_to_date = frappe.db.sql("""
-		SELECT SUM(tithe_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (yt_start, yt_end))[0][0] or 0
-	
-	previous_year = frappe.db.sql("""
-		SELECT SUM(tithe_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (py_start, py_end))[0][0] or 0
-	
+	tithes_table = frappe.qb.DocType("Tithes and Offerings")
+
+	# Current month
+	current_month = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.tithe_amount))
+		.where(
+			(tithes_table.date >= cm_start) &
+			(tithes_table.date <= cm_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Previous month
+	previous_month = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.tithe_amount))
+		.where(
+			(tithes_table.date >= pm_start) &
+			(tithes_table.date <= pm_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Year to date
+	year_to_date = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.tithe_amount))
+		.where(
+			(tithes_table.date >= yt_start) &
+			(tithes_table.date <= yt_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Previous year
+	previous_year = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.tithe_amount))
+		.where(
+			(tithes_table.date >= py_start) &
+			(tithes_table.date <= py_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
 	month_change = calculate_percentage_change(current_month, previous_month)
 	year_change = calculate_percentage_change(year_to_date, previous_year)
-	
+
 	return {
 		"category": "Tithes",
 		"current_month": current_month,
@@ -186,33 +209,55 @@ def get_tithe_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_star
 
 
 def get_offering_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
-	current_month = frappe.db.sql("""
-		SELECT SUM(offering_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (cm_start, cm_end))[0][0] or 0
-	
-	previous_month = frappe.db.sql("""
-		SELECT SUM(offering_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (pm_start, pm_end))[0][0] or 0
-	
-	year_to_date = frappe.db.sql("""
-		SELECT SUM(offering_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (yt_start, yt_end))[0][0] or 0
-	
-	previous_year = frappe.db.sql("""
-		SELECT SUM(offering_amount) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (py_start, py_end))[0][0] or 0
-	
+	tithes_table = frappe.qb.DocType("Tithes and Offerings")
+
+	# Current month
+	current_month = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.offering_amount))
+		.where(
+			(tithes_table.date >= cm_start) &
+			(tithes_table.date <= cm_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Previous month
+	previous_month = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.offering_amount))
+		.where(
+			(tithes_table.date >= pm_start) &
+			(tithes_table.date <= pm_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Year to date
+	year_to_date = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.offering_amount))
+		.where(
+			(tithes_table.date >= yt_start) &
+			(tithes_table.date <= yt_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Previous year
+	previous_year = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.offering_amount))
+		.where(
+			(tithes_table.date >= py_start) &
+			(tithes_table.date <= py_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
 	month_change = calculate_percentage_change(current_month, previous_month)
 	year_change = calculate_percentage_change(year_to_date, previous_year)
-	
+
 	return {
 		"category": "Regular Offerings",
 		"current_month": current_month,
@@ -225,33 +270,55 @@ def get_offering_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_s
 
 
 def get_special_offerings_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
-	current_month = frappe.db.sql("""
-		SELECT SUM(campmeeting_offering + church_building_offering) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (cm_start, cm_end))[0][0] or 0
-	
-	previous_month = frappe.db.sql("""
-		SELECT SUM(campmeeting_offering + church_building_offering) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (pm_start, pm_end))[0][0] or 0
-	
-	year_to_date = frappe.db.sql("""
-		SELECT SUM(campmeeting_offering + church_building_offering) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (yt_start, yt_end))[0][0] or 0
-	
-	previous_year = frappe.db.sql("""
-		SELECT SUM(campmeeting_offering + church_building_offering) as total
-		FROM `tabTithes and Offerings`
-		WHERE date BETWEEN %s AND %s AND docstatus = 1
-	""", (py_start, py_end))[0][0] or 0
-	
+	tithes_table = frappe.qb.DocType("Tithes and Offerings")
+
+	# Current month
+	current_month = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.campmeeting_offering + tithes_table.church_building_offering))
+		.where(
+			(tithes_table.date >= cm_start) &
+			(tithes_table.date <= cm_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Previous month
+	previous_month = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.campmeeting_offering + tithes_table.church_building_offering))
+		.where(
+			(tithes_table.date >= pm_start) &
+			(tithes_table.date <= pm_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Year to date
+	year_to_date = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.campmeeting_offering + tithes_table.church_building_offering))
+		.where(
+			(tithes_table.date >= yt_start) &
+			(tithes_table.date <= yt_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
+	# Previous year
+	previous_year = (
+		frappe.qb.from_(tithes_table)
+		.select(Sum(tithes_table.campmeeting_offering + tithes_table.church_building_offering))
+		.where(
+			(tithes_table.date >= py_start) &
+			(tithes_table.date <= py_end) &
+			(tithes_table.docstatus == 1)
+		)
+	).run()[0][0] or 0
+
 	month_change = calculate_percentage_change(current_month, previous_month)
 	year_change = calculate_percentage_change(year_to_date, previous_year)
-	
+
 	return {
 		"category": "Special Offerings",
 		"current_month": current_month,
@@ -264,49 +331,72 @@ def get_special_offerings_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_
 
 
 def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
+	expense_table = frappe.qb.DocType("Church Expense")
+
 	# Get expenses by department
-	departments = frappe.db.sql("""
-		SELECT DISTINCT department
-		FROM `tabChurch Expense`
-		WHERE docstatus = 1
-		ORDER BY department
-	""", as_list=True)
-	
+	departments = (
+		frappe.qb.from_(expense_table)
+		.select(expense_table.department)
+		.distinct()
+		.where(expense_table.docstatus == 1)
+		.orderby(expense_table.department)
+	).run()
+
 	data = []
 	for dept in departments:
 		dept_name = dept[0]
-		
-		current_month = frappe.db.sql("""
-			SELECT SUM(amount) as total
-			FROM `tabChurch Expense`
-			WHERE expense_date BETWEEN %s AND %s 
-			AND department = %s AND docstatus = 1
-		""", (cm_start, cm_end, dept_name))[0][0] or 0
-		
-		previous_month = frappe.db.sql("""
-			SELECT SUM(amount) as total
-			FROM `tabChurch Expense`
-			WHERE expense_date BETWEEN %s AND %s 
-			AND department = %s AND docstatus = 1
-		""", (pm_start, pm_end, dept_name))[0][0] or 0
-		
-		year_to_date = frappe.db.sql("""
-			SELECT SUM(amount) as total
-			FROM `tabChurch Expense`
-			WHERE expense_date BETWEEN %s AND %s 
-			AND department = %s AND docstatus = 1
-		""", (yt_start, yt_end, dept_name))[0][0] or 0
-		
-		previous_year = frappe.db.sql("""
-			SELECT SUM(amount) as total
-			FROM `tabChurch Expense`
-			WHERE expense_date BETWEEN %s AND %s 
-			AND department = %s AND docstatus = 1
-		""", (py_start, py_end, dept_name))[0][0] or 0
-		
+
+		# Current month
+		current_month = (
+			frappe.qb.from_(expense_table)
+			.select(Sum(expense_table.amount))
+			.where(
+				(expense_table.expense_date >= cm_start) &
+				(expense_table.expense_date <= cm_end) &
+				(expense_table.department == dept_name) &
+				(expense_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		# Previous month
+		previous_month = (
+			frappe.qb.from_(expense_table)
+			.select(Sum(expense_table.amount))
+			.where(
+				(expense_table.expense_date >= pm_start) &
+				(expense_table.expense_date <= pm_end) &
+				(expense_table.department == dept_name) &
+				(expense_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		# Year to date
+		year_to_date = (
+			frappe.qb.from_(expense_table)
+			.select(Sum(expense_table.amount))
+			.where(
+				(expense_table.expense_date >= yt_start) &
+				(expense_table.expense_date <= yt_end) &
+				(expense_table.department == dept_name) &
+				(expense_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		# Previous year
+		previous_year = (
+			frappe.qb.from_(expense_table)
+			.select(Sum(expense_table.amount))
+			.where(
+				(expense_table.expense_date >= py_start) &
+				(expense_table.expense_date <= py_end) &
+				(expense_table.department == dept_name) &
+				(expense_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
 		month_change = calculate_percentage_change(current_month, previous_month)
 		year_change = calculate_percentage_change(year_to_date, previous_year)
-		
+
 		data.append({
 			"category": f"{dept_name} Expenses",
 			"current_month": current_month,
@@ -316,7 +406,7 @@ def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_st
 			"month_change": month_change,
 			"year_change": year_change
 		})
-	
+
 	return data
 
 
