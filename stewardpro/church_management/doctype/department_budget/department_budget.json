@@ -29,10 +29,10 @@
  "fields": [
   {
    "fieldname": "department",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Department",
-   "options": "Sabbath School\nYouth Ministry\nChildren's Ministry\nMusic Ministry\nCommunity Services\nWomen's Ministry\nMen's Ministry\nHealth Ministry\nEducation Ministry\nEvangelism\nStewardship\nFamily Life\nCommunication\nMaintenance\nOther",
+   "options": "Department",
    "reqd": 1
   },
   {
@@ -148,7 +148,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-10 10:13:59.028351",
+ "modified": "2025-08-14 13:00:58.308401",
  "modified_by": "Administrator",
  "module": "Church Management",
  "name": "Department Budget",
@@ -156,6 +156,7 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,

@@ -1,41 +1,70 @@
-### StewardPro
 
-StewardPro
+# StewardPro App
 
-### Installation
+StewardPro is a Frappe/ERPNext extension for church management, budgeting, and reporting. This guide covers setup, data preparation, and report viewing.
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+## 1. Installation & Setup
 
-```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
-bench install-app stewardpro
-```
+1. **Install App**
+	 - Add StewardPro to your bench:
+		 ```bash
+		 bench get-app /path/to/stewardpro
+		 bench --site <your-site> install-app stewardpro
+		 ```
+2. **Migrate Site**
+	 - Run migrations to apply patches and fixtures:
+		 ```bash
+		 bench --site <your-site> migrate
+		 ```
+3. **Enable Developer Mode (optional)**
+	 - For development/testing:
+		 ```bash
+		 bench set-config -g developer_mode 1
+		 ```
 
-### Contributing
+## 2. Data Preparation
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
+### a. Fiscal Year
+- Fiscal Year is auto-created before install. You can manually create/edit via the Fiscal Year DocType.
+- Fields: Year, Start/End Dates, Short/Long Year, Disabled, Auto Created.
 
-```bash
-cd apps/stewardpro
-pre-commit install
-```
+### b. Departments
+- Default departments are loaded automatically (Sabbath School, Youth Ministry, etc.).
+- You can add/edit departments in the Department DocType.
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
+### c. Expense Categories
+- Setup categories for church expenses in the Expense Category DocType.
 
-- ruff
-- eslint
-- prettier
-- pyupgrade
+### d. Church Expenses
+- Record transactions in the Church Expense DocType.
+- Link expenses to departments and categories for accurate reporting.
 
-### CI
+## 3. Using the Dashboard & Reports
 
-This app can use GitHub Actions for CI. The following workflows are configured:
+### a. Church Management Dashboard
+- Access via Workspace: shortcuts to setup DocTypes, transactions, and reports.
+- Location: `Church Management Dashboard` workspace.
 
-- CI: Installs this app and runs unit tests on every push to `develop` branch.
-- Linters: Runs [Frappe Semgrep Rules](https://github.com/frappe/semgrep-rules) and [pip-audit](https://pypi.org/project/pip-audit/) on every pull request.
+### b. Reports
+- **Expense Report**: View and analyze church expenses by category, department, or date.
+- **Departmental Budget Report**: Track budgets and spending for each department.
+- **Expense Graph**: Visualize expenses over time.
 
+## 4. Permissions
+- System Manager: Full access.
+- Treasurer, Church Elder, Accounts User, Sales User: Read-only access to Fiscal Year and reports.
 
-### License
+## 5. Automation
+- Fiscal Year auto-creation: New fiscal years are generated automatically as needed.
+- Department fixtures: Default departments are loaded on install/migrate.
 
-mit
+## 6. Customization
+- You can add new departments, categories, or custom reports via the DocType UI.
+- For advanced logic, edit Python controllers or client scripts in `stewardpro/church_management/doctype/`.
+
+## 7. Troubleshooting
+- If data is missing, run `bench migrate` or check patch scripts in `stewardpro/patches/`.
+- For errors, check logs in the `logs/` directory or use Frappe's error console.
+
+---
+For more details, see the app's source code and workspace documentation.

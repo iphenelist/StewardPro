@@ -1,6 +1,3 @@
-// Copyright (c) 2025, Innocent P Metumba and contributors
-// For license information, please see license.txt
-
 frappe.ui.form.on("Fiscal Year", {
     onload: function(frm) {
         if (frm.doc.__islocal) {
@@ -14,5 +11,5 @@ frappe.ui.form.on("Fiscal Year", {
             );
             frm.set_value("year_end_date", year_end_date);
         }
-    },
+    }
 });

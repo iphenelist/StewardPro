@@ -82,8 +82,11 @@ app_license = "mit"
 # Installation
 # ------------
 
-# before_install = "stewardpro.install.before_install"
-after_install = "stewardpro.church_management.setup.after_install"
+before_install = "stewardpro.patches.create_fiscal_year.create_fiscal_year"
+after_install = [
+	"stewardpro.patches.import_departments.import_departments",
+ 	"stewardpro.church_management.setup.after_install"
+  ]
 
 # Uninstallation
 # ------------
@@ -154,6 +157,9 @@ scheduler_events = {
 	],
 	"weekly": [
 		"stewardpro.church_management.tasks.create_weekly_remittance"
+	],
+	"daily": [
+		"stewardpro.church_management.doctype.fiscal_year.fiscal_year.auto_create_fiscal_year"
 	]
 }
 

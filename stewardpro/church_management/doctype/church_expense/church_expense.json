@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2024-12-10 10:00:00.000000",
+ "creation": "2024-12-10 10:00:00",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -33,7 +33,8 @@
   "section_break_4",
   "attachments",
   "section_break_5",
-  "notes"
+  "notes",
+  "amended_from"
  ],
  "fields": [
   {
@@ -44,12 +45,12 @@
    "reqd": 1
   },
   {
+   "default": "Today",
    "fieldname": "expense_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Expense Date",
-   "reqd": 1,
-   "default": "Today",
-   "in_list_view": 1
+   "reqd": 1
   },
   {
    "fieldname": "column_break_1",
@@ -57,18 +58,18 @@
   },
   {
    "fieldname": "department",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Department",
-   "options": "Sabbath School\nYouth Ministry\nChildren's Ministry\nMusic Ministry\nCommunity Services\nWomen's Ministry\nMen's Ministry\nHealth Ministry\nEducation Ministry\nEvangelism\nStewardship\nFamily Life\nCommunication\nMaintenance\nGeneral\nOther",
-   "reqd": 1,
-   "in_list_view": 1
+   "options": "Department",
+   "reqd": 1
   },
   {
+   "description": "Link to the department budget this expense is charged against",
    "fieldname": "budget_reference",
    "fieldtype": "Link",
    "label": "Budget Reference",
-   "options": "Department Budget",
-   "description": "Link to the department budget this expense is charged against"
+   "options": "Department Budget"
   },
   {
    "fieldname": "section_break_1",
@@ -78,17 +79,17 @@
   {
    "fieldname": "expense_category",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Expense Category",
    "options": "Equipment\nSupplies\nEvents\nTraining\nTravel\nUtilities\nMaintenance\nSalaries\nRent\nInsurance\nOther",
-   "reqd": 1,
-   "in_list_view": 1
+   "reqd": 1
   },
   {
    "fieldname": "expense_description",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Expense Description",
-   "reqd": 1,
-   "in_list_view": 1
+   "reqd": 1
   },
   {
    "fieldname": "column_break_2",
@@ -97,10 +98,10 @@
   {
    "fieldname": "amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Amount",
-   "reqd": 1,
-   "precision": 2,
-   "in_list_view": 1
+   "precision": "2",
+   "reqd": 1
   },
   {
    "fieldname": "payment_mode",
@@ -159,13 +160,13 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "Draft\nPending Approval\nApproved\nPaid\nRejected",
-   "default": "Draft",
-   "reqd": 1,
-   "in_list_view": 1
+   "reqd": 1
   },
   {
    "fieldname": "section_break_4",
@@ -173,10 +174,10 @@
    "label": "Supporting Documents"
   },
   {
+   "description": "Upload receipts, invoices, or other supporting documents",
    "fieldname": "attachments",
    "fieldtype": "Attach",
-   "label": "Attachments",
-   "description": "Upload receipts, invoices, or other supporting documents"
+   "label": "Attachments"
   },
   {
    "fieldname": "section_break_5",
@@ -187,12 +188,22 @@
    "fieldname": "notes",
    "fieldtype": "Text",
    "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Church Expense",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-10 10:00:00.000000",
+ "modified": "2025-08-14 11:42:17.756608",
  "modified_by": "Administrator",
  "module": "Church Management",
  "name": "Church Expense",
@@ -234,6 +245,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
