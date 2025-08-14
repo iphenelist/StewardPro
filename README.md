@@ -1,6 +1,6 @@
 
 # StewardPro App
-
+	
 StewardPro is a Frappe/ERPNext extension for church management, budgeting, and reporting. This guide covers setup, data preparation, and report viewing.
 
 ## 1. Installation & Setup
