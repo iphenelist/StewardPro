@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2024-12-10 10:00:00.000000",
+ "creation": "2024-12-10 10:00:00",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -30,7 +30,8 @@
   "column_break_6",
   "receipt_number",
   "section_break_6",
-  "notes"
+  "notes",
+  "amended_from"
  ],
  "fields": [
   {
@@ -41,32 +42,32 @@
    "reqd": 1
   },
   {
+   "description": "Leave blank for anonymous contributions",
    "fieldname": "member",
    "fieldtype": "Link",
    "label": "Member",
-   "options": "Church Member",
-   "description": "Leave blank for anonymous contributions"
+   "options": "Church Member"
   },
   {
    "fieldname": "column_break_1",
    "fieldtype": "Column Break"
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Date",
-   "reqd": 1,
-   "default": "Today",
-   "in_list_view": 1
+   "reqd": 1
   },
   {
+   "default": "Cash",
    "fieldname": "payment_mode",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Payment Mode",
    "options": "Cash\nMpesa\nBank Transfer\nOther",
-   "reqd": 1,
-   "default": "Cash",
-   "in_list_view": 1
+   "reqd": 1
   },
   {
    "fieldname": "section_break_2",
@@ -76,9 +77,9 @@
   {
    "fieldname": "tithe_amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Tithe Amount",
-   "precision": 2,
-   "in_list_view": 1
+   "precision": "2"
   },
   {
    "fieldname": "column_break_3",
@@ -87,9 +88,9 @@
   {
    "fieldname": "offering_amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Offering Amount",
-   "precision": 2,
-   "in_list_view": 1
+   "precision": "2"
   },
   {
    "fieldname": "section_break_3",
@@ -97,22 +98,24 @@
    "label": "Offering Distribution"
   },
   {
+   "description": "Auto-calculated as 58% of offering amount but editable",
    "fieldname": "offering_to_field",
    "fieldtype": "Currency",
    "label": "Offering to Field (58%)",
-   "precision": 2,
-   "description": "Auto-calculated as 58% of offering amount but editable"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
   },
   {
+   "description": "Auto-calculated as 42% of offering amount but editable",
    "fieldname": "offering_to_church",
    "fieldtype": "Currency",
    "label": "Offering to Church (42%)",
-   "precision": 2,
-   "description": "Auto-calculated as 42% of offering amount but editable"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_4",
@@ -123,7 +126,7 @@
    "fieldname": "campmeeting_offering",
    "fieldtype": "Currency",
    "label": "Camp Meeting Offering",
-   "precision": 2
+   "precision": "2"
   },
   {
    "fieldname": "column_break_5",
@@ -133,7 +136,7 @@
    "fieldname": "church_building_offering",
    "fieldtype": "Currency",
    "label": "Church Building Offering",
-   "precision": 2
+   "precision": "2"
   },
   {
    "fieldname": "section_break_5",
@@ -141,13 +144,13 @@
    "label": "Summary"
   },
   {
+   "description": "Auto-calculated total of all amounts",
    "fieldname": "total_amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Amount",
-   "read_only": 1,
-   "precision": 2,
-   "description": "Auto-calculated total of all amounts",
-   "in_list_view": 1
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_6",
@@ -167,12 +170,22 @@
    "fieldname": "notes",
    "fieldtype": "Small Text",
    "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Tithes and Offerings",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-10 10:00:00.000000",
+ "modified": "2025-08-15 00:29:42.797951",
  "modified_by": "Administrator",
  "module": "Church Management",
  "name": "Tithes and Offerings",
@@ -214,6 +227,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

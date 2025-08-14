@@ -1,7 +1,7 @@
 // Copyright (c) 2025, Innocent P Metumba and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Church Expense", {
+// frappe.ui.form.on("Treasury Budget", {
 // 	refresh(frm) {
 
 // 	},

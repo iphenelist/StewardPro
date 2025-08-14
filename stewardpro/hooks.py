@@ -141,6 +141,14 @@ after_install = [
 # Hook on document methods and events
 
 # doc_events = {
+# Treasury Budget sync hooks for Department Budget
+doc_events = {
+	"Department Budget": {
+		"after_insert": "stewardpro.church_management.doctype.treasury_budget.sync.handle_department_budget_change",
+		"on_update": "stewardpro.church_management.doctype.treasury_budget.sync.handle_department_budget_change",
+		"on_trash": "stewardpro.church_management.doctype.treasury_budget.sync.handle_department_budget_delete"
+	}
+}
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",

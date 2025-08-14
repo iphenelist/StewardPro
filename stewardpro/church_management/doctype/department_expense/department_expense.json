@@ -206,7 +206,7 @@
  "modified": "2025-08-14 11:42:17.756608",
  "modified_by": "Administrator",
  "module": "Church Management",
- "name": "Church Expense",
+ "name": "Department Expense",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
