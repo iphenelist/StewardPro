@@ -84,7 +84,6 @@ app_license = "mit"
 
 # before_install = ""
 after_install = [
-	"stewardpro.patches.create_fiscal_year.create_fiscal_year",
 	"stewardpro.patches.import_departments.import_departments",
  	"stewardpro.church_management.setup.after_install"
   ]
