@@ -83,10 +83,7 @@ app_license = "mit"
 # ------------
 
 # before_install = ""
-after_install = [
-	"stewardpro.patches.import_departments.import_departments",
- 	"stewardpro.church_management.setup.after_install"
-  ]
+# after_install = ""
 
 # Uninstallation
 # ------------
