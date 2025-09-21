@@ -33,6 +33,13 @@ def get_columns():
 			"width": 120
 		},
 		{
+			"label": _("Item"),
+			"fieldname": "item",
+			"fieldtype": "Link",
+			"options": "Item",
+			"width": 120
+		},
+		{
 			"label": _("Category"),
 			"fieldname": "expense_category",
 			"fieldtype": "Data",
@@ -42,11 +49,29 @@ def get_columns():
 			"label": _("Description"),
 			"fieldname": "expense_description",
 			"fieldtype": "Data",
-			"width": 200
+			"width": 150
 		},
 		{
-			"label": _("Amount"),
+			"label": _("Quantity"),
+			"fieldname": "quantity",
+			"fieldtype": "Float",
+			"width": 80
+		},
+		{
+			"label": _("Unit Price"),
+			"fieldname": "unit_price",
+			"fieldtype": "Currency",
+			"width": 100
+		},
+		{
+			"label": _("Line Amount"),
 			"fieldname": "amount",
+			"fieldtype": "Currency",
+			"width": 120
+		},
+		{
+			"label": _("Total Amount"),
+			"fieldname": "total_amount",
 			"fieldtype": "Currency",
 			"width": 120
 		},
@@ -73,17 +98,24 @@ def get_columns():
 
 
 def get_data(filters):
-	Expense = DocType("Church Expense")
-	
-	# Build main query
+	Expense = DocType("Department Expense")
+	ExpenseDetail = DocType("Department Expense Detail")
+
+	# Build main query with child table join
 	query = (
 		frappe.qb.from_(Expense)
+		.left_join(ExpenseDetail)
+		.on(Expense.name == ExpenseDetail.parent)
 		.select(
 			Expense.expense_date,
 			Expense.department,
-			Expense.expense_category,
-			Expense.expense_description,
-			Expense.amount,
+			ExpenseDetail.item,
+			ExpenseDetail.expense_category,
+			ExpenseDetail.expense_description,
+			ExpenseDetail.quantity,
+			ExpenseDetail.unit_price,
+			ExpenseDetail.amount,
+			Expense.total_amount,
 			Expense.approved_by,
 			Expense.status,
 			Expense.attachments,
@@ -102,6 +134,9 @@ def get_data(filters):
 
 	if filters.get("department"):
 		query = query.where(Expense.department == filters.get("department"))
+
+	if filters.get("item"):
+		query = query.where(Expense.item == filters.get("item"))
 
 	if filters.get("expense_category"):
 		query = query.where(Expense.expense_category == filters.get("expense_category"))
@@ -129,19 +164,19 @@ def get_data(filters):
 
 def get_expense_summary_by_department(filters):
 	"""Get expense summary grouped by department"""
-	Expense = DocType("Church Expense")
+	Expense = DocType("Department Expense")
 
 	query = (
 		frappe.qb.from_(Expense)
 		.select(
 			Expense.department,
 			Count(Expense.name).as_("count"),
-			Sum(Expense.amount).as_("total_amount"),
-			Avg(Expense.amount).as_("avg_amount")
+			Sum(Expense.total_amount).as_("total_amount"),
+			Avg(Expense.total_amount).as_("avg_amount")
 		)
 		.where(Expense.docstatus == 1)
 		.groupby(Expense.department)
-		.orderby(Sum(Expense.amount), order=frappe.qb.desc)
+		.orderby(Sum(Expense.total_amount), order=frappe.qb.desc)
 	)
 
 	# Apply date filters
@@ -156,19 +191,22 @@ def get_expense_summary_by_department(filters):
 
 def get_expense_summary_by_category(filters):
 	"""Get expense summary grouped by category"""
-	Expense = DocType("Church Expense")
+	Expense = DocType("Department Expense")
+	ExpenseDetail = DocType("Department Expense Detail")
 
 	query = (
 		frappe.qb.from_(Expense)
+		.left_join(ExpenseDetail)
+		.on(Expense.name == ExpenseDetail.parent)
 		.select(
-			Expense.expense_category,
-			Count(Expense.name).as_("count"),
-			Sum(Expense.amount).as_("total_amount"),
-			Avg(Expense.amount).as_("avg_amount")
+			ExpenseDetail.expense_category,
+			Count(ExpenseDetail.name).as_("count"),
+			Sum(ExpenseDetail.amount).as_("total_amount"),
+			Avg(ExpenseDetail.amount).as_("avg_amount")
 		)
 		.where(Expense.docstatus == 1)
-		.groupby(Expense.expense_category)
-		.orderby(Sum(Expense.amount), order=frappe.qb.desc)
+		.groupby(ExpenseDetail.expense_category)
+		.orderby(Sum(ExpenseDetail.amount), order=frappe.qb.desc)
 	)
 
 	# Apply date filters

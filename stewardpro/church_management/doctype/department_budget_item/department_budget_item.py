@@ -16,7 +16,7 @@ class DepartmentBudgetItem(Document):
 		budgeted_amount: DF.Currency
 		category: DF.Literal["Equipment", "Supplies", "Events", "Training", "Travel", "Utilities", "Maintenance", "Other"]
 		description: DF.SmallText | None
-		item_name: DF.Data
+		item: DF.Link
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
@@ -26,8 +26,21 @@ class DepartmentBudgetItem(Document):
 
 	def validate(self):
 		"""Validate budget item"""
+		self.validate_item_department()
 		self.calculate_remaining_amount()
-	
+
+	def validate_item_department(self):
+		"""Validate that the item belongs to the same department as the budget"""
+		if self.item and self.parent:
+			import frappe
+			# Get the department from the parent Department Budget
+			parent_doc = frappe.get_doc("Department Budget", self.parent)
+			if parent_doc.department:
+				# Get the item's department
+				item_doc = frappe.get_doc("Item", self.item)
+				if item_doc.department != parent_doc.department:
+					frappe.throw(f"Item '{self.item}' belongs to department '{item_doc.department}' but this budget is for department '{parent_doc.department}'")
+
 	def calculate_remaining_amount(self):
 		"""Calculate remaining amount"""
 		if not self.spent_amount:

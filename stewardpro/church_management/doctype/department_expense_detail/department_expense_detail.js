@@ -1,30 +1,7 @@
-// Copyright (c) 2025, Innocent P Metumba and contributors
+// Copyright (c) 2024, StewardPro Team and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Department Expense", {
-	refresh: function(frm) {
-		// Set item filter for expense details table
-		set_item_filter_for_expense_details(frm);
-
-		// Set budget reference filter based on department
-		set_budget_reference_filter(frm);
-	},
-
-	department: function(frm) {
-		// Clear budget reference when department changes
-		frm.set_value('budget_reference', '');
-
-		// Clear existing expense details when department changes
-		frm.clear_table('expense_details');
-		frm.refresh_field('expense_details');
-
-		// Update filters
-		set_item_filter_for_expense_details(frm);
-		set_budget_reference_filter(frm);
-	}
-});
-
-frappe.ui.form.on("Department Expense Detail", {
+frappe.ui.form.on('Department Expense Detail', {
 	item: function(frm, cdt, cdn) {
 		// Auto-populate category, description, and unit price from item
 		let row = locals[cdt][cdn];
@@ -44,39 +21,24 @@ frappe.ui.form.on("Department Expense Detail", {
 			});
 		}
 	},
-
+	
 	quantity: function(frm, cdt, cdn) {
+		// Calculate amount when quantity changes
 		calculate_amount(frm, cdt, cdn);
 	},
-
+	
 	unit_price: function(frm, cdt, cdn) {
+		// Calculate amount when unit price changes
 		calculate_amount(frm, cdt, cdn);
-	},
-
-	expense_details_remove: function(frm) {
-		calculate_total_amount(frm);
 	}
 });
-
-function set_item_filter_for_expense_details(frm) {
-	if (frm.doc.department) {
-		frm.set_query('item', 'expense_details', function() {
-			return {
-				filters: {
-					'department': frm.doc.department,
-					'is_active': 1
-				}
-			};
-		});
-	}
-}
 
 function calculate_amount(frm, cdt, cdn) {
 	let row = locals[cdt][cdn];
 	if (row.quantity && row.unit_price) {
 		let amount = row.quantity * row.unit_price;
 		frappe.model.set_value(cdt, cdn, 'amount', amount);
-
+		
 		// Trigger total calculation in parent
 		calculate_total_amount(frm);
 	}
@@ -90,17 +52,4 @@ function calculate_total_amount(frm) {
 		}
 	});
 	frm.set_value('total_amount', total);
-}
-
-function set_budget_reference_filter(frm) {
-	if (frm.doc.department) {
-		frm.set_query('budget_reference', function() {
-			return {
-				filters: {
-					'department': frm.doc.department,
-					'is_active': 1
-				}
-			};
-		});
-	}
 }

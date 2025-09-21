@@ -44,7 +44,10 @@ app_license = "mit"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {
+	"Church Member" : "stewardpro/church_management/doctype/church_member/church_member_list.js",
+	"Tithes and Offerings" : "stewardpro/church_management/doctype/tithes_and_offerings/tithes_and_offerings_list.js"
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -83,7 +86,16 @@ app_license = "mit"
 # ------------
 
 # before_install = ""
-# after_install = ""
+after_install = [
+    "stewardpro.patches.import_departments.execute",
+    "stewardpro.patches.sample_items.execute"
+]
+
+after_migrate = [
+    "stewardpro.patches.import_departments.execute",
+    "stewardpro.patches.sample_items.execute",
+    "stewardpro.patches.migrate_expense_to_child_table.execute"
+]
 
 # Uninstallation
 # ------------

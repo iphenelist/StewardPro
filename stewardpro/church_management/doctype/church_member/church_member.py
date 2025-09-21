@@ -37,19 +37,8 @@ class ChurchMember(Document):
 
 	def validate(self):
 		"""Validate Church Member data"""
-		self.validate_member_id()
 		self.validate_contact()
 		self.validate_dates()
-	
-	def validate_member_id(self):
-		"""Ensure member ID is unique and properly formatted"""
-		if not self.member_id:
-			frappe.throw("Member ID is required")
-		
-		# Check for duplicate member ID
-		existing = frappe.db.exists("Church Member", {"member_id": self.member_id, "name": ["!=", self.name]})
-		if existing:
-			frappe.throw(f"Member ID {self.member_id} already exists")
 	
 	def validate_contact(self):
 		"""Validate contact information format"""
@@ -87,6 +76,38 @@ class ChurchMember(Document):
 		if self.role and self.role != "Member":
 			return f"{self.full_name} ({self.role})"
 		return self.full_name
+
+	def after_insert(self):
+		"""Actions after inserting a new member"""
+		# Send welcome SMS if phone number is available
+		if self.contact:
+			self.send_welcome_sms()
+
+	def send_welcome_sms(self):
+		"""Send welcome SMS to new member"""
+		try:
+			from stewardpro.stewardpro.api.sms import send_member_registration_sms
+
+			# Send SMS in background to avoid blocking the form
+			frappe.enqueue(
+				send_member_registration_sms,
+				member_name=self.full_name,
+				phone_number=self.contact,
+				queue='short',
+				timeout=60,
+				is_async=True
+			)
+
+			frappe.msgprint(
+				f"Welcome SMS will be sent to {self.contact}",
+				title="SMS Notification",
+				indicator="blue"
+			)
+
+		except Exception as e:
+			frappe.logger().error(f"Failed to queue welcome SMS for {self.full_name}: {str(e)}")
+			# Don't block member creation if SMS fails
+			pass
 	
 	def get_age(self):
 		"""Calculate and return member's age"""

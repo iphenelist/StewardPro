@@ -242,7 +242,7 @@ def get_year_data(year):
 	"""Get financial data for a specific year using Frappe QB"""
 	TithesOfferings = DocType("Tithes and Offerings")
 	Remittance = DocType("Remittance")
-	Expense = DocType("Church Expense")
+	Expense = DocType("Department Expense")
 
 	# Create date range for the year
 	year_start = getdate(f"{year}-01-01")
@@ -283,7 +283,7 @@ def get_year_data(year):
 	expenses_query = (
 		frappe.qb.from_(Expense)
 		.select(
-			Sum(Expense.amount).as_("total_expenses")
+			Sum(Expense.total_amount).as_("total_expenses")
 		)
 		.where(Expense.docstatus == 1)
 		.where(Expense.expense_date >= year_start)

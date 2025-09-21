@@ -2,14 +2,14 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:member_id",
+ "autoname": "format:CM-{#####}",
  "creation": "2024-12-10 10:00:00",
  "default_view": "List",
  "doctype": "DocType",
+ "document_type": "Setup",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "member_id",
   "full_name",
   "column_break_1",
   "status",
@@ -40,15 +40,6 @@
   "notes"
  ],
  "fields": [
-  {
-   "description": "Unique identifier for the church member",
-   "fieldname": "member_id",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Member ID",
-   "reqd": 1,
-   "unique": 1
-  },
   {
    "fieldname": "full_name",
    "fieldtype": "Data",
@@ -201,11 +192,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-08-10 09:23:43.436842",
+ "modified": "2025-09-19 17:16:09.002047",
  "modified_by": "Administrator",
  "module": "Church Management",
  "name": "Church Member",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

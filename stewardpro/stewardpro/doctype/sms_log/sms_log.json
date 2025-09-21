@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:custom_sms_type",
+ "creation": "2025-09-21 16:54:14.852128",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sent_on",
+  "sender",
+  "custom_sms_type",
+  "column_break_wqox",
+  "status",
+  "receiver",
+  "custom_recipient_name",
+  "section_break_ozhf",
+  "message"
+ ],
+ "fields": [
+  {
+   "fieldname": "sent_on",
+   "fieldtype": "Datetime",
+   "label": "Sent On"
+  },
+  {
+   "fieldname": "sender",
+   "fieldtype": "Data",
+   "label": "Sender"
+  },
+  {
+   "fieldname": "custom_sms_type",
+   "fieldtype": "Data",
+   "label": "Custom SMS type",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_wqox",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status"
+  },
+  {
+   "fieldname": "receiver",
+   "fieldtype": "Data",
+   "label": "Receiver"
+  },
+  {
+   "fieldname": "custom_recipient_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Custom Recipient Name "
+  },
+  {
+   "fieldname": "section_break_ozhf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Message"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-21 17:16:02.646159",
+ "modified_by": "Administrator",
+ "module": "StewardPro",
+ "name": "SMS Log",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Green",
+   "title": "Success"
+  },
+  {
+   "color": "Red",
+   "title": "Failed"
+  }
+ ]
+}

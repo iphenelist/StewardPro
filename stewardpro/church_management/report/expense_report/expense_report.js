@@ -20,8 +20,14 @@ frappe.query_reports["Expense Report"] = {
 		{
 			"fieldname": "department",
 			"label": __("Department"),
-			"fieldtype": "Select",
-			"options": "\nSabbath School\nYouth Ministry\nChildren's Ministry\nMusic Ministry\nCommunity Services\nWomen's Ministry\nMen's Ministry\nHealth Ministry\nEducation Ministry\nEvangelism\nStewardship\nFamily Life\nCommunication\nMaintenance\nGeneral\nOther"
+			"fieldtype": "Link",
+			"options": "Department"
+		},
+		{
+			"fieldname": "item",
+			"label": __("Item"),
+			"fieldtype": "Link",
+			"options": "Item"
 		},
 		{
 			"fieldname": "expense_category",

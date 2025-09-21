@@ -106,6 +106,50 @@ class TithesandOfferings(Document):
 		if self.member:
 			return frappe.db.get_value("Church Member", self.member, "full_name")
 		return "Anonymous"
+
+	def after_submit(self):
+		"""Actions after submitting the document"""
+		# Send receipt SMS if member has phone number
+		if self.member:
+			self.send_receipt_sms()
+
+	def send_receipt_sms(self):
+		"""Send receipt SMS to member"""
+		try:
+			# Get member details
+			member_doc = frappe.get_doc("Church Member", self.member)
+
+			if not member_doc.contact:
+				frappe.logger().info(f"No phone number for member {member_doc.full_name}, skipping SMS")
+				return
+
+			from stewardpro.stewardpro.api.sms import send_tithe_offering_sms
+
+			# Send SMS in background to avoid blocking the form
+			frappe.enqueue(
+				send_tithe_offering_sms,
+				member_name=member_doc.full_name,
+				phone_number=member_doc.contact,
+				receipt_number=self.receipt_number,
+				tithe_amount=self.tithe_amount,
+				offering_amount=self.offering_amount,
+				total_amount=self.total_amount,
+				date=self.date,
+				queue='short',
+				timeout=60,
+				is_async=True
+			)
+
+			frappe.msgprint(
+				f"Receipt SMS will be sent to {member_doc.full_name} at {member_doc.contact}",
+				title="SMS Notification",
+				indicator="green"
+			)
+
+		except Exception as e:
+			frappe.logger().error(f"Failed to queue receipt SMS for {self.name}: {str(e)}")
+			# Don't block submission if SMS fails
+			pass
 	
 	def get_tithe_percentage(self):
 		"""Calculate tithe as percentage of total (for reporting)"""

@@ -13,8 +13,8 @@ frappe.query_reports["Departmental Budget Report"] = {
 		{
 			"fieldname": "department",
 			"label": __("Department"),
-			"fieldtype": "Select",
-			"options": "\nSabbath School\nYouth Ministry\nChildren's Ministry\nMusic Ministry\nCommunity Services\nWomen's Ministry\nMen's Ministry\nHealth Ministry\nEducation Ministry\nEvangelism\nStewardship\nFamily Life\nCommunication\nMaintenance\nOther"
+			"fieldtype": "Link",
+			"options": "Department"
 		},
 		{
 			"fieldname": "status",

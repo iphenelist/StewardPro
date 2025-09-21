@@ -6,27 +6,6 @@ from frappe.model.document import Document
 
 
 class DepartmentBudget(Document):
-	# begin: auto-generated types
-	# This code is auto-generated. Do not modify anything in this block.
-
-	from typing import TYPE_CHECKING
-
-	if TYPE_CHECKING:
-		from frappe.types import DF
-		from stewardpro.church_management.doctype.department_budget_item.department_budget_item import DepartmentBudgetItem
-
-		allocated_amount: DF.Currency
-		budget_items: DF.Table[DepartmentBudgetItem]
-		budget_period: DF.Literal["Annual", "Quarterly", "Monthly"]
-		department: DF.Literal["Sabbath School", "Youth Ministry", "Children's Ministry", "Music Ministry", "Community Services", "Women's Ministry", "Men's Ministry", "Health Ministry", "Education Ministry", "Evangelism", "Stewardship", "Family Life", "Communication", "Maintenance", "Other"]
-		description: DF.SmallText | None
-		fiscal_year: DF.Link
-		notes: DF.Text | None
-		remaining_amount: DF.Currency
-		spent_amount: DF.Currency
-		status: DF.Literal["Draft", "Approved", "Active", "Closed"]
-		total_budget_amount: DF.Currency
-	# end: auto-generated types
 
 	def validate(self):
 		"""Validate Department Budget"""
@@ -93,15 +72,7 @@ class DepartmentBudget(Document):
 		else:
 			return "red"
 	
-	def before_submit(self):
-		"""Actions before submitting"""
-		if self.status == "Draft":
-			self.status = "Approved"
-	
 	def on_submit(self):
 		"""Actions on submit"""
-		self.status = "Active"
+		self.is_active = 1
 	
-	def on_cancel(self):
-		"""Actions on cancel"""
-		self.status = "Draft"

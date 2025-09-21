@@ -86,7 +86,7 @@ def get_columns():
 def get_data(filters):
 	DepartmentBudget = DocType("Department Budget")
 	Department = DocType("Department")
-	Expense = DocType("Church Expense")
+	Expense = DocType("Department Expense")
 
 	# Get budget allocations from Department Budget doctype
 	budget_query = (
@@ -123,7 +123,7 @@ def get_data(filters):
 		# Get actual expenses for this department and fiscal year
 		expense_query = (
 			frappe.qb.from_(Expense)
-			.select(Sum(Expense.amount).as_("total_expenses"))
+			.select(Sum(Expense.total_amount).as_("total_expenses"))
 			.where(Expense.docstatus == 1)
 			.where(Expense.department == row.get("department"))
 		)
@@ -203,3 +203,75 @@ def get_over_budget_departments(filters):
 	data = get_data(filters)
 	over_budget = [row for row in data if row.get("utilization_percentage", 0) > 100]
 	return over_budget
+
+
+@frappe.whitelist()
+def get_summary_data(filters=None):
+	"""Get summary data for the budget report"""
+	if not filters:
+		filters = {}
+
+	# Convert string filters to dict if needed
+	if isinstance(filters, str):
+		import json
+		filters = json.loads(filters)
+
+	DepartmentBudget = DocType("Department Budget")
+	Expense = DocType("Department Expense")
+
+	# Get budget summary
+	budget_query = (
+		frappe.qb.from_(DepartmentBudget)
+		.select(
+			Count(DepartmentBudget.name).as_("total_budgets"),
+			Sum(DepartmentBudget.total_budget_amount).as_("total_allocated")
+		)
+		.where(DepartmentBudget.docstatus >= 0)
+	)
+
+	# Apply filters
+	if filters.get("fiscal_year"):
+		budget_query = budget_query.where(DepartmentBudget.fiscal_year == filters.get("fiscal_year"))
+
+	if filters.get("department"):
+		budget_query = budget_query.where(DepartmentBudget.department == filters.get("department"))
+
+	budget_result = budget_query.run(as_dict=True)
+	budget_data = budget_result[0] if budget_result else {}
+
+	# Get expense summary
+	expense_query = (
+		frappe.qb.from_(Expense)
+		.select(Sum(Expense.total_amount).as_("total_spent"))
+		.where(Expense.docstatus == 1)
+	)
+
+	# Apply department filter for expenses
+	if filters.get("department"):
+		expense_query = expense_query.where(Expense.department == filters.get("department"))
+
+	# Apply fiscal year filter for expenses (approximate by date range)
+	if filters.get("fiscal_year"):
+		# Get fiscal year dates
+		fiscal_year_doc = frappe.get_doc("Fiscal Year", filters.get("fiscal_year"))
+		expense_query = expense_query.where(
+			(Expense.expense_date >= fiscal_year_doc.year_start_date) &
+			(Expense.expense_date <= fiscal_year_doc.year_end_date)
+		)
+
+	expense_result = expense_query.run(as_dict=True)
+	expense_data = expense_result[0] if expense_result else {}
+
+	# Calculate summary
+	total_budgets = budget_data.get("total_budgets", 0)
+	total_allocated = budget_data.get("total_allocated", 0) or 0
+	total_spent = expense_data.get("total_spent", 0) or 0
+	total_remaining = total_allocated - total_spent
+
+	return {
+		"total_budgets": total_budgets,
+		"total_allocated": total_allocated,
+		"total_spent": total_spent,
+		"total_remaining": total_remaining,
+		"utilization_percentage": (total_spent / total_allocated * 100) if total_allocated > 0 else 0
+	}

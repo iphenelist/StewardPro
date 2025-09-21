@@ -1,7 +1,7 @@
 // Copyright (c) 2024, StewardPro Team and contributors
 // For license information, please see license.txt
 
-frappe.query_reports["Annual Conference Report"] = {
+frappe.query_reports["Annual Report"] = {
 	"filters": [
 		{
 			"fieldname": "year",
@@ -57,7 +57,7 @@ frappe.query_reports["Annual Conference Report"] = {
 			frappe.call({
 				method: "frappe.desk.query_report.export_query",
 				args: {
-					report_name: "Annual Conference Report",
+					report_name: "Annual Report",
 					file_format_type: "Excel",
 					filters: filters
 				},

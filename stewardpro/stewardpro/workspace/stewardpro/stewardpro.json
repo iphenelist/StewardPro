@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"pEbDFFCcwa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewardPro Dashboard</span><span class=\\\"h4\\\"><b></b></span>\",\"col\":12}},{\"id\":\"uv7dbvq3Hb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Setup</b></span>\",\"col\":12}},{\"id\":\"2BDarqTCvc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department\",\"col\":3}},{\"id\":\"GqV8iFrl2g\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Member\",\"col\":3}},{\"id\":\"fI3qUtWXnc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Settings\",\"col\":3}},{\"id\":\"cGlMZNar87\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Fiscal Year\",\"col\":3}},{\"id\":\"xK_3uF71fl\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Budget\",\"col\":3}},{\"id\":\"rTepjutPzj\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mT5RKe6wzK\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Transactions</b></span>\",\"col\":12}},{\"id\":\"FJ6JAwNVj7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tithes and Offerings\",\"col\":3}},{\"id\":\"MrMuX0Wqhy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Expense\",\"col\":3}},{\"id\":\"SBO4eKIuOY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Remittance\",\"col\":3}},{\"id\":\"Zahm-g2bWB\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"rILN6AH9aA\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"z_i56RDC7B\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Departmental Budget Report\",\"col\":3}},{\"id\":\"b7ixoGVkQ4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Annual Conference Report\",\"col\":3}},{\"id\":\"FMqEeAUPo_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Camp Meeting Contributions Report\",\"col\":3}},{\"id\":\"TBXdayoNmG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Building Fund Report\",\"col\":3}},{\"id\":\"t4VSyEBd_T\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pending Remittance Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"pEbDFFCcwa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewardPro Dashboard</span><span class=\\\"h4\\\"><b></b></span>\",\"col\":12}},{\"id\":\"uv7dbvq3Hb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Setup</b></span>\",\"col\":12}},{\"id\":\"2BDarqTCvc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department\",\"col\":3}},{\"id\":\"GqV8iFrl2g\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Member\",\"col\":3}},{\"id\":\"fI3qUtWXnc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Settings\",\"col\":3}},{\"id\":\"cGlMZNar87\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Fiscal Year\",\"col\":3}},{\"id\":\"xK_3uF71fl\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Budget\",\"col\":3}},{\"id\":\"rTepjutPzj\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mT5RKe6wzK\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Transactions</b></span>\",\"col\":12}},{\"id\":\"FJ6JAwNVj7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tithes and Offerings\",\"col\":3}},{\"id\":\"MrMuX0Wqhy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Expense\",\"col\":3}},{\"id\":\"SBO4eKIuOY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Remittance\",\"col\":3}},{\"id\":\"Zahm-g2bWB\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"rILN6AH9aA\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"z_i56RDC7B\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Departmental Budget Report\",\"col\":3}},{\"id\":\"b7ixoGVkQ4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Annual Report\",\"col\":3}},{\"id\":\"FMqEeAUPo_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Camp Meeting Contributions Report\",\"col\":3}},{\"id\":\"TBXdayoNmG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Building Fund Report\",\"col\":3}},{\"id\":\"t4VSyEBd_T\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pending Remittance Report\",\"col\":3}}]",
  "creation": "2025-08-13 11:52:48.469046",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "StewardPro",
  "links": [],
- "modified": "2025-08-13 12:18:05.963205",
+ "modified": "2025-09-17 18:56:05.471202",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "StewardPro",
@@ -35,6 +35,14 @@
  ],
  "sequence_id": 28.0,
  "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Annual Report",
+   "link_to": "Annual Report",
+   "report_ref_doctype": "Tithes and Offerings",
+   "type": "Report"
+  },
   {
    "color": "Grey",
    "doc_view": "List",
@@ -104,14 +112,6 @@
    "label": "Departmental Budget Report",
    "link_to": "Departmental Budget Report",
    "report_ref_doctype": "Department Budget",
-   "type": "Report"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Annual Conference Report",
-   "link_to": "Annual Conference Report",
-   "report_ref_doctype": "Tithes and Offerings",
    "type": "Report"
   },
   {
