@@ -125,13 +125,61 @@ class DepartmentExpense(Document):
 	def on_submit(self):
 		"""Actions on submit"""
 		self.update_budget_spent_amount()
-	
+
 	def on_cancel(self):
 		"""Actions on cancel"""
 		self.update_budget_spent_amount(reverse=True)
-		self.status = "Draft"
-	
-	def update_budget_spent_amount(self, reverse=False):
+
+	@frappe.whitelist()
+	def get_budget_items(self, budget_reference):
+		"""Get budget items for the selected budget reference"""
+		if not budget_reference:
+			return []
+
+		budget = frappe.get_doc("Department Budget", budget_reference)
+		budget_items = []
+
+		for item in budget.budget_items:
+			budget_items.append({
+				"item": item.item,
+				"item_name": frappe.db.get_value("Item", item.item, "item_name"),
+				"category": item.category,
+				"description": item.description,
+				"quantity": item.quantity,
+				"unit_price": item.unit_price,
+				"budgeted_amount": item.budgeted_amount,
+				"spent_amount": item.spent_amount or 0,
+				"remaining_amount": item.remaining_amount or item.budgeted_amount
+			})
+
+		return budget_items
+
+
+@frappe.whitelist()
+def get_budget_items_for_reference(budget_reference):
+	"""Get budget items for the selected budget reference - static method"""
+	if not budget_reference:
+		return []
+
+	budget = frappe.get_doc("Department Budget", budget_reference)
+	budget_items = []
+
+	for item in budget.budget_items:
+		budget_items.append({
+			"item": item.item,
+			"item_name": frappe.db.get_value("Item", item.item, "item_name"),
+			"category": item.category,
+			"description": item.description,
+			"quantity": item.quantity,
+			"unit_price": item.unit_price,
+			"budgeted_amount": item.budgeted_amount,
+			"spent_amount": item.spent_amount or 0,
+			"remaining_amount": item.remaining_amount or item.budgeted_amount
+		})
+
+	return budget_items
+
+def update_budget_spent_amount(self, reverse=False):
 		"""Update the spent amount in the related budget"""
 		if not self.budget_reference:
 			return
@@ -158,30 +206,30 @@ class DepartmentExpense(Document):
 			budget.calculate_remaining_amount()
 		budget.save()
 	
-	def get_budget_impact(self):
-		"""Get the impact of this expense on the budget"""
-		if not self.budget_reference:
-			return None
+def get_budget_impact(self):
+	"""Get the impact of this expense on the budget"""
+	if not self.budget_reference:
+		return None
 
-		budget = frappe.get_doc("Department Budget", self.budget_reference)
+	budget = frappe.get_doc("Department Budget", self.budget_reference)
 
-		impact = {
-			"budget_name": budget.name,
-			"budget_total": budget.total_budget_amount,
-			"current_spent": budget.spent_amount if hasattr(budget, 'spent_amount') else 0,
-			"remaining_before": budget.remaining_amount if hasattr(budget, 'remaining_amount') else budget.total_budget_amount,
-			"remaining_after": (budget.remaining_amount if hasattr(budget, 'remaining_amount') else budget.total_budget_amount) - self.total_amount,
-			"utilization_before": budget.get_budget_utilization_percentage() if hasattr(budget, 'get_budget_utilization_percentage') else 0,
-			"utilization_after": ((budget.spent_amount if hasattr(budget, 'spent_amount') else 0) + self.total_amount) / budget.total_budget_amount * 100 if budget.total_budget_amount else 0
-		}
+	impact = {
+		"budget_name": budget.name,
+		"budget_total": budget.total_budget_amount,
+		"current_spent": budget.spent_amount if hasattr(budget, 'spent_amount') else 0,
+		"remaining_before": budget.remaining_amount if hasattr(budget, 'remaining_amount') else budget.total_budget_amount,
+		"remaining_after": (budget.remaining_amount if hasattr(budget, 'remaining_amount') else budget.total_budget_amount) - self.total_amount,
+		"utilization_before": budget.get_budget_utilization_percentage() if hasattr(budget, 'get_budget_utilization_percentage') else 0,
+		"utilization_after": ((budget.spent_amount if hasattr(budget, 'spent_amount') else 0) + self.total_amount) / budget.total_budget_amount * 100 if budget.total_budget_amount else 0
+	}
 
-		return impact
-	
-	def is_over_budget(self):
-		"""Check if this expense will cause budget overrun"""
-		if not self.budget_reference:
-			return False
+	return impact
 
-		budget = frappe.get_doc("Department Budget", self.budget_reference)
-		current_spent = budget.spent_amount if hasattr(budget, 'spent_amount') else 0
-		return (current_spent + self.total_amount) > budget.total_budget_amount
+def is_over_budget(self):
+	"""Check if this expense will cause budget overrun"""
+	if not self.budget_reference:
+		return False
+
+	budget = frappe.get_doc("Department Budget", self.budget_reference)
+	current_spent = budget.spent_amount if hasattr(budget, 'spent_amount') else 0
+	return (current_spent + self.total_amount) > budget.total_budget_amount

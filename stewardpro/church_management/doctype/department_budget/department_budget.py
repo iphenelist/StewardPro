@@ -9,11 +9,21 @@ class DepartmentBudget(Document):
 
 	def validate(self):
 		"""Validate Department Budget"""
+		self.calculate_total_budget_amount()
 		self.calculate_allocated_amount()
 		self.calculate_spent_amount()
 		self.calculate_remaining_amount()
 		self.validate_budget_items()
 	
+	def calculate_total_budget_amount(self):
+		"""Calculate total budget amount from budget items"""
+		total = 0
+		for item in self.budget_items:
+			if item.budgeted_amount:
+				total += item.budgeted_amount
+
+		self.total_budget_amount = total
+
 	def calculate_allocated_amount(self):
 		"""Calculate total allocated amount from budget items"""
 		total = 0

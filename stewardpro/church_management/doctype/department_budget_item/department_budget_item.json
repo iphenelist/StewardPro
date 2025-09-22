@@ -8,9 +8,12 @@
   "item",
   "category",
   "column_break_1",
+  "quantity",
+  "unit_price",
+  "column_break_2",
   "budgeted_amount",
   "spent_amount",
-  "column_break_2",
+  "column_break_3",
   "remaining_amount",
   "description"
  ],
@@ -36,11 +39,33 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "1",
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Unit Price",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "budgeted_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Budgeted Amount",
    "precision": "2",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -53,7 +78,7 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_2",
+   "fieldname": "column_break_3",
    "fieldtype": "Column Break"
   },
   {

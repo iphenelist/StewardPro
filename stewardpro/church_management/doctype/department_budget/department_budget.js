@@ -27,17 +27,56 @@ frappe.ui.form.on("Department Budget Item", {
 					if (r.category) {
 						frappe.model.set_value(cdt, cdn, 'category', r.category);
 					}
-					if (r.standard_cost && !row.budgeted_amount) {
-						frappe.model.set_value(cdt, cdn, 'budgeted_amount', r.standard_cost);
+					if (r.standard_cost && !row.unit_price) {
+						frappe.model.set_value(cdt, cdn, 'unit_price', r.standard_cost);
 					}
 					if (r.description && !row.description) {
 						frappe.model.set_value(cdt, cdn, 'description', r.description);
 					}
+					// Calculate budgeted amount
+					calculate_budget_item_amount(frm, cdt, cdn);
 				}
 			});
 		}
+	},
+
+	quantity: function(frm, cdt, cdn) {
+		calculate_budget_item_amount(frm, cdt, cdn);
+	},
+
+	unit_price: function(frm, cdt, cdn) {
+		calculate_budget_item_amount(frm, cdt, cdn);
+	},
+
+	budgeted_amount: function(frm) {
+		calculate_total_budget_amount(frm);
+	},
+
+	budget_items_remove: function(frm) {
+		calculate_total_budget_amount(frm);
 	}
 });
+
+function calculate_budget_item_amount(frm, cdt, cdn) {
+	let row = locals[cdt][cdn];
+	if (row.quantity && row.unit_price) {
+		let budgeted_amount = row.quantity * row.unit_price;
+		frappe.model.set_value(cdt, cdn, 'budgeted_amount', budgeted_amount);
+
+		// Trigger total calculation in parent
+		calculate_total_budget_amount(frm);
+	}
+}
+
+function calculate_total_budget_amount(frm) {
+	let total = 0;
+	frm.doc.budget_items.forEach(function(row) {
+		if (row.budgeted_amount) {
+			total += row.budgeted_amount;
+		}
+	});
+	frm.set_value('total_budget_amount', total);
+}
 
 function set_item_filter_for_budget_items(frm) {
 	if (frm.doc.department) {
