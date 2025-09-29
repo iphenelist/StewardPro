@@ -257,3 +257,9 @@ scheduler_events = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+# Custom bench commands
+# ------------------
+commands = [
+	"stewardpro.stewardpro.commands.workspace.check_workspace"
+]
+

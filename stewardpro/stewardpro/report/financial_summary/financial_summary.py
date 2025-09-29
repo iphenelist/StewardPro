@@ -332,7 +332,7 @@ def get_special_offerings_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_
 
 
 def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
-	expense_table = frappe.qb.DocType("Church Expense")
+	expense_table = frappe.qb.DocType("Department Expense")
 
 	# Get expenses by department
 	departments = (
@@ -350,7 +350,7 @@ def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_st
 		# Current month
 		current_month = (
 			frappe.qb.from_(expense_table)
-			.select(Sum(expense_table.amount))
+			.select(Sum(expense_table.total_amount))
 			.where(
 				(expense_table.expense_date >= cm_start) &
 				(expense_table.expense_date <= cm_end) &
@@ -362,7 +362,7 @@ def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_st
 		# Previous month
 		previous_month = (
 			frappe.qb.from_(expense_table)
-			.select(Sum(expense_table.amount))
+			.select(Sum(expense_table.total_amount))
 			.where(
 				(expense_table.expense_date >= pm_start) &
 				(expense_table.expense_date <= pm_end) &
@@ -374,7 +374,7 @@ def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_st
 		# Year to date
 		year_to_date = (
 			frappe.qb.from_(expense_table)
-			.select(Sum(expense_table.amount))
+			.select(Sum(expense_table.total_amount))
 			.where(
 				(expense_table.expense_date >= yt_start) &
 				(expense_table.expense_date <= yt_end) &
@@ -386,7 +386,7 @@ def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_st
 		# Previous year
 		previous_year = (
 			frappe.qb.from_(expense_table)
-			.select(Sum(expense_table.amount))
+			.select(Sum(expense_table.total_amount))
 			.where(
 				(expense_table.expense_date >= py_start) &
 				(expense_table.expense_date <= py_end) &
