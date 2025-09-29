@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "autoname": "field:year",
+ "creation": "2025-08-14 12:29:39.144927",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "year",
+  "disabled",
+  "is_short_year",
+  "year_start_date",
+  "year_end_date",
+  "auto_created"
+ ],
+ "fields": [
+  {
+   "description": "e.g. 2025, 2025-26",
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Year",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_short_year",
+   "fieldtype": "Check",
+   "label": "Is Short/Long Year"
+  },
+  {
+   "fieldname": "year_start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Year Start Date",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "year_end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Year End Date",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_created",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Auto Created",
+   "read_only": 1
+  }
+ ],
+ "icon": "fa fa-calendar",
+ "links": [],
+ "modified": "2025-08-14 12:30:28.134607",
+ "modified_by": "Administrator",
+ "module": "StewardPro",
+ "name": "Fiscal Year",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Treasurer"
+  },
+  {
+   "read": 1,
+   "role": "Church Elder"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

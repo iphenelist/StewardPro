@@ -199,7 +199,6 @@ def execute():
 					})
 					item_doc.insert(ignore_permissions=True)
 					created_count += 1
-					print(f"  ✓ Created item: {item_data['item_name']}")
 				else:
 					print(f"  ⚠ Department '{item_data['department']}' does not exist. Skipping item: {item_data['item_name']}")
 					skipped_count += 1
@@ -207,8 +206,7 @@ def execute():
 				print(f"  ✗ Error creating item {item_data['item_name']}: {str(e)}")
 				skipped_count += 1
 		else:
-			print(f"  ℹ Item already exists: {item_data['item_name']}")
 			skipped_count += 1
 	
 	frappe.db.commit()
-	print(f"Sample items creation completed! Created: {created_count}, Skipped: {skipped_count}")
+	print(f"items creation completed! Created: {created_count}, Skipped: {skipped_count}")

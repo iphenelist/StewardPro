@@ -6,6 +6,7 @@ import requests
 import json
 from frappe import _
 from frappe.utils import nowdate, fmt_money, getdate
+from stewardpro.stewardpro.utils.feature_access import check_sms_access, increment_sms_usage, requires_sms
 
 
 class SMSAPI:
@@ -69,9 +70,13 @@ class SMSAPI:
 
 
 @frappe.whitelist()
-def send_member_registration_sms(member_name, phone_number):
+@requires_sms(1)
+def send_member_registration_sms(member_name, phone_number, **kwargs):
     """Send welcome SMS to newly registered member"""
     try:
+        # Check SMS access and quota
+        can_send, message = check_sms_access(1, raise_exception=True)
+
         sms_api = SMSAPI()
 
         # Create welcome message with length check
@@ -90,6 +95,8 @@ def send_member_registration_sms(member_name, phone_number):
         result = sms_api.send_sms([phone_number], message)
 
         if result["success"]:
+            # Increment SMS usage counter
+            increment_sms_usage(1)
             # Log the SMS
             create_sms_log("Member Registration", member_name, phone_number, message, "Success")
             return {"success": True, "message": "Welcome SMS sent successfully"}
@@ -103,9 +110,13 @@ def send_member_registration_sms(member_name, phone_number):
 
 
 @frappe.whitelist()
-def send_tithe_offering_sms(member_name, phone_number, receipt_number, tithe_amount, offering_amount, total_amount, date):
+@requires_sms(1)
+def send_tithe_offering_sms(member_name, phone_number, receipt_number, tithe_amount, offering_amount, total_amount, date, **kwargs):
     """Send receipt SMS for tithe and offering"""
     try:
+        # Check SMS access and quota
+        can_send, message = check_sms_access(1, raise_exception=True)
+
         sms_api = SMSAPI()
 
         # Format amounts
@@ -134,6 +145,8 @@ def send_tithe_offering_sms(member_name, phone_number, receipt_number, tithe_amo
         result = sms_api.send_sms([phone_number], message)
 
         if result["success"]:
+            # Increment SMS usage counter
+            increment_sms_usage(1)
             # Log the SMS
             create_sms_log("Tithe & Offering Receipt", member_name, phone_number, message, "Success")
             return {"success": True, "message": "Receipt SMS sent successfully"}
@@ -149,13 +162,16 @@ def send_tithe_offering_sms(member_name, phone_number, receipt_number, tithe_amo
 def create_sms_log(sms_type, recipient_name, phone_number, message, status):
     """Create SMS log entry"""
     try:
+        # Clean up status message if it's too long or contains complex error details
+        clean_status = clean_error_message(status)
+
         sms_log = frappe.get_doc({
             "doctype": "SMS Log",
             "sent_on": frappe.utils.now(),
-            "sender": "StewardPro",
+            "sender": "Michongo",
             "receiver": phone_number,
             "message": message,
-            "status": status,
+            "status": clean_status,
             "custom_sms_type": sms_type,
             "custom_recipient_name": recipient_name
         })
@@ -165,13 +181,71 @@ def create_sms_log(sms_type, recipient_name, phone_number, message, status):
         frappe.logger().error(f"SMS Log creation error: {str(e)}")
 
 
+def clean_error_message(status):
+    """Clean and shorten error messages for SMS log status"""
+    if not status or status == "Success":
+        return status
+
+    # If it's a failed message, try to extract the meaningful part
+    if status.startswith("Failed:"):
+        error_part = status[7:].strip()  # Remove "Failed: " prefix
+
+        # Try to extract meaningful error messages from common patterns
+        import json
+        import re
+
+        try:
+            # Check if it contains JSON error response
+            if "HTTP 400:" in error_part:
+                # Extract the main error message from HTTP response
+                json_match = re.search(r'\{"message":\{"status":"error","message":"([^"]+)"', error_part)
+                if json_match:
+                    main_error = json_match.group(1)
+                    return f"Failed: {main_error}"
+
+            # Check for insufficient balance specifically
+            if "Insufficient balance" in error_part:
+                balance_match = re.search(r'Current balance: ([\d.]+) TZS', error_part)
+                if balance_match:
+                    balance = balance_match.group(1)
+                    return f"Failed: Insufficient balance ({balance} TZS)"
+                else:
+                    return "Failed: Insufficient balance"
+
+            # Check for other common error patterns
+            if "Error processing request" in error_part:
+                return "Failed: Error processing request"
+
+            # If error is still too long, truncate it intelligently
+            if len(error_part) > 200:
+                return f"Failed: {error_part[:200]}..."
+
+            return f"Failed: {error_part}"
+
+        except Exception:
+            # If parsing fails, just truncate the original message
+            if len(status) > 250:
+                return f"{status[:250]}..."
+            return status
+
+    # For non-failed messages, just ensure they're not too long
+    if len(status) > 250:
+        return f"{status[:250]}..."
+
+    return status
+
+
 @frappe.whitelist()
-def send_bulk_welcome_sms(member_names):
+def send_bulk_welcome_sms(member_names, **kwargs):
     """Send welcome SMS to multiple members"""
     try:
         if isinstance(member_names, str):
             import json
             member_names = json.loads(member_names)
+
+        # Check SMS access for bulk sending
+        sms_count = len(member_names)
+        can_send, message = check_sms_access(sms_count, raise_exception=True)
 
         results = []
         sms_api = SMSAPI()
@@ -179,7 +253,7 @@ def send_bulk_welcome_sms(member_names):
         for member_name in member_names:
             try:
                 # Get member details
-                member_doc = frappe.get_doc("Church Member", member_name)
+                member_doc = frappe.get_doc("Member", member_name)
 
                 if not member_doc.contact:
                     results.append({
@@ -207,6 +281,8 @@ def send_bulk_welcome_sms(member_names):
                 result = sms_api.send_sms([member_doc.contact], message)
 
                 if result["success"]:
+                    # Increment SMS usage counter
+                    increment_sms_usage(1)
                     # Log the SMS
                     create_sms_log("Bulk Welcome SMS", member_doc.full_name, member_doc.contact, message, "Success")
                     results.append({
@@ -247,12 +323,16 @@ def send_bulk_welcome_sms(member_names):
 
 
 @frappe.whitelist()
-def send_bulk_receipt_sms(record_names):
+def send_bulk_receipt_sms(record_names, **kwargs):
     """Send receipt SMS for multiple tithe/offering records"""
     try:
         if isinstance(record_names, str):
             import json
             record_names = json.loads(record_names)
+
+        # Check SMS access for bulk sending
+        sms_count = len(record_names)
+        can_send, message = check_sms_access(sms_count, raise_exception=True)
 
         results = []
         sms_api = SMSAPI()
@@ -271,7 +351,7 @@ def send_bulk_receipt_sms(record_names):
                     continue
 
                 # Get member details
-                member_doc = frappe.get_doc("Church Member", record_doc.member)
+                member_doc = frappe.get_doc("Member", record_doc.member)
 
                 if not member_doc.contact:
                     results.append({
@@ -307,6 +387,8 @@ def send_bulk_receipt_sms(record_names):
                 result = sms_api.send_sms([member_doc.contact], message)
 
                 if result["success"]:
+                    # Increment SMS usage counter
+                    increment_sms_usage(1)
                     # Log the SMS
                     create_sms_log("Bulk Receipt SMS", member_doc.full_name, member_doc.contact, message, "Success")
                     results.append({
@@ -348,7 +430,7 @@ def send_bulk_receipt_sms(record_names):
 
 
 @frappe.whitelist()
-def test_sms_connection():
+def test_sms_connection(**kwargs):
     """Test SMS API connection"""
     try:
         sms_api = SMSAPI()

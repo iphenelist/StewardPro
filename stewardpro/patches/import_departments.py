@@ -25,6 +25,7 @@ def execute():
         if not frappe.db.exists('Department', dept['department_name']):
             doc = frappe.get_doc(dept)
             doc.insert(ignore_permissions=True)
-            print(f"Inserted: {dept['department_name']}")
         else:
-            print(f"Exists: {dept['department_name']}")
+            continue
+    frappe.db.commit()
+    print(f"Department creation completed!")

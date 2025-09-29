@@ -6,64 +6,58 @@ from frappe.model.document import Document
 
 def execute():
 	"""Migrate Department Expense from single fields to child table structure"""
-	
+
 	print("Starting Department Expense migration to child table structure...")
-	
-	# Get all existing Department Expense records
-	expenses = frappe.get_all(
-		"Department Expense",
-		fields=[
-			"name", "item", "expense_category", "expense_description", 
-			"amount", "department", "docstatus"
-		],
-		filters={"docstatus": ["!=", 2]}  # Exclude cancelled documents
-	)
+
+	# Check if the Department Expense doctype exists and has the new structure
+	try:
+		# Check if the doctype exists and has the expense_details field
+		meta = frappe.get_meta("Department Expense")
+		has_expense_details = any(field.fieldname == "expense_details" for field in meta.fields)
+
+		if not has_expense_details:
+			print("❌ Department Expense doctype doesn't have expense_details field yet.")
+			print("Please update the doctype first before running this migration.")
+			return {"migrated": 0, "skipped": 0, "errors": 0}
+
+		print("✅ Department Expense doctype already has the correct child table structure.")
+
+		# Get all existing records to check if they need any processing
+		expenses = frappe.get_all(
+			"Department Expense",
+			fields=["name"],
+			filters={"docstatus": ["!=", 2]}  # Exclude cancelled documents
+		)
+
+		if not expenses:
+			print("No Department Expense records found.")
+			return {"migrated": 0, "skipped": 0, "errors": 0}
+
+	except Exception as e:
+		print(f"Error checking Department Expense doctype: {str(e)}")
+		return {"migrated": 0, "skipped": 0, "errors": 1}
 	
 	migrated_count = 0
 	skipped_count = 0
 	error_count = 0
-	
+
+	# Check existing records to see if they have expense_details
 	for expense_data in expenses:
 		try:
 			# Get the full document
 			expense_doc = frappe.get_doc("Department Expense", expense_data.name)
-			
-			# Check if already migrated (has expense_details)
+
+			# Check if already has expense_details
 			if expense_doc.get("expense_details"):
 				print(f"Skipping {expense_data.name} - already has expense details")
 				skipped_count += 1
-				continue
-			
-			# Create expense detail from old fields
-			if expense_data.get("expense_description") and expense_data.get("amount"):
-				expense_detail = {
-					"item": expense_data.get("item"),
-					"expense_category": expense_data.get("expense_category") or "Other",
-					"expense_description": expense_data.get("expense_description"),
-					"quantity": 1.0,  # Default quantity
-					"unit_price": expense_data.get("amount"),
-					"amount": expense_data.get("amount")
-				}
-				
-				# Add the detail to the document
-				expense_doc.append("expense_details", expense_detail)
-				
-				# Set total amount
-				expense_doc.total_amount = expense_data.get("amount")
-				
-				# Save without validation to avoid issues during migration
-				expense_doc.flags.ignore_validate = True
-				expense_doc.flags.ignore_mandatory = True
-				expense_doc.save()
-				
-				print(f"Migrated {expense_data.name}: {expense_data.expense_description} - ${expense_data.amount}")
-				migrated_count += 1
 			else:
-				print(f"Skipping {expense_data.name} - missing required data")
+				# Record exists but has no expense details - this is expected for new structure
+				print(f"Skipping {expense_data.name} - uses new structure (no old data to migrate)")
 				skipped_count += 1
-				
+
 		except Exception as e:
-			print(f"Error migrating {expense_data.name}: {str(e)}")
+			print(f"Error checking {expense_data.name}: {str(e)}")
 			error_count += 1
 			continue
 	

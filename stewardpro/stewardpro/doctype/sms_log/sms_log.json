@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:custom_sms_type",
+
  "creation": "2025-09-21 16:54:14.852128",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -39,7 +39,7 @@
   },
   {
    "fieldname": "status",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status"
@@ -73,7 +73,7 @@
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "SMS Log",
- "naming_rule": "By fieldname",
+ "naming_rule": "By script",
  "owner": "Administrator",
  "permissions": [
   {

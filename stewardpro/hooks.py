@@ -26,7 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/stewardpro/css/stewardpro.css"
-# app_include_js = "/assets/stewardpro/js/stewardpro.js"
+app_include_js = "/assets/stewardpro/js/chart_utils.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/stewardpro/css/stewardpro.css"
@@ -45,8 +45,8 @@ app_license = "mit"
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_list_js = {
-	"Church Member" : "stewardpro/church_management/doctype/church_member/church_member_list.js",
-	"Tithes and Offerings" : "stewardpro/church_management/doctype/tithes_and_offerings/tithes_and_offerings_list.js"
+	"Member" : "stewardpro/stewardpro/doctype/member/member_list.js",
+	"Tithes and Offerings" : "stewardpro/stewardpro/doctype/tithes_and_offerings/tithes_and_offerings_list.js"
 }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -153,9 +153,9 @@ after_migrate = [
 # Treasury Budget sync hooks for Department Budget
 doc_events = {
 	"Department Budget": {
-		"after_insert": "stewardpro.church_management.doctype.treasury_budget.sync.handle_department_budget_change",
-		"on_update": "stewardpro.church_management.doctype.treasury_budget.sync.handle_department_budget_change",
-		"on_trash": "stewardpro.church_management.doctype.treasury_budget.sync.handle_department_budget_delete"
+		"after_insert": "stewardpro.stewardpro.doctype.treasury_budget.sync.handle_department_budget_change",
+		"on_update": "stewardpro.stewardpro.doctype.treasury_budget.sync.handle_department_budget_change",
+		"on_trash": "stewardpro.stewardpro.doctype.treasury_budget.sync.handle_department_budget_delete"
 	}
 }
 # 	"*": {
@@ -170,13 +170,14 @@ doc_events = {
 
 scheduler_events = {
 	"monthly": [
-		"stewardpro.church_management.tasks.create_monthly_remittance"
+		"stewardpro.stewardpro.tasks.create_monthly_remittance",
+		"stewardpro.stewardpro.doctype.stewardpro_settings.stewardpro_settings.reset_monthly_counters_job"
 	],
 	"weekly": [
-		"stewardpro.church_management.tasks.create_weekly_remittance"
+		"stewardpro.stewardpro.tasks.create_weekly_remittance"
 	],
 	"daily": [
-		"stewardpro.church_management.doctype.fiscal_year.fiscal_year.auto_create_fiscal_year"
+		"stewardpro.stewardpro.doctype.fiscal_year.fiscal_year.auto_create_fiscal_year"
 	]
 }
 

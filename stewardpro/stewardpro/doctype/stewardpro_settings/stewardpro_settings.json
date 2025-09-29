@@ -1,0 +1,721 @@
+{
+ "actions": [],
+ "creation": "2025-01-23 09:00:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "organization_settings_tab",
+  "organization_information_section",
+  "organization_name",
+  "organization_address",
+  "column_break_19",
+  "organization_contact",
+  "organization_email",
+  "remittance_settings_section",
+  "enable_automatic_remittance",
+  "remittance_frequency",
+  "column_break_20",
+  "auto_submit_remittance",
+  "remittance_day_of_month",
+  "organization_details_section",
+  "default_organization_type",
+  "default_organization_name",
+  "column_break_21",
+  "default_contact_person",
+  "default_contact_details",
+  "payment_settings_section",
+  "default_payment_mode",
+  "bank_details",
+  "column_break_22",
+  "reference_prefix",
+  "remittance_notification_settings_section",
+  "notify_on_remittance_creation",
+  "remittance_notification_email",
+  "column_break_23",
+  "send_remittance_summary",
+  "summary_recipients",
+  "subscription_tab",
+  "subscription_details_section",
+  "subscription_package",
+  "subscription_status",
+  "column_break_1",
+  "subscription_start_date",
+  "subscription_end_date",
+  "section_break_2",
+  "max_members",
+  "current_member_count",
+  "column_break_3",
+  "monthly_cost",
+  "annual_cost",
+  "intergrations_tab",
+  "sms_integration_section",
+  "enable_sms_integration",
+  "sms_monthly_quota",
+  "column_break_4",
+  "sms_used_this_month",
+  "sms_cost_per_message",
+  "section_break_5",
+  "sms_provider",
+  "sms_api_key",
+  "column_break_6",
+  "sms_api_secret",
+  "sms_sender_id",
+  "mobile_money_integration_section",
+  "enable_mobile_money_integration",
+  "supported_providers",
+  "column_break_7",
+  "mobile_money_transaction_fee",
+  "mobile_money_monthly_cost",
+  "section_break_8",
+  "mpesa_api_key",
+  "mpesa_public_key",
+  "column_break_9",
+  "tigo_pesa_api_key",
+  "airtel_money_api_key",
+  "advanced_tab",
+  "advanced_features_section",
+  "enable_advanced_analytics",
+  "enable_multi_branch",
+  "column_break_10",
+  "enable_api_access",
+  "enable_custom_reports",
+  "section_break_11",
+  "enable_white_label",
+  "dedicated_support",
+  "column_break_12",
+  "priority_support",
+  "onsite_training",
+  "system_limits_section",
+  "max_departments",
+  "max_budget_items",
+  "column_break_13",
+  "max_reports_per_month",
+  "data_retention_months",
+  "section_break_14",
+  "backup_frequency",
+  "export_limit_per_month",
+  "column_break_15",
+  "api_calls_per_month",
+  "storage_limit_gb",
+  "notification_settings_section",
+  "notify_on_limit_reached",
+  "notification_email",
+  "column_break_16",
+  "send_usage_reports",
+  "usage_report_frequency",
+  "section_break_17",
+  "admin_contact_name",
+  "admin_contact_email",
+  "column_break_18",
+  "admin_contact_phone",
+  "billing_contact_email"
+ ],
+ "fields": [
+  {
+   "fieldname": "subscription_details_section",
+   "fieldtype": "Section Break",
+   "label": "Subscription Details"
+  },
+  {
+   "default": "Starter",
+   "fieldname": "subscription_package",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Subscription Package",
+   "options": "Starter\nProfessional\nPremium\nEnterprise",
+   "reqd": 1
+  },
+  {
+   "default": "Trial",
+   "fieldname": "subscription_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Subscription Status",
+   "options": "Active\nExpired\nSuspended\nTrial",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subscription_start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Subscription Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subscription_end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Subscription End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "200",
+   "fieldname": "max_members",
+   "fieldtype": "Int",
+   "label": "Maximum Members Allowed"
+  },
+  {
+   "fieldname": "current_member_count",
+   "fieldtype": "Int",
+   "label": "Current Member Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "monthly_cost",
+   "fieldtype": "Currency",
+   "label": "Monthly Cost (TZS)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "annual_cost",
+   "fieldtype": "Currency",
+   "label": "Annual Cost (TZS)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sms_integration_section",
+   "fieldtype": "Section Break",
+   "label": "SMS Integration Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_sms_integration",
+   "fieldtype": "Check",
+   "label": "Enable SMS Integration"
+  },
+  {
+   "default": "0",
+   "fieldname": "sms_monthly_quota",
+   "fieldtype": "Int",
+   "label": "SMS Monthly Quota"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sms_used_this_month",
+   "fieldtype": "Int",
+   "label": "SMS Used This Month",
+   "read_only": 1
+  },
+  {
+   "default": "120",
+   "fieldname": "sms_cost_per_message",
+   "fieldtype": "Currency",
+   "label": "SMS Cost Per Message (TZS)"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Beem Africa",
+   "fieldname": "sms_provider",
+   "fieldtype": "Select",
+   "label": "SMS Provider",
+   "options": "Beem Africa\nOther"
+  },
+  {
+   "fieldname": "sms_api_key",
+   "fieldtype": "Password",
+   "label": "SMS API Key"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sms_api_secret",
+   "fieldtype": "Password",
+   "label": "SMS API Secret"
+  },
+  {
+   "default": "StewardPro",
+   "fieldname": "sms_sender_id",
+   "fieldtype": "Data",
+   "label": "SMS Sender ID"
+  },
+  {
+   "fieldname": "mobile_money_integration_section",
+   "fieldtype": "Section Break",
+   "label": "Mobile Money Integration Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_mobile_money_integration",
+   "fieldtype": "Check",
+   "label": "Enable Mobile Money Integration"
+  },
+  {
+   "default": "M-Pesa Only",
+   "fieldname": "supported_providers",
+   "fieldtype": "Select",
+   "label": "Supported Providers",
+   "options": "M-Pesa Only\nM-Pesa + Tigo Pesa\nAll Providers (M-Pesa, Tigo Pesa, Airtel Money, HaloPesa)"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "2.5",
+   "fieldname": "mobile_money_transaction_fee",
+   "fieldtype": "Percent",
+   "label": "Transaction Fee (%)"
+  },
+  {
+   "fieldname": "mobile_money_monthly_cost",
+   "fieldtype": "Currency",
+   "label": "Mobile Money Monthly Cost (TZS)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "mpesa_api_key",
+   "fieldtype": "Password",
+   "label": "M-Pesa API Key"
+  },
+  {
+   "fieldname": "mpesa_public_key",
+   "fieldtype": "Password",
+   "label": "M-Pesa Public Key"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tigo_pesa_api_key",
+   "fieldtype": "Password",
+   "label": "Tigo Pesa API Key"
+  },
+  {
+   "fieldname": "airtel_money_api_key",
+   "fieldtype": "Password",
+   "label": "Airtel Money API Key"
+  },
+  {
+   "fieldname": "advanced_features_section",
+   "fieldtype": "Section Break",
+   "label": "Advanced Features"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_advanced_analytics",
+   "fieldtype": "Check",
+   "label": "Enable Advanced Analytics"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_multi_branch",
+   "fieldtype": "Check",
+   "label": "Enable Multi-Branch Management"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_api_access",
+   "fieldtype": "Check",
+   "label": "Enable API Access"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_custom_reports",
+   "fieldtype": "Check",
+   "label": "Enable Custom Reports"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_white_label",
+   "fieldtype": "Check",
+   "label": "Enable White Label Options"
+  },
+  {
+   "default": "0",
+   "fieldname": "dedicated_support",
+   "fieldtype": "Check",
+   "label": "Dedicated Support"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "priority_support",
+   "fieldtype": "Check",
+   "label": "Priority Support"
+  },
+  {
+   "default": "0",
+   "fieldname": "onsite_training",
+   "fieldtype": "Check",
+   "label": "On-site Training Available"
+  },
+  {
+   "fieldname": "system_limits_section",
+   "fieldtype": "Section Break",
+   "label": "System Limits"
+  },
+  {
+   "default": "10",
+   "fieldname": "max_departments",
+   "fieldtype": "Int",
+   "label": "Maximum Departments"
+  },
+  {
+   "default": "100",
+   "fieldname": "max_budget_items",
+   "fieldtype": "Int",
+   "label": "Maximum Budget Items"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "50",
+   "fieldname": "max_reports_per_month",
+   "fieldtype": "Int",
+   "label": "Maximum Reports Per Month"
+  },
+  {
+   "default": "24",
+   "fieldname": "data_retention_months",
+   "fieldtype": "Int",
+   "label": "Data Retention (Months)"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Weekly",
+   "fieldname": "backup_frequency",
+   "fieldtype": "Select",
+   "label": "Backup Frequency",
+   "options": "Daily\nWeekly\nMonthly"
+  },
+  {
+   "default": "20",
+   "fieldname": "export_limit_per_month",
+   "fieldtype": "Int",
+   "label": "Export Limit Per Month"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1000",
+   "fieldname": "api_calls_per_month",
+   "fieldtype": "Int",
+   "label": "API Calls Per Month"
+  },
+  {
+   "default": "5",
+   "fieldname": "storage_limit_gb",
+   "fieldtype": "Int",
+   "label": "Storage Limit (GB)"
+  },
+  {
+   "fieldname": "notification_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Notification Settings"
+  },
+  {
+   "default": "1",
+   "fieldname": "notify_on_limit_reached",
+   "fieldtype": "Check",
+   "label": "Notify When Limits Reached"
+  },
+  {
+   "fieldname": "notification_email",
+   "fieldtype": "Data",
+   "label": "Notification Email"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "send_usage_reports",
+   "fieldtype": "Check",
+   "label": "Send Usage Reports"
+  },
+  {
+   "default": "Monthly",
+   "fieldname": "usage_report_frequency",
+   "fieldtype": "Select",
+   "label": "Usage Report Frequency",
+   "options": "Weekly\nMonthly\nQuarterly"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "admin_contact_name",
+   "fieldtype": "Data",
+   "label": "Admin Contact Name"
+  },
+  {
+   "fieldname": "admin_contact_email",
+   "fieldtype": "Data",
+   "label": "Admin Contact Email"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "admin_contact_phone",
+   "fieldtype": "Data",
+   "label": "Admin Contact Phone"
+  },
+  {
+   "fieldname": "billing_contact_email",
+   "fieldtype": "Data",
+   "label": "Billing Contact Email"
+  },
+  {
+   "fieldname": "organization_information_section",
+   "fieldtype": "Section Break",
+   "label": "Organization Information"
+  },
+  {
+   "fieldname": "organization_name",
+   "fieldtype": "Data",
+   "label": "Organization Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "organization_address",
+   "fieldtype": "Small Text",
+   "label": "Organization Address"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "organization_contact",
+   "fieldtype": "Phone",
+   "label": "Organization Contact"
+  },
+  {
+   "fieldname": "organization_email",
+   "fieldtype": "Data",
+   "label": "Organization Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "remittance_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Remittance Automation Settings"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_automatic_remittance",
+   "fieldtype": "Check",
+   "label": "Enable Automatic Remittance Creation"
+  },
+  {
+   "default": "Monthly",
+   "depends_on": "enable_automatic_remittance",
+   "fieldname": "remittance_frequency",
+   "fieldtype": "Select",
+   "label": "Remittance Frequency",
+   "options": "Monthly\nWeekly"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "enable_automatic_remittance",
+   "description": "Automatically submit remittance documents when created",
+   "fieldname": "auto_submit_remittance",
+   "fieldtype": "Check",
+   "label": "Auto Submit Remittance"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:doc.remittance_frequency == 'Monthly'",
+   "description": "Day of month to create remittance (1-28)",
+   "fieldname": "remittance_day_of_month",
+   "fieldtype": "Int",
+   "label": "Remittance Day of Month"
+  },
+  {
+   "fieldname": "organization_details_section",
+   "fieldtype": "Section Break",
+   "label": "Default Organization Details"
+  },
+  {
+   "default": "Conference",
+   "fieldname": "default_organization_type",
+   "fieldtype": "Select",
+   "label": "Default Organization Type",
+   "options": "Conference\nUnion\nDivision\nGeneral Conference\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "default_organization_name",
+   "fieldtype": "Data",
+   "label": "Default Organization Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_contact_person",
+   "fieldtype": "Data",
+   "label": "Default Contact Person"
+  },
+  {
+   "fieldname": "default_contact_details",
+   "fieldtype": "Small Text",
+   "label": "Default Contact Details"
+  },
+  {
+   "fieldname": "payment_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Settings"
+  },
+  {
+   "default": "Bank Transfer",
+   "fieldname": "default_payment_mode",
+   "fieldtype": "Select",
+   "label": "Default Payment Mode",
+   "options": "Bank Transfer\nCheque\nCash\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bank_details",
+   "fieldtype": "Small Text",
+   "label": "Bank Details"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "REM",
+   "description": "Prefix for remittance reference numbers",
+   "fieldname": "reference_prefix",
+   "fieldtype": "Data",
+   "label": "Reference Prefix"
+  },
+  {
+   "fieldname": "remittance_notification_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Remittance Notification Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "notify_on_remittance_creation",
+   "fieldtype": "Check",
+   "label": "Notify on Remittance Creation"
+  },
+  {
+   "depends_on": "notify_on_remittance_creation",
+   "fieldname": "remittance_notification_email",
+   "fieldtype": "Data",
+   "label": "Remittance Notification Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "send_remittance_summary",
+   "fieldtype": "Check",
+   "label": "Send Remittance Summary"
+  },
+  {
+   "depends_on": "send_remittance_summary",
+   "description": "Email addresses separated by commas",
+   "fieldname": "summary_recipients",
+   "fieldtype": "Small Text",
+   "label": "Summary Recipients"
+  },
+  {
+   "fieldname": "organization_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Organization Settings"
+  },
+  {
+   "fieldname": "subscription_tab",
+   "fieldtype": "Tab Break",
+   "label": "Subscription"
+  },
+  {
+   "fieldname": "intergrations_tab",
+   "fieldtype": "Tab Break",
+   "label": "Intergrations"
+  },
+  {
+   "fieldname": "advanced_tab",
+   "fieldtype": "Tab Break",
+   "label": "Advanced"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-09-29 11:21:39.121938",
+ "modified_by": "Administrator",
+ "module": "StewardPro",
+ "name": "StewardPro Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
