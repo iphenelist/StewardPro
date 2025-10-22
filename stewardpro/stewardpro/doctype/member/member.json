@@ -192,7 +192,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-19 17:16:09.002047",
+ "modified": "2025-09-30 19:28:47.953925",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Member",
@@ -228,7 +228,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Member",
+   "role": "Elder",
    "share": 1
   }
  ],
