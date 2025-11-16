@@ -1,0 +1,8 @@
+frappe
+erpnext
+hrms
+pyotp
+PGPy
+paramiko
+xmltodict
+gunicorn
