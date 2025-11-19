@@ -5,88 +5,20 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "organization_settings_tab",
-  "organization_information_section",
-  "organization_name",
-  "organization_address",
-  "column_break_19",
-  "organization_contact",
-  "organization_email",
-  "system_limits_section",
-  "max_members",
-  "current_member_count",
-  "column_break_3",
-  "max_departments",
-  "max_budget_items",
-  "column_break_13",
-  "max_reports_per_month",
-  "data_retention_months",
-  "section_break_14",
-  "backup_frequency",
-  "export_limit_per_month",
-  "column_break_15",
-  "api_calls_per_month",
-  "storage_limit_gb",
-  "intergrations_tab",
   "sms_integration_section",
   "enable_sms_integration",
-  "sms_monthly_quota",
-  "column_break_4",
-  "sms_used_this_month",
-  "sms_cost_per_message",
-  "section_break_5",
-  "sms_provider",
   "sms_api_key",
-  "column_break_6",
-  "sms_api_secret",
+  "column_break_1",
   "sms_sender_id",
+  "sms_api_secret",
   "mobile_money_integration_section",
   "enable_mobile_money_integration",
   "supported_providers",
-  "column_break_7",
-  "mobile_money_transaction_fee",
-  "mobile_money_monthly_cost",
-  "section_break_8",
-  "mpesa_api_key",
-  "mpesa_public_key",
-  "column_break_9",
-  "tigo_pesa_api_key",
-  "airtel_money_api_key",
-  "notification_settings_section",
-  "notify_on_limit_reached",
-  "notification_email",
-  "column_break_16",
-  "send_usage_reports",
-  "usage_report_frequency",
-  "section_break_17",
-  "admin_contact_name",
-  "admin_contact_email",
-  "column_break_18",
-  "admin_contact_phone",
-  "billing_contact_email"
+  "column_break_2",
+  "money_api_key",
+  "money_public_key"
  ],
  "fields": [
-  {
-   "fieldname": "system_limits_section",
-   "fieldtype": "Section Break",
-   "label": "System Limits"
-  },
-  {
-   "default": "200",
-   "fieldname": "max_members",
-   "fieldtype": "Int",
-   "label": "Maximum Members Allowed"
-  },
-  {
-   "fieldname": "current_member_count",
-   "fieldtype": "Int",
-   "label": "Current Member Count",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
-  },
   {
    "fieldname": "sms_integration_section",
    "fieldtype": "Section Break",
@@ -99,55 +31,24 @@
    "label": "Enable SMS Integration"
   },
   {
-   "default": "0",
-   "fieldname": "sms_monthly_quota",
-   "fieldtype": "Int",
-   "label": "SMS Monthly Quota"
-  },
-  {
-   "fieldname": "column_break_4",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "sms_used_this_month",
-   "fieldtype": "Int",
-   "label": "SMS Used This Month",
-   "read_only": 1
-  },
-  {
-   "default": "120",
-   "fieldname": "sms_cost_per_message",
-   "fieldtype": "Currency",
-   "label": "SMS Cost Per Message (TZS)"
-  },
-  {
-   "fieldname": "section_break_5",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "Beem Africa",
-   "fieldname": "sms_provider",
-   "fieldtype": "Select",
-   "label": "SMS Provider",
-   "options": "Beem Africa\nOther"
-  },
-  {
+   "depends_on": "eval: doc.enable_sms_integration",
    "fieldname": "sms_api_key",
    "fieldtype": "Password",
    "label": "SMS API Key"
   },
   {
-   "fieldname": "column_break_6",
+   "fieldname": "column_break_1",
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval: doc.enable_sms_integration",
    "fieldname": "sms_api_secret",
    "fieldtype": "Password",
    "label": "SMS API Secret"
   },
   {
    "default": "StewardPro",
+   "depends_on": "eval: doc.enable_sms_integration",
    "fieldname": "sms_sender_id",
    "fieldtype": "Data",
    "label": "SMS Sender ID"
@@ -164,228 +65,32 @@
    "label": "Enable Mobile Money Integration"
   },
   {
-   "default": "M-Pesa Only",
+   "depends_on": "eval: doc.enable_mobile_money_integration",
    "fieldname": "supported_providers",
-   "fieldtype": "Select",
-   "label": "Supported Providers",
-   "options": "M-Pesa Only\nM-Pesa + Tigo Pesa\nAll Providers (M-Pesa, Tigo Pesa, Airtel Money, HaloPesa)"
+   "fieldtype": "Data",
+   "label": "Supported Providers"
   },
   {
-   "fieldname": "column_break_7",
+   "fieldname": "column_break_2",
    "fieldtype": "Column Break"
   },
   {
-   "default": "2.5",
-   "fieldname": "mobile_money_transaction_fee",
-   "fieldtype": "Percent",
-   "label": "Transaction Fee (%)"
-  },
-  {
-   "fieldname": "mobile_money_monthly_cost",
-   "fieldtype": "Currency",
-   "label": "Mobile Money Monthly Cost (TZS)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_8",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "mpesa_api_key",
+   "depends_on": "eval: doc.enable_mobile_money_integration",
+   "fieldname": "money_api_key",
    "fieldtype": "Password",
-   "label": "M-Pesa API Key"
+   "label": "Money API Key"
   },
   {
-   "fieldname": "mpesa_public_key",
+   "depends_on": "eval: doc.enable_mobile_money_integration",
+   "fieldname": "money_public_key",
    "fieldtype": "Password",
-   "label": "M-Pesa Public Key"
-  },
-  {
-   "fieldname": "column_break_9",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "tigo_pesa_api_key",
-   "fieldtype": "Password",
-   "label": "Tigo Pesa API Key"
-  },
-  {
-   "fieldname": "airtel_money_api_key",
-   "fieldtype": "Password",
-   "label": "Airtel Money API Key"
-  },
-  {
-   "fieldname": "system_limits_section",
-   "fieldtype": "Section Break",
-   "label": "System Limits"
-  },
-  {
-   "default": "10",
-   "fieldname": "max_departments",
-   "fieldtype": "Int",
-   "label": "Maximum Departments"
-  },
-  {
-   "default": "100",
-   "fieldname": "max_budget_items",
-   "fieldtype": "Int",
-   "label": "Maximum Budget Items"
-  },
-  {
-   "fieldname": "column_break_13",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "50",
-   "fieldname": "max_reports_per_month",
-   "fieldtype": "Int",
-   "label": "Maximum Reports Per Month"
-  },
-  {
-   "default": "24",
-   "fieldname": "data_retention_months",
-   "fieldtype": "Int",
-   "label": "Data Retention (Months)"
-  },
-  {
-   "fieldname": "section_break_14",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "Weekly",
-   "fieldname": "backup_frequency",
-   "fieldtype": "Select",
-   "label": "Backup Frequency",
-   "options": "Daily\nWeekly\nMonthly"
-  },
-  {
-   "default": "20",
-   "fieldname": "export_limit_per_month",
-   "fieldtype": "Int",
-   "label": "Export Limit Per Month"
-  },
-  {
-   "fieldname": "column_break_15",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "1000",
-   "fieldname": "api_calls_per_month",
-   "fieldtype": "Int",
-   "label": "API Calls Per Month"
-  },
-  {
-   "default": "5",
-   "fieldname": "storage_limit_gb",
-   "fieldtype": "Int",
-   "label": "Storage Limit (GB)"
-  },
-  {
-   "fieldname": "notification_settings_section",
-   "fieldtype": "Section Break",
-   "label": "Notification Settings"
-  },
-  {
-   "default": "1",
-   "fieldname": "notify_on_limit_reached",
-   "fieldtype": "Check",
-   "label": "Notify When Limits Reached"
-  },
-  {
-   "fieldname": "notification_email",
-   "fieldtype": "Data",
-   "label": "Notification Email"
-  },
-  {
-   "fieldname": "column_break_16",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "1",
-   "fieldname": "send_usage_reports",
-   "fieldtype": "Check",
-   "label": "Send Usage Reports"
-  },
-  {
-   "default": "Monthly",
-   "fieldname": "usage_report_frequency",
-   "fieldtype": "Select",
-   "label": "Usage Report Frequency",
-   "options": "Weekly\nMonthly\nQuarterly"
-  },
-  {
-   "fieldname": "section_break_17",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "admin_contact_name",
-   "fieldtype": "Data",
-   "label": "Admin Contact Name"
-  },
-  {
-   "fieldname": "admin_contact_email",
-   "fieldtype": "Data",
-   "label": "Admin Contact Email"
-  },
-  {
-   "fieldname": "column_break_18",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "admin_contact_phone",
-   "fieldtype": "Data",
-   "label": "Admin Contact Phone"
-  },
-  {
-   "fieldname": "billing_contact_email",
-   "fieldtype": "Data",
-   "label": "Billing Contact Email"
-  },
-  {
-   "fieldname": "organization_information_section",
-   "fieldtype": "Section Break",
-   "label": "Organization Information"
-  },
-  {
-   "fieldname": "organization_name",
-   "fieldtype": "Data",
-   "label": "Organization Name"
-  },
-  {
-   "fieldname": "organization_address",
-   "fieldtype": "Small Text",
-   "label": "Organization Address"
-  },
-  {
-   "fieldname": "column_break_19",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "organization_contact",
-   "fieldtype": "Phone",
-   "label": "Organization Contact"
-  },
-  {
-   "fieldname": "organization_email",
-   "fieldtype": "Data",
-   "label": "Organization Email",
-   "options": "Email"
-  },
-  {
-   "fieldname": "organization_settings_tab",
-   "fieldtype": "Tab Break",
-   "label": "Organization Settings"
-  },
-  {
-   "fieldname": "intergrations_tab",
-   "fieldtype": "Tab Break",
-   "label": "Intergrations"
+   "label": "Money Public Key"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-09-29 11:21:39.121938",
+ "modified": "2025-11-19 13:50:59.185356",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "StewardPro Settings",
