@@ -35,19 +35,21 @@
   "column_break_23",
   "send_remittance_summary",
   "summary_recipients",
-  "subscription_tab",
-  "subscription_details_section",
-  "subscription_package",
-  "subscription_status",
-  "column_break_1",
-  "subscription_start_date",
-  "subscription_end_date",
-  "section_break_2",
+  "system_limits_section",
   "max_members",
   "current_member_count",
   "column_break_3",
-  "monthly_cost",
-  "annual_cost",
+  "max_departments",
+  "max_budget_items",
+  "column_break_13",
+  "max_reports_per_month",
+  "data_retention_months",
+  "section_break_14",
+  "backup_frequency",
+  "export_limit_per_month",
+  "column_break_15",
+  "api_calls_per_month",
+  "storage_limit_gb",
   "intergrations_tab",
   "sms_integration_section",
   "enable_sms_integration",
@@ -73,31 +75,6 @@
   "column_break_9",
   "tigo_pesa_api_key",
   "airtel_money_api_key",
-  "advanced_tab",
-  "advanced_features_section",
-  "enable_advanced_analytics",
-  "enable_multi_branch",
-  "column_break_10",
-  "enable_api_access",
-  "enable_custom_reports",
-  "section_break_11",
-  "enable_white_label",
-  "dedicated_support",
-  "column_break_12",
-  "priority_support",
-  "onsite_training",
-  "system_limits_section",
-  "max_departments",
-  "max_budget_items",
-  "column_break_13",
-  "max_reports_per_month",
-  "data_retention_months",
-  "section_break_14",
-  "backup_frequency",
-  "export_limit_per_month",
-  "column_break_15",
-  "api_calls_per_month",
-  "storage_limit_gb",
   "notification_settings_section",
   "notify_on_limit_reached",
   "notification_email",
@@ -113,49 +90,9 @@
  ],
  "fields": [
   {
-   "fieldname": "subscription_details_section",
+   "fieldname": "system_limits_section",
    "fieldtype": "Section Break",
-   "label": "Subscription Details"
-  },
-  {
-   "default": "Starter",
-   "fieldname": "subscription_package",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Subscription Package",
-   "options": "Starter\nProfessional\nPremium\nEnterprise",
-   "reqd": 1
-  },
-  {
-   "default": "Trial",
-   "fieldname": "subscription_status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Subscription Status",
-   "options": "Active\nExpired\nSuspended\nTrial",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "subscription_start_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Subscription Start Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "subscription_end_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Subscription End Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "section_break_2",
-   "fieldtype": "Section Break"
+   "label": "System Limits"
   },
   {
    "default": "200",
@@ -172,18 +109,6 @@
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "monthly_cost",
-   "fieldtype": "Currency",
-   "label": "Monthly Cost (TZS)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "annual_cost",
-   "fieldtype": "Currency",
-   "label": "Annual Cost (TZS)",
-   "read_only": 1
   },
   {
    "fieldname": "sms_integration_section",
@@ -311,71 +236,6 @@
    "fieldname": "airtel_money_api_key",
    "fieldtype": "Password",
    "label": "Airtel Money API Key"
-  },
-  {
-   "fieldname": "advanced_features_section",
-   "fieldtype": "Section Break",
-   "label": "Advanced Features"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_advanced_analytics",
-   "fieldtype": "Check",
-   "label": "Enable Advanced Analytics"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_multi_branch",
-   "fieldtype": "Check",
-   "label": "Enable Multi-Branch Management"
-  },
-  {
-   "fieldname": "column_break_10",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_api_access",
-   "fieldtype": "Check",
-   "label": "Enable API Access"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_custom_reports",
-   "fieldtype": "Check",
-   "label": "Enable Custom Reports"
-  },
-  {
-   "fieldname": "section_break_11",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_white_label",
-   "fieldtype": "Check",
-   "label": "Enable White Label Options"
-  },
-  {
-   "default": "0",
-   "fieldname": "dedicated_support",
-   "fieldtype": "Check",
-   "label": "Dedicated Support"
-  },
-  {
-   "fieldname": "column_break_12",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "priority_support",
-   "fieldtype": "Check",
-   "label": "Priority Support"
-  },
-  {
-   "default": "0",
-   "fieldname": "onsite_training",
-   "fieldtype": "Check",
-   "label": "On-site Training Available"
   },
   {
    "fieldname": "system_limits_section",
@@ -512,8 +372,7 @@
   {
    "fieldname": "organization_name",
    "fieldtype": "Data",
-   "label": "Organization Name",
-   "reqd": 1
+   "label": "Organization Name"
   },
   {
    "fieldname": "organization_address",
@@ -590,8 +449,7 @@
   {
    "fieldname": "default_organization_name",
    "fieldtype": "Data",
-   "label": "Default Organization Name",
-   "reqd": 1
+   "label": "Default Organization Name"
   },
   {
    "fieldname": "column_break_21",
@@ -677,19 +535,9 @@
    "label": "Organization Settings"
   },
   {
-   "fieldname": "subscription_tab",
-   "fieldtype": "Tab Break",
-   "label": "Subscription"
-  },
-  {
    "fieldname": "intergrations_tab",
    "fieldtype": "Tab Break",
    "label": "Intergrations"
-  },
-  {
-   "fieldname": "advanced_tab",
-   "fieldtype": "Tab Break",
-   "label": "Advanced"
   }
  ],
  "index_web_pages_for_search": 1,
