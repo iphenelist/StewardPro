@@ -6,17 +6,35 @@ import requests
 import json
 from frappe import _
 from frappe.utils import nowdate, fmt_money, getdate
-from stewardpro.stewardpro.utils.feature_access import check_sms_access, increment_sms_usage, requires_sms
+
+
+def get_sms_settings():
+	"""Get SMS settings from StewardPro Settings"""
+	try:
+		settings = frappe.get_single('StewardPro Settings')
+		if not settings.enable_sms_integration:
+			frappe.throw(_("SMS Integration is not enabled in settings."), title=_("SMS Not Enabled"))
+
+		if not settings.sms_api_key or not settings.sms_api_secret or not settings.sms_sender_id:
+			frappe.throw(_("SMS configuration is incomplete. Please configure SMS settings."), title=_("SMS Configuration Error"))
+
+		if not settings.sms_base_url:
+			frappe.throw(_("SMS Base URL is not configured. Please set the SMS API endpoint."), title=_("SMS Configuration Error"))
+
+		return settings
+	except frappe.DoesNotExistError:
+		frappe.throw(_("StewardPro Settings not found."), title=_("Configuration Error"))
 
 
 class SMSAPI:
     """SMS API integration for StewardPro"""
 
     def __init__(self):
-        self.api_key = "sms_277f7f163c25066e20c0ddff48ec0062"
-        self.api_secret = "8cf7c83332b1eb126b9b8ba2368967b251e77bd02e4ea8e02e7046cfaaadce43"
-        self.sender_id = "Michongo"
-        self.base_url = "https://onsms.co.tz/api/method/always_on_sms.api.sms.send_sms"
+        settings = get_sms_settings()
+        self.api_key = settings.sms_api_key
+        self.api_secret = settings.sms_api_secret
+        self.sender_id = settings.sms_sender_id
+        self.base_url = settings.sms_base_url
 
     def send_sms(self, recipients, message):
         """Send SMS using Beem Africa API"""
@@ -70,12 +88,11 @@ class SMSAPI:
 
 
 @frappe.whitelist()
-@requires_sms(1)
 def send_member_registration_sms(member_name, phone_number, **kwargs):
     """Send welcome SMS to newly registered member"""
     try:
-        # Check SMS access and quota
-        can_send, message = check_sms_access(1, raise_exception=True)
+        # Check SMS is enabled
+        get_sms_settings()
 
         sms_api = SMSAPI()
 
@@ -95,8 +112,6 @@ def send_member_registration_sms(member_name, phone_number, **kwargs):
         result = sms_api.send_sms([phone_number], message)
 
         if result["success"]:
-            # Increment SMS usage counter
-            increment_sms_usage(1)
             # Log the SMS
             create_sms_log("Member Registration", member_name, phone_number, message, "Success")
             return {"success": True, "message": "Welcome SMS sent successfully"}
@@ -110,12 +125,11 @@ def send_member_registration_sms(member_name, phone_number, **kwargs):
 
 
 @frappe.whitelist()
-@requires_sms(1)
 def send_tithe_offering_sms(member_name, phone_number, receipt_number, tithe_amount, offering_amount, total_amount, date, **kwargs):
     """Send receipt SMS for tithe and offering"""
     try:
-        # Check SMS access and quota
-        can_send, message = check_sms_access(1, raise_exception=True)
+        # Check SMS is enabled
+        get_sms_settings()
 
         sms_api = SMSAPI()
 
@@ -145,8 +159,6 @@ def send_tithe_offering_sms(member_name, phone_number, receipt_number, tithe_amo
         result = sms_api.send_sms([phone_number], message)
 
         if result["success"]:
-            # Increment SMS usage counter
-            increment_sms_usage(1)
             # Log the SMS
             create_sms_log("Tithe & Offering Receipt", member_name, phone_number, message, "Success")
             return {"success": True, "message": "Receipt SMS sent successfully"}
@@ -165,10 +177,17 @@ def create_sms_log(sms_type, recipient_name, phone_number, message, status):
         # Clean up status message if it's too long or contains complex error details
         clean_status = clean_error_message(status)
 
+        # Get sender ID from settings
+        try:
+            settings = frappe.get_single('StewardPro Settings')
+            sender_id = settings.sms_sender_id or "StewardPro"
+        except:
+            sender_id = "StewardPro"
+
         sms_log = frappe.get_doc({
             "doctype": "SMS Log",
             "sent_on": frappe.utils.now(),
-            "sender": "Michongo",
+            "sender": sender_id,
             "receiver": phone_number,
             "message": message,
             "status": clean_status,
@@ -243,9 +262,8 @@ def send_bulk_welcome_sms(member_names, **kwargs):
             import json
             member_names = json.loads(member_names)
 
-        # Check SMS access for bulk sending
-        sms_count = len(member_names)
-        can_send, message = check_sms_access(sms_count, raise_exception=True)
+        # Check SMS is enabled
+        get_sms_settings()
 
         results = []
         sms_api = SMSAPI()
@@ -281,8 +299,6 @@ def send_bulk_welcome_sms(member_names, **kwargs):
                 result = sms_api.send_sms([member_doc.contact], message)
 
                 if result["success"]:
-                    # Increment SMS usage counter
-                    increment_sms_usage(1)
                     # Log the SMS
                     create_sms_log("Bulk Welcome SMS", member_doc.full_name, member_doc.contact, message, "Success")
                     results.append({
@@ -330,9 +346,8 @@ def send_bulk_receipt_sms(record_names, **kwargs):
             import json
             record_names = json.loads(record_names)
 
-        # Check SMS access for bulk sending
-        sms_count = len(record_names)
-        can_send, message = check_sms_access(sms_count, raise_exception=True)
+        # Check SMS is enabled
+        get_sms_settings()
 
         results = []
         sms_api = SMSAPI()
@@ -387,8 +402,6 @@ def send_bulk_receipt_sms(record_names, **kwargs):
                 result = sms_api.send_sms([member_doc.contact], message)
 
                 if result["success"]:
-                    # Increment SMS usage counter
-                    increment_sms_usage(1)
                     # Log the SMS
                     create_sms_log("Bulk Receipt SMS", member_doc.full_name, member_doc.contact, message, "Success")
                     results.append({

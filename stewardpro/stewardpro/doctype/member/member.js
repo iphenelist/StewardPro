@@ -3,71 +3,14 @@
 
 frappe.ui.form.on("Member", {
 	refresh(frm) {
-		// Add SMS Test button
-		if (!frm.doc.__islocal) {
-			frm.add_custom_button(__('Test SMS Connection'), function() {
-				test_sms_connection(frm);
+		// Add Send Welcome SMS button if member has phone number
+		if (!frm.doc.__islocal && frm.doc.contact) {
+			frm.add_custom_button(__('Send Welcome SMS'), function() {
+				send_welcome_sms_manual(frm);
 			}, __('SMS'));
-
-			// Add Send Welcome SMS button if member has phone number
-			if (frm.doc.contact) {
-				frm.add_custom_button(__('Send Welcome SMS'), function() {
-					send_welcome_sms_manual(frm);
-				}, __('SMS'));
-			}
 		}
 	},
 });
-
-function test_sms_connection(frm) {
-	frappe.show_alert({
-		message: __('Testing SMS connection...'),
-		indicator: 'blue'
-	});
-
-	frappe.call({
-		method: "stewardpro.stewardpro.api.sms.test_sms_connection",
-		callback: function(r) {
-			if (r.message) {
-				if (r.message.success) {
-					frappe.show_alert({
-						message: __('SMS connection test successful!'),
-						indicator: 'green'
-					});
-
-					frappe.msgprint({
-						title: __('SMS Test Result'),
-						message: __('SMS connection is working properly. Test message sent successfully.'),
-						indicator: 'green'
-					});
-				} else {
-					frappe.show_alert({
-						message: __('SMS connection test failed'),
-						indicator: 'red'
-					});
-
-					frappe.msgprint({
-						title: __('SMS Test Failed'),
-						message: __('SMS connection failed: ') + (r.message.error || 'Unknown error'),
-						indicator: 'red'
-					});
-				}
-			}
-		},
-		error: function(r) {
-			frappe.show_alert({
-				message: __('SMS test error'),
-				indicator: 'red'
-			});
-
-			frappe.msgprint({
-				title: __('SMS Test Error'),
-				message: __('Failed to test SMS connection. Please check your internet connection and try again.'),
-				indicator: 'red'
-			});
-		}
-	});
-}
 
 function send_welcome_sms_manual(frm) {
 	if (!frm.doc.contact) {

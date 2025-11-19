@@ -9,10 +9,6 @@ frappe.ui.form.on("Tithes and Offerings", {
 			frm.add_custom_button(__('Send Receipt SMS'), function() {
 				send_receipt_sms_manual(frm);
 			}, __('SMS'));
-
-			frm.add_custom_button(__('Test SMS Connection'), function() {
-				test_sms_connection_tithe(frm);
-			}, __('SMS'));
 		}
 	}
 });
@@ -96,54 +92,6 @@ function send_receipt_sms_manual(frm) {
 			frappe.msgprint({
 				title: __('Member Not Found'),
 				message: __('Could not find member details. Please check the member assignment.'),
-				indicator: 'red'
-			});
-		}
-	});
-}
-
-function test_sms_connection_tithe(frm) {
-	frappe.show_alert({
-		message: __('Testing SMS connection...'),
-		indicator: 'blue'
-	});
-
-	frappe.call({
-		method: "stewardpro.stewardpro.api.sms.test_sms_connection",
-		callback: function(r) {
-			if (r.message && r.message.success) {
-				frappe.show_alert({
-					message: __('SMS connection test successful!'),
-					indicator: 'green'
-				});
-
-				frappe.msgprint({
-					title: __('SMS Test Successful'),
-					message: __('SMS API connection is working properly. Test message sent successfully.'),
-					indicator: 'green'
-				});
-			} else {
-				frappe.show_alert({
-					message: __('SMS connection test failed'),
-					indicator: 'red'
-				});
-
-				frappe.msgprint({
-					title: __('SMS Test Failed'),
-					message: __('SMS API connection failed: {0}', [r.message ? r.message.error : 'Unknown error']),
-					indicator: 'red'
-				});
-			}
-		},
-		error: function() {
-			frappe.show_alert({
-				message: __('SMS test error'),
-				indicator: 'red'
-			});
-
-			frappe.msgprint({
-				title: __('SMS Test Error'),
-				message: __('Failed to test SMS connection. Please check your internet connection and try again.'),
 				indicator: 'red'
 			});
 		}

@@ -18,10 +18,12 @@ class StewardProSettings(Document):
 
 		enable_mobile_money_integration: DF.Check
 		enable_sms_integration: DF.Check
+		mobile_money_base_url: DF.Data | None
 		money_api_key: DF.Password | None
 		money_public_key: DF.Password | None
 		sms_api_key: DF.Password | None
 		sms_api_secret: DF.Password | None
+		sms_base_url: DF.Data | None
 		sms_sender_id: DF.Data | None
 		supported_providers: DF.Data | None
 	# end: auto-generated types
@@ -29,17 +31,6 @@ class StewardProSettings(Document):
 	def validate(self):
 		"""Validate StewardPro Settings"""
 		pass
-
-
-
-	def is_feature_enabled(self, feature):
-		"""Check if a specific feature is enabled"""
-		feature_map = {
-			'sms': self.enable_sms_integration,
-			'mobile_money': self.enable_mobile_money_integration
-		}
-
-		return bool(feature_map.get(feature, False))
 
 
 @frappe.whitelist()
@@ -56,11 +47,7 @@ def get_stewardpro_settings():
 	return frappe.get_single('StewardPro Settings')
 
 
-@frappe.whitelist()
-def check_feature_access(feature):
-	"""Check if a feature is accessible"""
-	settings = get_stewardpro_settings()
-	return settings.is_feature_enabled(feature)
+
 
 
 

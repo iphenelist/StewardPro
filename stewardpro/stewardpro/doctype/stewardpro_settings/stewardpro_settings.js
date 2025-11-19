@@ -42,7 +42,7 @@ function toggle_mobile_money_fields(frm) {
 	const show_fields = frm.doc.enable_mobile_money_integration;
 
 	const mm_fields = [
-		'supported_providers', 'money_api_key', 'money_public_key'
+		'mobile_money_base_url', 'supported_providers', 'money_api_key', 'money_public_key'
 	];
 
 	mm_fields.forEach(field => {
@@ -82,11 +82,31 @@ function test_mobile_money_connection(frm) {
 		frappe.msgprint(__('Mobile Money Integration is not enabled'));
 		return;
 	}
-	
-	frappe.msgprint({
-		title: __('Mobile Money Test'),
-		message: __('Mobile Money connection test is not yet implemented'),
-		indicator: 'blue'
+
+	frappe.call({
+		method: 'stewardpro.stewardpro.api.money.test_mobile_money_connection',
+		callback: function(r) {
+			if (r.message && r.message.success) {
+				frappe.msgprint({
+					title: __('Mobile Money Test'),
+					message: __('Mobile Money connection test successful!'),
+					indicator: 'green'
+				});
+			} else {
+				frappe.msgprint({
+					title: __('Mobile Money Test'),
+					message: __('Mobile Money connection test failed: ' + (r.message?.error || 'Unknown error')),
+					indicator: 'red'
+				});
+			}
+		},
+		error: function(r) {
+			frappe.msgprint({
+				title: __('Mobile Money Test'),
+				message: __('Error testing Mobile Money connection'),
+				indicator: 'red'
+			});
+		}
 	});
 }
 

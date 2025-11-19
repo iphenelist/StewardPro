@@ -60,7 +60,7 @@ doctype_list_js = {
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "home"
 
 # website user home page (by Role)
 # role_home_page = {
@@ -171,7 +171,10 @@ doc_events = {
 scheduler_events = {
 	"daily": [
 		"stewardpro.stewardpro.doctype.fiscal_year.fiscal_year.auto_create_fiscal_year"
-	]
+	],
+	"cron": {
+		"0 0 * * 6": "stewardpro.stewardpro.tasks.send_weekly_sms_notification"
+	}
 }
 
 # Testing
