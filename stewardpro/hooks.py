@@ -170,11 +170,7 @@ doc_events = {
 
 scheduler_events = {
 	"monthly": [
-		"stewardpro.stewardpro.tasks.create_monthly_remittance",
 		"stewardpro.stewardpro.doctype.stewardpro_settings.stewardpro_settings.reset_monthly_counters_job"
-	],
-	"weekly": [
-		"stewardpro.stewardpro.tasks.create_weekly_remittance"
 	],
 	"daily": [
 		"stewardpro.stewardpro.doctype.fiscal_year.fiscal_year.auto_create_fiscal_year"

@@ -25,7 +25,6 @@ class StewardProSettings(Document):
 		billing_contact_email: DF.Data | None
 		current_member_count: DF.Int
 		data_retention_months: DF.Int
-		dedicated_support: DF.Check
 		enable_mobile_money_integration: DF.Check
 		enable_sms_integration: DF.Check
 		export_limit_per_month: DF.Int
@@ -39,8 +38,6 @@ class StewardProSettings(Document):
 		mpesa_public_key: DF.Password | None
 		notification_email: DF.Data | None
 		notify_on_limit_reached: DF.Check
-		onsite_training: DF.Check
-		priority_support: DF.Check
 		send_usage_reports: DF.Check
 		sms_api_key: DF.Password | None
 		sms_api_secret: DF.Password | None
