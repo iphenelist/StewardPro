@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_copy": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2024-12-10 10:00:00",
@@ -164,10 +166,11 @@
    "search_index": 1
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-30 19:27:40.429528",
+ "modified": "2025-11-19 17:50:11.470283",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Department Expense",
@@ -212,6 +215,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_copy": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2024-12-10 10:00:00",
@@ -182,10 +184,12 @@
    "search_index": 1
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-30 19:29:12.508275",
+ "make_attachments_public": 1,
+ "modified": "2025-11-19 17:47:59.623739",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Tithes and Offerings",
@@ -230,6 +234,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

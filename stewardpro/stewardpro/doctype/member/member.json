@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_copy": 1,
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:CM-{#####}",
@@ -190,9 +191,10 @@
    "label": "Notes"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-30 19:28:47.953925",
+ "modified": "2025-11-19 17:49:11.098664",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Member",
@@ -233,6 +235,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

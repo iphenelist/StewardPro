@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_copy": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:{department}-{fiscal_year}",
  "creation": "2024-12-10 10:00:00",
@@ -145,10 +147,11 @@
    "label": "Is Active"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-30 19:28:02.369272",
+ "modified": "2025-11-19 17:49:45.777321",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Department Budget",
@@ -194,6 +197,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
