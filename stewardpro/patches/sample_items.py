@@ -12,174 +12,174 @@ def execute():
 	sample_items = [
 		# Youth Ministry Items
 		{
-			"item_name": "Youth Event Supplies",
+			"item_name": "Vifaa vya Matukio ya Vijana",
 			"category": "Events",
-			"department": "Youth Ministry",
-			"description": "General supplies for youth events and activities",
+			"department": "Idara ya Vijana",
+			"description": "Vifaa vya jumla kwa matukio ya vijana na shughuli",
 			"standard_cost": 500,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Youth Training Materials",
+			"item_name": "Nyenzo za Mafunzo ya Vijana",
 			"category": "Training",
-			"department": "Youth Ministry", 
-			"description": "Training materials and resources for youth programs",
+			"department": "Idara ya Vijana",
+			"description": "Nyenzo za mafunzo na rasilimali kwa programu za vijana",
 			"standard_cost": 300,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Sound Equipment",
+			"item_name": "Vifaa vya Sauti",
 			"category": "Equipment",
-			"department": "Youth Ministry",
-			"description": "Sound system and audio equipment for youth activities",
+			"department": "Idara ya Vijana",
+			"description": "Mfumo wa sauti na vifaa vya sauti kwa shughuli za vijana",
 			"standard_cost": 2000,
-			"unit_of_measure": "Each"
+			"unit_of_measure": "Kila"
 		},
-		
+
 		# Music Ministry Items
 		{
-			"item_name": "Musical Instruments",
+			"item_name": "Zana za Muziki",
 			"category": "Equipment",
-			"department": "Music Ministry",
-			"description": "Various musical instruments for worship",
+			"department": "Idara ya Muziki",
+			"description": "Zana mbalimbali za muziki kwa ibada",
 			"standard_cost": 1500,
-			"unit_of_measure": "Each"
+			"unit_of_measure": "Kila"
 		},
 		{
-			"item_name": "Sheet Music",
+			"item_name": "Muziki wa Karatasi",
 			"category": "Supplies",
-			"department": "Music Ministry",
-			"description": "Sheet music and songbooks",
+			"department": "Idara ya Muziki",
+			"description": "Muziki wa karatasi na vitabu vya nyimbo",
 			"standard_cost": 100,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Choir Robes",
+			"item_name": "Mavazi ya Kwaaya",
 			"category": "Supplies",
-			"department": "Music Ministry",
-			"description": "Choir robes and accessories",
+			"department": "Idara ya Muziki",
+			"description": "Mavazi ya kwaaya na vifaa vya ziada",
 			"standard_cost": 800,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
-		
+
 		# Children's Ministry Items
 		{
-			"item_name": "Children's Books",
+			"item_name": "Vitabu vya Watoto",
 			"category": "Supplies",
-			"department": "Children's Ministry",
-			"description": "Educational and religious books for children",
+			"department": "Idara ya Watoto",
+			"description": "Vitabu vya elimu na kidini kwa watoto",
 			"standard_cost": 200,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Craft Supplies",
+			"item_name": "Vifaa vya Sanaa",
 			"category": "Supplies",
-			"department": "Children's Ministry",
-			"description": "Art and craft supplies for children's activities",
+			"department": "Idara ya Watoto",
+			"description": "Vifaa vya sanaa na kazi ya mikono kwa shughuli za watoto",
 			"standard_cost": 150,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Children's Event Materials",
+			"item_name": "Nyenzo za Matukio ya Watoto",
 			"category": "Events",
-			"department": "Children's Ministry",
-			"description": "Materials for children's special events",
+			"department": "Idara ya Watoto",
+			"description": "Nyenzo kwa matukio maalum ya watoto",
 			"standard_cost": 400,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
-		
+
 		# Maintenance Items
 		{
-			"item_name": "Cleaning Supplies",
+			"item_name": "Vifaa vya Usafi",
 			"category": "Maintenance",
-			"department": "Maintenance",
-			"description": "General cleaning supplies and equipment",
+			"department": "Majengo",
+			"description": "Vifaa vya usafi wa jumla na vifaa",
 			"standard_cost": 300,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Repair Tools",
+			"item_name": "Zana za Ukarabati",
 			"category": "Equipment",
-			"department": "Maintenance",
-			"description": "Tools for building maintenance and repairs",
+			"department": "Majengo",
+			"description": "Zana kwa matengenezo ya jengo na ukarabati",
 			"standard_cost": 500,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Building Materials",
+			"item_name": "Nyenzo za Ujenzi",
 			"category": "Maintenance",
-			"department": "Maintenance",
-			"description": "Basic building and repair materials",
+			"department": "Majengo",
+			"description": "Nyenzo za ujenzi na ukarabati wa msingi",
 			"standard_cost": 1000,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
-		
+
 		# Communication Items
 		{
-			"item_name": "Website Maintenance",
+			"item_name": "Matengenezo ya Wavuti",
 			"category": "Supplies",
-			"department": "Communication",
-			"description": "Website hosting, domain, and maintenance services",
+			"department": "Mawasiliano",
+			"description": "Huduma za kuandaa wavuti, kikoa, na matengenezo",
 			"standard_cost": 300,
-			"unit_of_measure": "Month"
+			"unit_of_measure": "Mwezi"
 		},
 		{
-			"item_name": "Social Media Tools",
+			"item_name": "Zana za Mitandao ya Kijamii",
 			"category": "Supplies",
-			"department": "Communication",
-			"description": "Social media management and design tools subscriptions",
+			"department": "Mawasiliano",
+			"description": "Usimamizi wa mitandao ya kijamii na zana za muundo",
 			"standard_cost": 150,
-			"unit_of_measure": "Month"
+			"unit_of_measure": "Mwezi"
 		},
 		{
-			"item_name": "Audio Visual Equipment",
+			"item_name": "Vifaa vya Sauti na Picha",
 			"category": "Equipment",
-			"department": "Communication",
-			"description": "Cameras, microphones, and recording equipment",
+			"department": "Mawasiliano",
+			"description": "Kamera, maikrofoni, na vifaa vya kurekodi",
 			"standard_cost": 2500,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Printing Materials",
+			"item_name": "Nyenzo za Uchapaji",
 			"category": "Supplies",
-			"department": "Communication",
-			"description": "Banners, flyers, bulletins, and promotional materials",
+			"department": "Mawasiliano",
+			"description": "Bendera, karatasi za tangazo, habari, na nyenzo za tangazo",
 			"standard_cost": 400,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Broadcasting Equipment",
+			"item_name": "Vifaa vya Utangazaji",
 			"category": "Equipment",
-			"department": "Communication",
-			"description": "Live streaming and broadcasting equipment",
+			"department": "Mawasiliano",
+			"description": "Vifaa vya kutangazia moja kwa moja na utangazaji",
 			"standard_cost": 3000,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Graphic Design Software",
+			"item_name": "Programu ya Muundo wa Picha",
 			"category": "Supplies",
-			"department": "Communication",
-			"description": "Design software licenses and subscriptions",
+			"department": "Mawasiliano",
+			"description": "Leseni za programu ya muundo na usajili",
 			"standard_cost": 200,
-			"unit_of_measure": "Year"
+			"unit_of_measure": "Mwaka"
 		},
 
 		# General Items
 		{
-			"item_name": "Office Supplies",
+			"item_name": "Vifaa vya Ofisi",
 			"category": "Supplies",
-			"department": "General",
-			"description": "General office supplies and stationery",
+			"department": "Ofisi ya Wazee",
+			"description": "Vifaa vya ofisi vya jumla na karatasi",
 			"standard_cost": 200,
-			"unit_of_measure": "Set"
+			"unit_of_measure": "Seti"
 		},
 		{
-			"item_name": "Utilities Payment",
+			"item_name": "Malipo ya Huduma za Umeme",
 			"category": "Utilities",
-			"department": "General",
-			"description": "Monthly utilities payment",
+			"department": "Ofisi ya Wazee",
+			"description": "Malipo ya huduma za umeme kwa kila mwezi",
 			"standard_cost": 1500,
-			"unit_of_measure": "Month"
+			"unit_of_measure": "Mwezi"
 		}
 	]
 	

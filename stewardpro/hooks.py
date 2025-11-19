@@ -169,9 +169,6 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
-	"monthly": [
-		"stewardpro.stewardpro.doctype.stewardpro_settings.stewardpro_settings.reset_monthly_counters_job"
-	],
 	"daily": [
 		"stewardpro.stewardpro.doctype.fiscal_year.fiscal_year.auto_create_fiscal_year"
 	]

@@ -90,7 +90,7 @@ class Department(Document):
 		# Get total expenses for the year
 		expenses = frappe.db.sql("""
 			SELECT SUM(amount) as total_expenses
-			FROM `tabExpense`
+			FROM `Department Expense`
 			WHERE department = %s 
 			AND YEAR(expense_date) = %s
 			AND docstatus = 1
