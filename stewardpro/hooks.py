@@ -67,6 +67,12 @@ home_page = "home"
 # 	"Role": "home_page"
 # }
 
+
+# Workspace Configuration
+# -----------------------
+# Set the default workspace for the module
+module_default_workspace = "StewardPro"	
+
 # Generators
 # ----------
 
