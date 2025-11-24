@@ -1,46 +1,26 @@
 {
  "charts": [],
- "content": "[{\"id\":\"noorCtMGhW\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewardPro</span>\",\"col\":12}},{\"id\":\"aBk37WA-eZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}},{\"id\":\"akAzY9c6af\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgets\",\"col\":4}},{\"id\":\"lVVrZOxNcW\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"DbtKVZBznI\",\"type\":\"paragraph\",\"data\":{\"text\":\"Reports\",\"col\":12}},{\"id\":\"83Ix5aRJ0P\",\"type\":\"card\",\"data\":{\"card_name\":\"Budget Reports\",\"col\":3}},{\"id\":\"6XKpMH5Epd\",\"type\":\"card\",\"data\":{\"card_name\":\"Income Reports\",\"col\":3}},{\"id\":\"-dmebLoc6B\",\"type\":\"card\",\"data\":{\"card_name\":\"Expense Reports\",\"col\":3}},{\"id\":\"u-otJan8zJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Summary Reports\",\"col\":3}}]",
- "creation": "2025-09-29 14:25:59.200153",
+ "content": "[{\"id\":\"ONWqzR1hWm\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewardPro</span>\",\"col\":12}},{\"id\":\"joeUBqVg3N\",\"type\":\"card\",\"data\":{\"card_name\":\"Setups\",\"col\":4}},{\"id\":\"rFCn0canlm\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgets\",\"col\":4}},{\"id\":\"IVKq5VnwPz\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"NMODLkXstN\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"95eMqfxHO-\",\"type\":\"card\",\"data\":{\"card_name\":\"Budget Reports\",\"col\":4}},{\"id\":\"KNAAUPeif0\",\"type\":\"card\",\"data\":{\"card_name\":\"Income Reports\",\"col\":4}},{\"id\":\"J3UyOG4z3O\",\"type\":\"card\",\"data\":{\"card_name\":\"Expense Reports\",\"col\":4}},{\"id\":\"aOEf5rZf5F\",\"type\":\"card\",\"data\":{\"card_name\":\"Summary Reports\",\"col\":4}}]",
+ "creation": "2025-11-24 15:01:44.678844",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "organization",
+ "icon": "unhide",
  "idx": 0,
- "indicator_color": "",
+ "indicator_color": "green",
  "is_hidden": 0,
  "label": "StewardPro",
  "links": [
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Setup",
-   "link_count": 5,
+   "label": "Setups",
+   "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Member",
-   "link_count": 0,
-   "link_to": "Member",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Department",
-   "link_count": 0,
-   "link_to": "Department",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
   },
   {
    "hidden": 0,
@@ -55,9 +35,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Items",
+   "label": "Members",
    "link_count": 0,
-   "link_to": "Item",
+   "link_to": "Member",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -65,9 +45,19 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "StewardPro Settings",
+   "label": "Departments",
    "link_count": 0,
-   "link_to": "StewardPro Settings",
+   "link_to": "Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Items",
+   "link_count": 0,
+   "link_to": "Item",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -105,20 +95,10 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Transactions",
-   "link_count": 3,
+   "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Tithes and Offerings",
-   "link_count": 0,
-   "link_to": "Tithes and Offerings",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
   },
   {
    "hidden": 0,
@@ -130,7 +110,16 @@
    "onboard": 0,
    "type": "Link"
   },
-
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tithes and Offerings",
+   "link_count": 0,
+   "link_to": "Tithes and Offerings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -193,7 +182,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Expense Reports",
-   "link_count": 3,
+   "link_count": 1,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -208,7 +197,6 @@
    "onboard": 0,
    "type": "Link"
   },
-
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -239,7 +227,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-09-29 15:07:47.749310",
+ "modified": "2025-11-24 15:22:51.153117",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "StewardPro",

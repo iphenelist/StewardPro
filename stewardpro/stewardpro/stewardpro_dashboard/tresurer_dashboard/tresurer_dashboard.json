@@ -1,0 +1,25 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Tithe and Offering",
+   "width": "Full"
+  },
+  {
+   "chart": "Expenses",
+   "width": "Half"
+  }
+ ],
+ "creation": "2025-11-24 14:54:34.449610",
+ "dashboard_name": "Tresurer Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2025-11-24 14:59:22.325148",
+ "modified_by": "Administrator",
+ "module": "StewardPro",
+ "name": "Tresurer Dashboard",
+ "owner": "Administrator"
+}

@@ -1,0 +1,38 @@
+{
+ "charts": [
+  {
+   "chart_name": "Tithe and Offering",
+   "label": "Tithe and Offering"
+  },
+  {
+   "chart_name": "Expenses",
+   "label": "Expenses"
+  }
+ ],
+ "content": "[{\"id\":\"KsyLxiBZK-\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewadPro Dashboard</span>\",\"col\":12}},{\"id\":\"4C2opP6yK0\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Tithe and Offering\",\"col\":12}},{\"id\":\"2wV3t6LN6e\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Expenses\",\"col\":12}}]",
+ "creation": "2025-11-24 15:20:32.001007",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "chart",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "StewadPro Dashboard",
+ "links": [],
+ "modified": "2025-11-24 15:23:03.161440",
+ "modified_by": "Administrator",
+ "module": "StewardPro",
+ "name": "StewadPro Dashboard",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "StewardPro",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 29.0,
+ "shortcuts": [],
+ "title": "StewadPro Dashboard"
+}

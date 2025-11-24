@@ -71,7 +71,7 @@ home_page = "home"
 # Workspace Configuration
 # -----------------------
 # Set the default workspace for the module
-module_default_workspace = "StewardPro"	
+module_default_workspace = "stewardpro"	
 
 # Generators
 # ----------
