@@ -40,12 +40,6 @@ def get_columns():
 			"width": 120
 		},
 		{
-			"label": _("Category"),
-			"fieldname": "expense_category",
-			"fieldtype": "Data",
-			"width": 120
-		},
-		{
 			"label": _("Description"),
 			"fieldname": "expense_description",
 			"fieldtype": "Data",
@@ -110,7 +104,6 @@ def get_data(filters):
 			Expense.expense_date,
 			Expense.department,
 			ExpenseDetail.item,
-			ExpenseDetail.expense_category,
 			ExpenseDetail.expense_description,
 			ExpenseDetail.quantity,
 			ExpenseDetail.unit_price,
@@ -189,34 +182,7 @@ def get_expense_summary_by_department(filters):
 	return query.run(as_dict=True)
 
 
-def get_expense_summary_by_category(filters):
-	"""Get expense summary grouped by category"""
-	Expense = DocType("Department Expense")
-	ExpenseDetail = DocType("Department Expense Detail")
 
-	query = (
-		frappe.qb.from_(Expense)
-		.left_join(ExpenseDetail)
-		.on(Expense.name == ExpenseDetail.parent)
-		.select(
-			ExpenseDetail.expense_category,
-			Count(ExpenseDetail.name).as_("count"),
-			Sum(ExpenseDetail.amount).as_("total_amount"),
-			Avg(ExpenseDetail.amount).as_("avg_amount")
-		)
-		.where(Expense.docstatus == 1)
-		.groupby(ExpenseDetail.expense_category)
-		.orderby(Sum(ExpenseDetail.amount), order=frappe.qb.desc)
-	)
-
-	# Apply date filters
-	if filters.get("from_date"):
-		query = query.where(Expense.expense_date >= getdate(filters.get("from_date")))
-
-	if filters.get("to_date"):
-		query = query.where(Expense.expense_date <= getdate(filters.get("to_date")))
-
-	return query.run(as_dict=True)
 
 
 
@@ -312,16 +278,11 @@ def get_expense_summary(filters=None):
 		# Get summary by department
 		by_department = get_expense_summary_by_department(filters)
 
-		# Get summary by category
-		by_category = get_expense_summary_by_category(filters)
-
 		return {
-			"by_department": by_department,
-			"by_category": by_category
+			"by_department": by_department
 		}
 	except Exception as e:
 		frappe.log_error(f"Error in get_expense_summary: {str(e)}")
 		return {
-			"by_department": [],
-			"by_category": []
+			"by_department": []
 		}

@@ -15,7 +15,6 @@ class DepartmentBudgetItem(Document):
 		from frappe.types import DF
 
 		budgeted_amount: DF.Currency
-		category: DF.Literal["Equipment", "Supplies", "Events", "Training", "Travel", "Utilities", "Maintenance", "Other"]
 		description: DF.SmallText | None
 		item: DF.Link
 		parent: DF.Data

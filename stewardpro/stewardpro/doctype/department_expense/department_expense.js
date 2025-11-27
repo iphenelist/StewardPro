@@ -41,14 +41,11 @@ frappe.ui.form.on("Department Expense", {
 
 frappe.ui.form.on("Department Expense Detail", {
 	item: function(frm, cdt, cdn) {
-		// Auto-populate category, description, and unit price from item
+		// Auto-populate description and unit price from item
 		let row = locals[cdt][cdn];
 		if (row.item) {
-			frappe.db.get_value('Item', row.item, ['category', 'description', 'standard_cost'], function(r) {
+			frappe.db.get_value('Item', row.item, ['description', 'standard_cost'], function(r) {
 				if (r) {
-					if (r.category) {
-						frappe.model.set_value(cdt, cdn, 'expense_category', r.category);
-					}
 					if (r.description && !row.expense_description) {
 						frappe.model.set_value(cdt, cdn, 'expense_description', r.description);
 					}
@@ -216,7 +213,6 @@ function get_budget_items_html(budget_items) {
 							<input type="checkbox" id="select-all-items" />
 						</th>
 						<th width="16%">${__('Item')}</th>
-						<th width="10%">${__('Category')}</th>
 						<th width="18%">${__('Description')}</th>
 						<th width="7%">${__('Budget Qty')}</th>
 						<th width="9%">${__('Unit Price')}</th>
@@ -238,7 +234,6 @@ function get_budget_items_html(budget_items) {
 						   class="item-checkbox" />
 				</td>
 				<td>${item.item_name || item.item}</td>
-				<td>${item.category}</td>
 				<td>${item.description || ''}</td>
 				<td class="text-center">${item.quantity || 1}</td>
 				<td>${format_currency(item.unit_price)}</td>
@@ -298,7 +293,6 @@ function add_items_to_expense_details(frm, selected_items) {
 	selected_items.forEach(function(item) {
 		let row = frm.add_child('expense_details');
 		row.item = item.item;
-		row.expense_category = item.category;
 		row.expense_description = item.item_name || item.item;
 		row.quantity = item.quantity;
 		row.unit_price = item.unit_price;

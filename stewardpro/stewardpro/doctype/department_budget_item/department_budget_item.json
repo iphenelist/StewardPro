@@ -6,7 +6,6 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "category",
   "column_break_1",
   "quantity",
   "unit_price",
@@ -24,14 +23,6 @@
    "in_list_view": 1,
    "label": "Item",
    "options": "Item",
-   "reqd": 1
-  },
-  {
-   "fieldname": "category",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Category",
-   "read_only": 1,
    "reqd": 1
   },
   {

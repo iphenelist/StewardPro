@@ -8,14 +8,10 @@ frappe.ui.form.on('Department Budget Item', {
 	},
 
 	item: function(frm) {
-		// Auto-populate category from item
+		// Auto-populate item details
 		if (frm.doc.item) {
-			frappe.db.get_value('Item', frm.doc.item, ['category', 'standard_cost', 'description', 'unit_of_measure'], function(r) {
+			frappe.db.get_value('Item', frm.doc.item, ['standard_cost', 'description', 'unit_of_measure'], function(r) {
 				if (r) {
-					// Always update category from selected item
-					if (r.category) {
-						frm.set_value('category', r.category);
-					}
 					// Update unit price if not already set
 					if (r.standard_cost && !frm.doc.unit_price) {
 						frm.set_value('unit_price', r.standard_cost);
@@ -28,9 +24,6 @@ frappe.ui.form.on('Department Budget Item', {
 					calculate_budgeted_amount(frm);
 				}
 			});
-		} else {
-			// Clear category when item is cleared
-			frm.set_value('category', '');
 		}
 	},
 

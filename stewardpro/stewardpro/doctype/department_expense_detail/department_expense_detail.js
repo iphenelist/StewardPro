@@ -3,14 +3,11 @@
 
 frappe.ui.form.on('Department Expense Detail', {
 	item: function(frm, cdt, cdn) {
-		// Auto-populate category, description, and unit price from item
+		// Auto-populate description and unit price from item
 		let row = locals[cdt][cdn];
 		if (row.item) {
-			frappe.db.get_value('Item', row.item, ['category', 'description', 'standard_cost'], function(r) {
+			frappe.db.get_value('Item', row.item, ['description', 'standard_cost'], function(r) {
 				if (r) {
-					if (r.category) {
-						frappe.model.set_value(cdt, cdn, 'expense_category', r.category);
-					}
 					if (r.description && !row.expense_description) {
 						frappe.model.set_value(cdt, cdn, 'expense_description', r.description);
 					}

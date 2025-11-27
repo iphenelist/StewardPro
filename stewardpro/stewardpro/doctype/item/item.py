@@ -14,7 +14,6 @@ class Item(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		category: DF.Literal["Equipment", "Supplies", "Events", "Training", "Travel", "Utilities", "Maintenance", "Salaries", "Rent", "Insurance", "Other"]
 		department: DF.Link
 		description: DF.Text | None
 		is_active: DF.Check
@@ -26,18 +25,16 @@ class Item(Document):
 
 	def validate(self):
 		"""Validate Item"""
-		self.validate_item_name()
+		self.validate_item_uniqueness()
 		self.validate_department()
-	
-	def validate_item_name(self):
-		"""Validate item name is unique"""
+
+	def validate_item_uniqueness(self):
+		"""Validate item name and department are provided"""
 		if not self.item_name:
 			frappe.throw("Item Name is required")
-		
-		# Check for duplicate item names
-		existing = frappe.db.exists("Item", {"item_name": self.item_name, "name": ["!=", self.name]})
-		if existing:
-			frappe.throw(f"Item with name '{self.item_name}' already exists")
+
+		if not self.department:
+			frappe.throw("Department is required")
 	
 	def validate_department(self):
 		"""Validate department exists and is active"""
@@ -54,39 +51,17 @@ class Item(Document):
 
 
 @frappe.whitelist()
-def get_items_by_department(department, category=None):
-	"""Get active items filtered by department and optionally by category"""
+def get_items_by_department(department):
+	"""Get active items filtered by department"""
 	filters = {
 		"department": department,
 		"is_active": 1
 	}
-	
-	if category:
-		filters["category"] = category
-	
+
 	return frappe.get_all(
 		"Item",
 		filters=filters,
-		fields=["name", "item_name", "category", "standard_cost", "unit_of_measure"],
-		order_by="item_name"
-	)
-
-
-@frappe.whitelist()
-def get_items_by_category(category, department=None):
-	"""Get active items filtered by category and optionally by department"""
-	filters = {
-		"category": category,
-		"is_active": 1
-	}
-	
-	if department:
-		filters["department"] = department
-	
-	return frappe.get_all(
-		"Item",
-		filters=filters,
-		fields=["name", "item_name", "department", "standard_cost", "unit_of_measure"],
+		fields=["name", "item_name", "standard_cost", "unit_of_measure"],
 		order_by="item_name"
 	)
 
@@ -97,6 +72,6 @@ def get_active_items():
 	return frappe.get_all(
 		"Item",
 		filters={"is_active": 1},
-		fields=["name", "item_name", "category", "department", "standard_cost"],
+		fields=["name", "item_name", "department", "standard_cost"],
 		order_by="item_name"
 	)

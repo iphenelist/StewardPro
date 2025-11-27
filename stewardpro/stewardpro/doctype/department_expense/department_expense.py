@@ -143,7 +143,6 @@ class DepartmentExpense(Document):
 			budget_items.append({
 				"item": item.item,
 				"item_name": frappe.db.get_value("Item", item.item, "item_name"),
-				"category": item.category,
 				"description": item.description,
 				"quantity": item.quantity,
 				"unit_price": item.unit_price,
@@ -163,9 +162,9 @@ class DepartmentExpense(Document):
 
 		# Process each expense detail
 		for expense_detail in self.expense_details:
-			# Find matching budget item by category
+			# Find matching budget item by item
 			for budget_item in budget.budget_items:
-				if budget_item.category == expense_detail.expense_category:
+				if budget_item.item == expense_detail.item:
 					if reverse:
 						budget_item.spent_amount = (budget_item.spent_amount or 0) - expense_detail.amount
 					else:
@@ -223,7 +222,6 @@ def get_budget_items_for_reference(budget_reference):
 		budget_items.append({
 			"item": item.item,
 			"item_name": frappe.db.get_value("Item", item.item, "item_name"),
-			"category": item.category,
 			"description": item.description,
 			"quantity": item.quantity,
 			"unit_price": item.unit_price,

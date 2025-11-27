@@ -43,37 +43,6 @@ frappe.ui.form.on('Item', {
 		}
 	},
 	
-	department: function(frm) {
-		// Clear category when department changes to ensure proper filtering
-		if (frm.doc.department) {
-			// You can add department-specific category filtering here if needed
-		}
-	},
-	
-	category: function(frm) {
-		// Update standard cost based on category if needed
-		if (frm.doc.category && !frm.doc.standard_cost) {
-			// Set default costs based on category
-			let default_costs = {
-				'Equipment': 1000,
-				'Supplies': 100,
-				'Events': 500,
-				'Training': 300,
-				'Travel': 200,
-				'Utilities': 150,
-				'Maintenance': 250,
-				'Salaries': 2000,
-				'Rent': 1500,
-				'Insurance': 400,
-				'Other': 100
-			};
-			
-			if (default_costs[frm.doc.category]) {
-				frm.set_value('standard_cost', default_costs[frm.doc.category]);
-			}
-		}
-	},
-	
 	item_name: function(frm) {
 		// Auto-format item name
 		if (frm.doc.item_name) {
@@ -82,9 +51,9 @@ frappe.ui.form.on('Item', {
 	},
 
 	department: function(frm) {
-		// When department changes, validate that category is appropriate
-		if (frm.doc.department && frm.doc.category) {
-			// You can add department-specific category validation here if needed
+		// Department field handler
+		if (frm.doc.department) {
+			// Department validation is handled in the backend
 		}
 	}
 });

@@ -30,12 +30,6 @@ frappe.query_reports["Expense Report"] = {
 			"options": "Item"
 		},
 		{
-			"fieldname": "expense_category",
-			"label": __("Category"),
-			"fieldtype": "Select",
-			"options": "\nEquipment\nSupplies\nEvents\nTraining\nTravel\nUtilities\nMaintenance\nSalaries\nRent\nInsurance\nOther"
-		},
-		{
 			"fieldname": "status",
 			"label": __("Status"),
 			"fieldtype": "Select",
@@ -89,22 +83,16 @@ frappe.query_reports["Expense Report"] = {
 				callback: function(r) {
 					if (r.message) {
 						let data = r.message;
-						
+
 						let dept_html = "<h5>By Department</h5><table class='table table-sm'>";
 						data.by_department.forEach(function(dept) {
 							dept_html += `<tr><td>${dept.department}</td><td>${dept.count} expenses</td><td>${format_currency(dept.total_amount)}</td></tr>`;
 						});
 						dept_html += "</table>";
-						
-						let cat_html = "<h5>By Category</h5><table class='table table-sm'>";
-						data.by_category.forEach(function(cat) {
-							cat_html += `<tr><td>${cat.expense_category}</td><td>${cat.count} expenses</td><td>${format_currency(cat.total_amount)}</td></tr>`;
-						});
-						cat_html += "</table>";
-						
+
 						frappe.msgprint({
 							title: __("Expense Summary"),
-							message: dept_html + cat_html,
+							message: dept_html,
 							wide: true
 						});
 					}

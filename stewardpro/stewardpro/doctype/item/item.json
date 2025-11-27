@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:item_name",
+ "autoname": "format:{item_name}-{department_code}",
  "creation": "2024-12-10 10:00:00",
  "default_view": "List",
  "doctype": "DocType",
@@ -9,10 +9,10 @@
  "engine": "InnoDB",
  "field_order": [
   "item_name",
-  "category",
+  "is_active",
   "column_break_1",
   "department",
-  "is_active",
+  "department_code",
   "section_break_1",
   "description",
   "section_break_2",
@@ -28,15 +28,6 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Item Name",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
-   "fieldname": "category",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Category",
-   "options": "Equipment\nSupplies\nEvents\nTraining\nTravel\nUtilities\nMaintenance\nSalaries\nRent\nInsurance\nOther",
    "reqd": 1
   },
   {
@@ -99,11 +90,17 @@
    "fieldname": "notes",
    "fieldtype": "Text",
    "label": "Notes"
+  },
+  {
+   "fetch_from": "department.department_code",
+   "fieldname": "department_code",
+   "fieldtype": "Data",
+   "label": "Department Code"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-27 11:44:15.689712",
+ "modified": "2025-11-27 12:46:28.816196",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Item",

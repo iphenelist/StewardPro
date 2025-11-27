@@ -19,14 +19,11 @@ frappe.ui.form.on("Department Budget", {
 
 frappe.ui.form.on("Department Budget Item", {
 	item: function(frm, cdt, cdn) {
-		// Auto-populate category and cost when item is selected
+		// Auto-populate cost and description when item is selected
 		let row = locals[cdt][cdn];
 		if (row.item) {
-			frappe.db.get_value('Item', row.item, ['category', 'standard_cost', 'description'], function(r) {
+			frappe.db.get_value('Item', row.item, ['standard_cost', 'description'], function(r) {
 				if (r) {
-					if (r.category) {
-						frappe.model.set_value(cdt, cdn, 'category', r.category);
-					}
 					if (r.standard_cost && !row.unit_price) {
 						frappe.model.set_value(cdt, cdn, 'unit_price', r.standard_cost);
 					}
