@@ -95,12 +95,13 @@
    "fetch_from": "department.department_code",
    "fieldname": "department_code",
    "fieldtype": "Data",
-   "label": "Department Code"
+   "label": "Department Code",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-27 12:46:28.816196",
+ "modified": "2025-11-27 14:38:00.619857",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Item",
