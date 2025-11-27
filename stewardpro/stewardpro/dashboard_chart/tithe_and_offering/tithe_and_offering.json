@@ -14,7 +14,8 @@
  "idx": 0,
  "is_public": 1,
  "is_standard": 1,
- "modified": "2025-11-24 14:52:59.530783",
+ "last_synced_on": "2025-11-27 11:43:00.116744",
+ "modified": "2025-11-27 12:03:31.966354",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Tithe and Offering",
@@ -22,9 +23,6 @@
  "owner": "Administrator",
  "parent_document_type": "",
  "roles": [
-  {
-   "role": "Church Member"
-  },
   {
    "role": "Elder"
   },
