@@ -94,13 +94,15 @@ module_default_workspace = "stewardpro"
 # before_install = ""
 after_install = [
     "stewardpro.patches.import_departments.execute",
-    "stewardpro.patches.sample_items.execute"
+    "stewardpro.patches.sample_items.execute",
+    "stewardpro.patches.create_roles.execute"
 ]
 
 after_migrate = [
     "stewardpro.patches.import_departments.execute",
     "stewardpro.patches.sample_items.execute",
-    "stewardpro.patches.migrate_expense_to_child_table.execute"
+    "stewardpro.patches.migrate_expense_to_child_table.execute",
+    "stewardpro.patches.create_roles.execute"
 ]
 
 # Uninstallation
@@ -258,10 +260,4 @@ scheduler_events = {
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-
-# Custom bench commands
-# ------------------
-commands = [
-	"stewardpro.stewardpro.commands.workspace.check_workspace"
-]
 

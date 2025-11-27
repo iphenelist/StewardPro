@@ -75,12 +75,6 @@ The Department DocType is integrated with:
 - **Expense Reports**: Filter expenses by department
 - **Budget Utilization Reports**: Track department spending
 
-## Permissions
-
-- **System Manager**: Full access (create, read, update, delete)
-- **Church Administrator**: Full access (create, read, update, delete)
-- **Church Member**: Read-only access
-
 ## Sample Data
 
 The system includes sample departments:

@@ -131,7 +131,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-19 17:50:37.374043",
+ "modified": "2025-11-27 11:37:40.691053",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "Department",
@@ -158,7 +158,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Church Administrator",
+   "role": "Department Head",
    "share": 1,
    "write": 1
   },
@@ -168,8 +168,20 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Church Member",
+   "role": "Elder",
    "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Treasurer",
+   "share": 1,
+   "write": 1
   }
  ],
  "quick_entry": 1,
