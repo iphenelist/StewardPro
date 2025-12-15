@@ -107,7 +107,13 @@ def get_data(filters):
 											  previous_month_start, previous_month_end,
 											  year_start, today, previous_year_start, previous_year_end)
 	data.append(special_data)
-	
+
+	# Department Income
+	dept_income_data = get_department_income_data(current_month_start, current_month_end,
+												  previous_month_start, previous_month_end,
+												  year_start, today, previous_year_start, previous_year_end)
+	data.extend(dept_income_data)
+
 	# Total Income
 	total_income = calculate_total_income(data)
 	data.append(total_income)
@@ -331,6 +337,86 @@ def get_special_offerings_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_
 	}
 
 
+def get_department_income_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
+	income_table = frappe.qb.DocType("Department Income")
+
+	# Get departments with income
+	departments = (
+		frappe.qb.from_(income_table)
+		.select(income_table.department)
+		.distinct()
+		.where(income_table.docstatus == 1)
+		.orderby(income_table.department)
+	).run()
+
+	data = []
+	for dept in departments:
+		dept_name = dept[0]
+
+		# Current month
+		current_month = (
+			frappe.qb.from_(income_table)
+			.select(Sum(income_table.amount))
+			.where(
+				(income_table.date >= cm_start) &
+				(income_table.date <= cm_end) &
+				(income_table.department == dept_name) &
+				(income_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		# Previous month
+		previous_month = (
+			frappe.qb.from_(income_table)
+			.select(Sum(income_table.amount))
+			.where(
+				(income_table.date >= pm_start) &
+				(income_table.date <= pm_end) &
+				(income_table.department == dept_name) &
+				(income_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		# Year to date
+		year_to_date = (
+			frappe.qb.from_(income_table)
+			.select(Sum(income_table.amount))
+			.where(
+				(income_table.date >= yt_start) &
+				(income_table.date <= yt_end) &
+				(income_table.department == dept_name) &
+				(income_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		# Previous year
+		previous_year = (
+			frappe.qb.from_(income_table)
+			.select(Sum(income_table.amount))
+			.where(
+				(income_table.date >= py_start) &
+				(income_table.date <= py_end) &
+				(income_table.department == dept_name) &
+				(income_table.docstatus == 1)
+			)
+		).run()[0][0] or 0
+
+		month_change = calculate_percentage_change(current_month, previous_month)
+		year_change = calculate_percentage_change(year_to_date, previous_year)
+
+		data.append({
+			"category": f"{dept_name} Income",
+			"current_month": current_month,
+			"previous_month": previous_month,
+			"year_to_date": year_to_date,
+			"previous_year": previous_year,
+			"month_change": month_change,
+			"year_change": year_change
+		})
+
+	return data
+
+
 def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
 	expense_table = frappe.qb.DocType("Department Expense")
 
@@ -452,18 +538,19 @@ def get_remittance_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py
 
 def calculate_total_income(data):
 	# Calculate totals from income items (skip headers)
-	income_items = [item for item in data if item.get("category") and 
-					not item["category"].startswith("<b>") and 
-					item["category"] in ["Tithes", "Regular Offerings", "Special Offerings"]]
-	
+	income_items = [item for item in data if item.get("category") and
+					not item["category"].startswith("<b>") and
+					(item["category"] in ["Tithes", "Regular Offerings", "Special Offerings"] or
+					 item["category"].endswith(" Income"))]
+
 	current_month = sum(flt(item.get("current_month", 0)) for item in income_items)
 	previous_month = sum(flt(item.get("previous_month", 0)) for item in income_items)
 	year_to_date = sum(flt(item.get("year_to_date", 0)) for item in income_items)
 	previous_year = sum(flt(item.get("previous_year", 0)) for item in income_items)
-	
+
 	month_change = calculate_percentage_change(current_month, previous_month)
 	year_change = calculate_percentage_change(year_to_date, previous_year)
-	
+
 	return {
 		"category": "<b>TOTAL INCOME</b>",
 		"current_month": current_month,

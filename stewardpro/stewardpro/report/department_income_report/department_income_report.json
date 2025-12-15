@@ -1,0 +1,63 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2025-12-10 10:00:00.000000",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "income_type",
+   "fieldtype": "Select",
+   "label": "Income Type",
+   "options": "\nTithe\nOffering\nDonation\nFund Raising\nGrant\nOther"
+  },
+  {
+   "fieldname": "payment_mode",
+   "fieldtype": "Select",
+   "label": "Payment Mode",
+   "options": "\nCash\nCheque\nBank Transfer\nMpesa\nCredit Card\nOther"
+  }
+ ],
+ "is_standard": "Yes",
+ "letter_head": "",
+ "modified": "2025-12-10 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "StewardPro",
+ "name": "Department Income Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "",
+ "ref_doctype": "Department Income",
+ "report_name": "Department Income Report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Treasurer"
+  },
+  {
+   "role": "Church Elder"
+  }
+ ]
+}
+

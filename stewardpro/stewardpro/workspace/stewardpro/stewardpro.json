@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"ONWqzR1hWm\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewardPro</span>\",\"col\":12}},{\"id\":\"joeUBqVg3N\",\"type\":\"card\",\"data\":{\"card_name\":\"Setups\",\"col\":4}},{\"id\":\"rFCn0canlm\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgets\",\"col\":4}},{\"id\":\"IVKq5VnwPz\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"NMODLkXstN\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"95eMqfxHO-\",\"type\":\"card\",\"data\":{\"card_name\":\"Budget Reports\",\"col\":4}},{\"id\":\"KNAAUPeif0\",\"type\":\"card\",\"data\":{\"card_name\":\"Income Reports\",\"col\":4}},{\"id\":\"J3UyOG4z3O\",\"type\":\"card\",\"data\":{\"card_name\":\"Expense Reports\",\"col\":4}},{\"id\":\"aOEf5rZf5F\",\"type\":\"card\",\"data\":{\"card_name\":\"Summary Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"ONWqzR1hWm\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">StewardPro</span>\",\"col\":12}},{\"id\":\"joeUBqVg3N\",\"type\":\"card\",\"data\":{\"card_name\":\"Setups\",\"col\":4}},{\"id\":\"rFCn0canlm\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgets\",\"col\":4}},{\"id\":\"IVKq5VnwPz\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"NMODLkXstN\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"95eMqfxHO-\",\"type\":\"card\",\"data\":{\"card_name\":\"Budget Reports\",\"col\":4}},{\"id\":\"KNAAUPeif0\",\"type\":\"card\",\"data\":{\"card_name\":\"Income & Expence Reports\",\"col\":4}},{\"id\":\"aOEf5rZf5F\",\"type\":\"card\",\"data\":{\"card_name\":\"Summary Reports\",\"col\":4}}]",
  "creation": "2025-11-24 15:01:44.678844",
  "custom_blocks": [],
  "docstatus": 0,
@@ -95,10 +95,20 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Transactions",
-   "link_count": 2,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department Income",
+   "link_count": 0,
+   "link_to": "Department Income",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   },
   {
    "hidden": 0,
@@ -122,19 +132,10 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
-   "label": "Budget Reports",
-   "link_count": 1,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
    "is_query_report": 1,
-   "label": "Departmental Budget Report",
+   "label": "Expense Report",
    "link_count": 0,
-   "link_to": "Departmental Budget Report",
+   "link_to": "Expense Report",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -142,11 +143,60 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Income Reports",
+   "label": "Summary Reports",
    "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Department Balance Report",
+   "link_count": 0,
+   "link_to": "Department Balance Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Annual Report",
+   "link_count": 0,
+   "link_to": "Annual Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Financial Summary",
+   "link_count": 0,
+   "link_to": "Financial Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Income & Expence Reports",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Department Income Report",
+   "link_count": 0,
+   "link_to": "Department Income Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   },
   {
    "hidden": 0,
@@ -180,15 +230,6 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
-   "label": "Expense Reports",
-   "link_count": 1,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
    "is_query_report": 1,
    "label": "Expense Report",
    "link_count": 0,
@@ -200,8 +241,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Summary Reports",
-   "link_count": 2,
+   "label": "Budget Reports",
+   "link_count": 1,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -209,25 +250,15 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Annual Report",
+   "label": "Departmental Budget Report",
    "link_count": 0,
-   "link_to": "Annual Report",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Financial Summary",
-   "link_count": 0,
-   "link_to": "Financial Summary",
+   "link_to": "Departmental Budget Report",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2025-11-24 15:22:51.153117",
+ "modified": "2025-12-10 16:23:49.315564",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "StewardPro",

@@ -86,26 +86,106 @@ class Department(Document):
 		"""Get budget utilization for the department"""
 		if not year:
 			year = getdate(nowdate()).year
-			
+
 		# Get total expenses for the year
 		expenses = frappe.db.sql("""
 			SELECT SUM(amount) as total_expenses
 			FROM `Department Expense`
-			WHERE department = %s 
+			WHERE department = %s
 			AND YEAR(expense_date) = %s
 			AND docstatus = 1
 		""", (self.name, year), as_dict=True)
-		
+
 		total_expenses = expenses[0].total_expenses or 0
 		budget = self.annual_budget or 0
-		
+
 		utilization_percentage = (total_expenses / budget * 100) if budget > 0 else 0
-		
+
 		return {
 			"budget": budget,
 			"expenses": total_expenses,
 			"remaining": budget - total_expenses,
 			"utilization_percentage": utilization_percentage
+		}
+
+	@frappe.whitelist()
+	def get_department_income(self, from_date=None, to_date=None):
+		"""Get total income for this department within date range"""
+		filters = {
+			"department": self.name,
+			"docstatus": 1
+		}
+
+		if from_date:
+			filters["date"] = [">=", from_date]
+		if to_date:
+			filters["date"] = ["<=", to_date]
+
+		income_records = frappe.get_all(
+			"Department Income",
+			filters=filters,
+			fields=["name", "date", "amount", "income_type", "description"]
+		)
+
+		return income_records
+
+	@frappe.whitelist()
+	def get_total_income(self, year=None):
+		"""Get total income for the department in a specific year"""
+		if not year:
+			year = getdate(nowdate()).year
+
+		income = frappe.db.sql("""
+			SELECT SUM(amount) as total_income
+			FROM `tabDepartment Income`
+			WHERE department = %s
+			AND YEAR(date) = %s
+			AND docstatus = 1
+		""", (self.name, year), as_dict=True)
+
+		return income[0].total_income or 0 if income else 0
+
+	@frappe.whitelist()
+	def get_income_by_type(self, year=None):
+		"""Get income breakdown by type for the department"""
+		if not year:
+			year = getdate(nowdate()).year
+
+		income_by_type = frappe.db.sql("""
+			SELECT income_type, SUM(amount) as total
+			FROM `tabDepartment Income`
+			WHERE department = %s
+			AND YEAR(date) = %s
+			AND docstatus = 1
+			GROUP BY income_type
+		""", (self.name, year), as_dict=True)
+
+		return income_by_type
+
+	@frappe.whitelist()
+	def get_department_balance(self, year=None):
+		"""Get department balance (income - expenses) for the year"""
+		if not year:
+			year = getdate(nowdate()).year
+
+		total_income = self.get_total_income(year)
+
+		# Get total expenses for the year
+		expenses = frappe.db.sql("""
+			SELECT SUM(total_amount) as total_expenses
+			FROM `tabDepartment Expense`
+			WHERE department = %s
+			AND YEAR(expense_date) = %s
+			AND docstatus = 1
+		""", (self.name, year), as_dict=True)
+
+		total_expenses = expenses[0].total_expenses or 0 if expenses else 0
+		balance = total_income - total_expenses
+
+		return {
+			"income": total_income,
+			"expenses": total_expenses,
+			"balance": balance
 		}
 
 
