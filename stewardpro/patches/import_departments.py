@@ -24,10 +24,10 @@ departments = [
 
     {"doctype": "Department", "department_name": "Idara ya Elimu", "department_code": "EDU", "is_active": 1, "description": "Inasimamia miradi na programu za elimu."},
 
-    {"doctype": "Department", "department_name": "Uinjilisti", "department_code": "EV", "is_active": 1, "description": "Inaongoza shughuli za uinjilisti na misioni."},
+    {"doctype": "Department", "department_name": "Huduma", "department_code": "EV", "is_active": 1, "description": "Inaongoza shughuli za uinjilisti na misioni."},
 
     {"doctype": "Department", "department_name": "Uwakili", "department_code": "ST", "is_active": 1, "description": "Inahimiza uaminifu katika utoaji na usimamizi wa mali ya Mungu."},
-
+b
     {"doctype": "Department", "department_name": "Kaya na Familia", "department_code": "FL", "is_active": 1, "description": "Inaleta mafundisho na msaada kwa familia."},
 
     {"doctype": "Department", "department_name": "Mawasiliano", "department_code": "COM", "is_active": 1, "description": "Inashughulikia mawasiliano ya kanisa na media."},
