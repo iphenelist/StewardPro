@@ -4,23 +4,12 @@
 frappe.ui.form.on('Department', {
 	refresh: function(frm) {
 		// Add custom buttons
-		if (!frm.doc.__islocal) {
-			frm.add_custom_button(__('View Expenses'), function() {
-				frappe.route_options = {
-					"department": frm.doc.name
-				};
-				frappe.set_route("List", "Expense");
-			});
-			
+		if (!frm.doc.__islocal) {			
 			frm.add_custom_button(__('Budget Report'), function() {
 				frappe.route_options = {
 					"department": frm.doc.name
 				};
 				frappe.set_route("query-report", "Departmental Budget Report");
-			});
-			
-			frm.add_custom_button(__('Budget Utilization'), function() {
-				show_budget_utilization(frm);
 			});
 		}
 		
@@ -28,6 +17,13 @@ frappe.ui.form.on('Department', {
 		if (frm.doc.__islocal && !frm.doc.budget_year) {
 			frm.set_value('budget_year', new Date().getFullYear());
 		}
+		frm.set_query('department_head', () => {
+			return {
+				filters: {
+					role: 'Department Head'
+				}
+			}
+		})
 	},
 	
 	department_code: function(frm) {
@@ -45,74 +41,6 @@ frappe.ui.form.on('Department', {
 		}
 	}
 });
-
-function show_budget_utilization(frm) {
-	frappe.call({
-		method: 'get_budget_utilization',
-		doc: frm.doc,
-		args: {
-			year: frm.doc.budget_year || new Date().getFullYear()
-		},
-		callback: function(r) {
-			if (r.message) {
-				let data = r.message;
-				let utilization_color = 'green';
-				
-				if (data.utilization_percentage > 90) {
-					utilization_color = 'red';
-				} else if (data.utilization_percentage > 75) {
-					utilization_color = 'orange';
-				}
-				
-				let html = `
-					<div class="row">
-						<div class="col-md-6">
-							<h5>Budget Utilization for ${frm.doc.budget_year || new Date().getFullYear()}</h5>
-							<table class="table table-bordered">
-								<tr>
-									<td><strong>Annual Budget</strong></td>
-									<td>${format_currency(data.budget)}</td>
-								</tr>
-								<tr>
-									<td><strong>Total Expenses</strong></td>
-									<td>${format_currency(data.expenses)}</td>
-								</tr>
-								<tr>
-									<td><strong>Remaining Budget</strong></td>
-									<td style="color: ${data.remaining >= 0 ? 'green' : 'red'}">
-										${format_currency(data.remaining)}
-									</td>
-								</tr>
-								<tr>
-									<td><strong>Utilization</strong></td>
-									<td style="color: ${utilization_color}">
-										${data.utilization_percentage.toFixed(1)}%
-									</td>
-								</tr>
-							</table>
-						</div>
-						<div class="col-md-6">
-							<div class="progress" style="height: 30px; margin-top: 20px;">
-								<div class="progress-bar" role="progressbar" 
-									style="width: ${Math.min(data.utilization_percentage, 100)}%; background-color: ${utilization_color};"
-									aria-valuenow="${data.utilization_percentage}" 
-									aria-valuemin="0" aria-valuemax="100">
-									${data.utilization_percentage.toFixed(1)}%
-								</div>
-							</div>
-						</div>
-					</div>
-				`;
-				
-				frappe.msgprint({
-					title: __('Budget Utilization'),
-					message: html,
-					wide: true
-				});
-			}
-		}
-	});
-}
 
 // Department Tree View
 frappe.treeview_settings["Department"] = {
