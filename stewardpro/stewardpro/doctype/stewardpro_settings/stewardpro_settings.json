@@ -36,7 +36,8 @@
    "depends_on": "eval: doc.enable_sms_integration",
    "fieldname": "sms_api_key",
    "fieldtype": "Password",
-   "label": "SMS API Key"
+   "label": "SMS API Key",
+   "mandatory_depends_on": "eval: doc.enable_sms_integration"
   },
   {
    "fieldname": "column_break_1",
@@ -46,21 +47,24 @@
    "depends_on": "eval: doc.enable_sms_integration",
    "fieldname": "sms_api_secret",
    "fieldtype": "Password",
-   "label": "SMS API Secret"
+   "label": "SMS API Secret",
+   "mandatory_depends_on": "eval: doc.enable_sms_integration"
   },
   {
    "default": "StewardPro",
    "depends_on": "eval: doc.enable_sms_integration",
    "fieldname": "sms_sender_id",
    "fieldtype": "Data",
-   "label": "SMS Sender ID"
+   "label": "SMS Sender ID",
+   "mandatory_depends_on": "eval: doc.enable_sms_integration"
   },
   {
    "depends_on": "eval: doc.enable_sms_integration",
+   "description": "SMS API endpoint URL (e.g., https://onsms.co.tz/api/method/always_on_sms.api.sms.send_sms)",
    "fieldname": "sms_base_url",
    "fieldtype": "Data",
    "label": "SMS Base URL",
-   "description": "SMS API endpoint URL (e.g., https://onsms.co.tz/api/method/always_on_sms.api.sms.send_sms)"
+   "mandatory_depends_on": "eval: doc.enable_sms_integration"
   },
   {
    "fieldname": "mobile_money_integration_section",
@@ -75,16 +79,18 @@
   },
   {
    "depends_on": "eval: doc.enable_mobile_money_integration",
+   "description": "Mobile Money API endpoint URL (e.g., https://api.example.com/payment/send)",
    "fieldname": "mobile_money_base_url",
    "fieldtype": "Data",
    "label": "Mobile Money Base URL",
-   "description": "Mobile Money API endpoint URL (e.g., https://api.example.com/payment/send)"
+   "mandatory_depends_on": "eval: doc.enable_mobile_money_integration"
   },
   {
    "depends_on": "eval: doc.enable_mobile_money_integration",
    "fieldname": "supported_providers",
    "fieldtype": "Data",
-   "label": "Supported Providers"
+   "label": "Supported Providers",
+   "mandatory_depends_on": "eval: doc.enable_mobile_money_integration"
   },
   {
    "fieldname": "column_break_2",
@@ -94,19 +100,21 @@
    "depends_on": "eval: doc.enable_mobile_money_integration",
    "fieldname": "money_api_key",
    "fieldtype": "Password",
-   "label": "Money API Key"
+   "label": "Money API Key",
+   "mandatory_depends_on": "eval: doc.enable_mobile_money_integration"
   },
   {
    "depends_on": "eval: doc.enable_mobile_money_integration",
    "fieldname": "money_public_key",
    "fieldtype": "Password",
-   "label": "Money Public Key"
+   "label": "Money Public Key",
+   "mandatory_depends_on": "eval: doc.enable_mobile_money_integration"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-11-19 15:30:58.939028",
+ "modified": "2025-12-31 09:24:46.119557",
  "modified_by": "Administrator",
  "module": "StewardPro",
  "name": "StewardPro Settings",

@@ -11,15 +11,15 @@ app_license = "mit"
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "stewardpro",
-# 		"logo": "/assets/stewardpro/logo.png",
-# 		"title": "StewardPro",
-# 		"route": "/stewardpro",
-# 		"has_permission": "stewardpro.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "stewardpro",
+		"logo": "/assets/stewardpro/assets/img/stewardpro.svg",
+		"title": "StewardPro",
+		"route": "/app/stewardpro",
+		# "has_permission": "stewardpro.api.permission.has_app_permission"
+	}
+]
 
 # Includes in <head>
 # ------------------
