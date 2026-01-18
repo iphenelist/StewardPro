@@ -105,18 +105,18 @@ function get_financial_chart_data(data, filters, chart_type) {
 function get_income_expense_pie_data(data) {
 	let total_income = 0;
 	let total_expenses = 0;
-	
+
 	data.forEach(row => {
 		const category = row.category || "";
 		const current_month = row.current_month || 0;
-		
+
 		if (category === "Tithes" || category === "Regular Offerings" || category === "Special Offerings") {
 			total_income += current_month;
-		} else if (category.includes("Expenses") || category === "Remittances") {
+		} else if (category.includes("Expenses")) {
 			total_expenses += current_month;
 		}
 	});
-	
+
 	return {
 		title: __('Income vs Expenses (Current Month)'),
 		data: {
@@ -188,17 +188,19 @@ function show_income_breakdown_chart(report) {
 		frappe.msgprint(__('No data available for chart'));
 		return;
 	}
-	
+
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.financial_summary.financial_summary.get_income_breakdown_chart',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Income Breakdown');
 				show_chart_modal(r.message, 'donut');
+			} else {
+				frappe.msgprint(__('No income data available to display'));
 			}
 		}
 	});
@@ -209,17 +211,19 @@ function show_expense_breakdown_chart(report) {
 		frappe.msgprint(__('No data available for chart'));
 		return;
 	}
-	
+
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.financial_summary.financial_summary.get_expense_breakdown_chart',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Expense Analysis');
 				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No expense data available to display'));
 			}
 		}
 	});
@@ -230,17 +234,19 @@ function show_trend_comparison_chart(report) {
 		frappe.msgprint(__('No data available for chart'));
 		return;
 	}
-	
+
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.financial_summary.financial_summary.get_trend_comparison_chart',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Trend Comparison');
 				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No trend data available to display'));
 			}
 		}
 	});
@@ -264,12 +270,12 @@ function show_financial_dashboard(report) {
 		const current = row.current_month || 0;
 		const previous = row.previous_month || 0;
 		const ytd = row.year_to_date || 0;
-		
+
 		if (category === "Tithes" || category === "Regular Offerings" || category === "Special Offerings") {
 			total_income_current += current;
 			total_income_previous += previous;
 			total_income_ytd += ytd;
-		} else if (category.includes("Expenses") || category === "Remittances") {
+		} else if (category.includes("Expenses")) {
 			total_expenses_current += current;
 			total_expenses_ytd += ytd;
 		}
@@ -364,7 +370,7 @@ function show_financial_dashboard(report) {
 function show_chart_modal(chart_data, chart_type) {
 	const dialog = new frappe.ui.Dialog({
 		title: chart_data.title || __('Chart'),
-		size: 'extra-large',
+		size: 'large',
 		fields: [
 			{
 				fieldtype: 'HTML',
@@ -376,28 +382,13 @@ function show_chart_modal(chart_data, chart_type) {
 	dialog.show();
 
 	setTimeout(() => {
-		let chart_config;
-		if (typeof stewardpro !== 'undefined' && stewardpro.charts && stewardpro.charts.create_chart_config) {
-			chart_config = stewardpro.charts.create_chart_config(chart_data.data, {
-				title: chart_data.title,
-				type: chart_type,
-				height: 400,
-				colors: stewardpro.charts.color_schemes.financial || ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0'],
-				...chart_data.options
-			});
-		} else {
-			// Fallback chart configuration
-			chart_config = {
-				title: chart_data.title,
-				data: chart_data.data,
-				type: chart_type,
-				height: 400,
-				colors: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#F44336'],
-				animate: true,
-				...chart_data.options
-			};
-		}
+		const chart_config = {
+			data: chart_data.data,
+			type: chart_type,
+			height: 300,
+			colors: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0']
+		};
 
 		new frappe.Chart(dialog.fields_dict.chart_html.$wrapper[0], chart_config);
-	}, 100);
+	}, 200);
 }

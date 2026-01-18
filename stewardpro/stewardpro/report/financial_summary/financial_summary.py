@@ -144,13 +144,7 @@ def get_data(filters):
 									previous_month_start, previous_month_end,
 									year_start, today, previous_year_start, previous_year_end)
 	data.extend(expense_data)
-	
-	# Remittances
-	remittance_data = get_remittance_data(current_month_start, current_month_end,
-										  previous_month_start, previous_month_end,
-										  year_start, today, previous_year_start, previous_year_end)
-	data.append(remittance_data)
-	
+
 	return data
 
 
@@ -497,45 +491,6 @@ def get_expense_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_st
 	return data
 
 
-def get_remittance_data(cm_start, cm_end, pm_start, pm_end, yt_start, yt_end, py_start, py_end):
-	current_month = frappe.db.sql("""
-		SELECT SUM(total_remittance_amount) as total
-		FROM `tabRemittance`
-		WHERE remittance_date BETWEEN %s AND %s AND docstatus = 1
-	""", (cm_start, cm_end))[0][0] or 0
-	
-	previous_month = frappe.db.sql("""
-		SELECT SUM(total_remittance_amount) as total
-		FROM `tabRemittance`
-		WHERE remittance_date BETWEEN %s AND %s AND docstatus = 1
-	""", (pm_start, pm_end))[0][0] or 0
-	
-	year_to_date = frappe.db.sql("""
-		SELECT SUM(total_remittance_amount) as total
-		FROM `tabRemittance`
-		WHERE remittance_date BETWEEN %s AND %s AND docstatus = 1
-	""", (yt_start, yt_end))[0][0] or 0
-	
-	previous_year = frappe.db.sql("""
-		SELECT SUM(total_remittance_amount) as total
-		FROM `tabRemittance`
-		WHERE remittance_date BETWEEN %s AND %s AND docstatus = 1
-	""", (py_start, py_end))[0][0] or 0
-	
-	month_change = calculate_percentage_change(current_month, previous_month)
-	year_change = calculate_percentage_change(year_to_date, previous_year)
-	
-	return {
-		"category": "Remittances",
-		"current_month": current_month,
-		"previous_month": previous_month,
-		"year_to_date": year_to_date,
-		"previous_year": previous_year,
-		"month_change": month_change,
-		"year_change": year_change
-	}
-
-
 def calculate_total_income(data):
 	# Calculate totals from income items (skip headers)
 	income_items = [item for item in data if item.get("category") and
@@ -591,7 +546,7 @@ def get_chart_data(data, filters):
 				"current_month": current_month,
 				"year_to_date": year_to_date
 			})
-		elif "Expenses" in category or category == "Remittances":
+		elif "Expenses" in category:
 			expense_data.append({
 				"category": category,
 				"current_month": current_month,
@@ -687,7 +642,7 @@ def get_expense_breakdown_chart(data, filters):
 			continue
 
 		category = row.get("category", "")
-		if "Expenses" in category or category == "Remittances":
+		if "Expenses" in category:
 			expense_categories.append(category.replace(" Expenses", ""))
 			# Convert to float, handling empty strings and None values
 			try:
