@@ -10,6 +10,13 @@ frappe.ui.form.on("Tithes and Offerings", {
 				send_receipt_sms_manual(frm);
 			}, __('SMS'));
 		}
+		frm.set_query('member', () => {
+			return {
+				filters: {
+					status: 'Active'
+				}
+			}
+		})
 	}
 });
 
