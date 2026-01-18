@@ -195,13 +195,15 @@ function show_member_contributions_chart(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.tithes_and_offerings_report.tithes_and_offerings_report.get_member_chart_data',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Top Contributors');
-				show_chart_modal(r.message, 'pie');
+				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No contributor data available to display'));
 			}
 		}
 	});
@@ -217,13 +219,15 @@ function show_payment_mode_chart(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.tithes_and_offerings_report.tithes_and_offerings_report.get_payment_mode_chart_data',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Payment Methods Distribution');
-				show_chart_modal(r.message, 'donut');
+				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No payment mode data available to display'));
 			}
 		}
 	});
@@ -363,7 +367,7 @@ function show_summary_dashboard(report) {
 function show_chart_modal(chart_data, chart_type) {
 	const dialog = new frappe.ui.Dialog({
 		title: chart_data.title || __('Chart'),
-		size: 'extra-large',
+		size: 'large',
 		fields: [
 			{
 				fieldtype: 'HTML',
@@ -375,28 +379,13 @@ function show_chart_modal(chart_data, chart_type) {
 	dialog.show();
 
 	setTimeout(() => {
-		let chart_config;
-		if (typeof stewardpro !== 'undefined' && stewardpro.charts && stewardpro.charts.create_chart_config) {
-			chart_config = stewardpro.charts.create_chart_config(chart_data.data, {
-				title: chart_data.title,
-				type: chart_type,
-				height: 400,
-				colors: stewardpro.charts.color_schemes.stewardpro,
-				...chart_data.options
-			});
-		} else {
-			// Fallback chart configuration
-			chart_config = {
-				title: chart_data.title,
-				data: chart_data.data,
-				type: chart_type,
-				height: 400,
-				colors: ['#2E7D32', '#1976D2', '#F57C00', '#7B1FA2', '#D32F2F'],
-				animate: true,
-				...chart_data.options
-			};
-		}
+		const chart_config = {
+			data: chart_data.data,
+			type: chart_type,
+			height: 300,
+			colors: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0']
+		};
 
 		new frappe.Chart(dialog.fields_dict.chart_html.$wrapper[0], chart_config);
-	}, 100);
+	}, 200);
 }
