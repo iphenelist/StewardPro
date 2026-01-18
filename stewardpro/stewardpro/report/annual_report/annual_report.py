@@ -185,7 +185,7 @@ def get_data(filters):
 		"change_percentage": ""
 	})
 	
-	# Remittances and Expenses Section
+	# Expenses Section
 	data.append({
 		"category": "<b>OUTGOING</b>",
 		"amount": "",
@@ -194,20 +194,7 @@ def get_data(filters):
 		"change_amount": "",
 		"change_percentage": ""
 	})
-	
-	# Total Remitted
-	remit_change = current_data.get("total_remitted", 0) - previous_data.get("total_remitted", 0)
-	remit_change_pct = calculate_percentage_change(current_data.get("total_remitted", 0), previous_data.get("total_remitted", 0))
-	
-	data.append({
-		"category": "Total Remitted",
-		"amount": current_data.get("total_remitted", 0),
-		"percentage": (current_data.get("total_remitted", 0) / total_income * 100) if total_income > 0 else 0,
-		"previous_year_amount": previous_data.get("total_remitted", 0),
-		"change_amount": remit_change,
-		"change_percentage": remit_change_pct
-	})
-	
+
 	# Total Expenses
 	expense_change = current_data.get("total_expenses", 0) - previous_data.get("total_expenses", 0)
 	expense_change_pct = calculate_percentage_change(current_data.get("total_expenses", 0), previous_data.get("total_expenses", 0))
@@ -222,8 +209,8 @@ def get_data(filters):
 	})
 	
 	# Net Balance
-	net_balance = total_income - current_data.get("total_remitted", 0) - current_data.get("total_expenses", 0)
-	previous_net = previous_total_income - previous_data.get("total_remitted", 0) - previous_data.get("total_expenses", 0)
+	net_balance = total_income - current_data.get("total_expenses", 0)
+	previous_net = previous_total_income - previous_data.get("total_expenses", 0)
 	net_change = net_balance - previous_net
 	net_change_pct = calculate_percentage_change(net_balance, previous_net)
 	
@@ -241,58 +228,50 @@ def get_data(filters):
 
 def get_year_data(year):
 	"""Get financial data for a specific year using Frappe QB"""
-	TithesOfferings = DocType("Tithes and Offerings")
-	Remittance = DocType("Remittance")
-	Expense = DocType("Department Expense")
-
 	# Create date range for the year
 	year_start = getdate(f"{year}-01-01")
 	year_end = getdate(f"{year}-12-31")
 
+	contrib_data = {}
+	expense_data = {}
+
 	# Get contributions data
-	contributions_query = (
-		frappe.qb.from_(TithesOfferings)
-		.select(
-			Sum(TithesOfferings.tithe_amount).as_("total_tithes"),
-			Sum(TithesOfferings.offering_amount).as_("total_offerings"),
-			Sum(TithesOfferings.campmeeting_offering).as_("total_camp_meeting"),
-			Sum(TithesOfferings.church_building_offering).as_("total_building")
+	try:
+		TithesOfferings = DocType("Tithes and Offerings")
+		contributions_query = (
+			frappe.qb.from_(TithesOfferings)
+			.select(
+				Sum(TithesOfferings.tithe_amount).as_("total_tithes"),
+				Sum(TithesOfferings.offering_amount).as_("total_offerings"),
+				Sum(TithesOfferings.campmeeting_offering).as_("total_camp_meeting"),
+				Sum(TithesOfferings.church_building_offering).as_("total_building")
+			)
+			.where(TithesOfferings.docstatus == 1)
+			.where(TithesOfferings.date >= year_start)
+			.where(TithesOfferings.date <= year_end)
 		)
-		.where(TithesOfferings.docstatus == 1)
-		.where(TithesOfferings.date >= year_start)
-		.where(TithesOfferings.date <= year_end)
-	)
+		contributions = contributions_query.run(as_dict=True)
+		contrib_data = contributions[0] if contributions else {}
+	except Exception:
+		contrib_data = {}
 
-	contributions = contributions_query.run(as_dict=True)
-	contrib_data = contributions[0] if contributions else {}
-
-	# Get remittances data
-	remittances_query = (
-		frappe.qb.from_(Remittance)
-		.select(
-			Sum(Remittance.total_remittance_amount).as_("total_remitted")
-		)
-		.where(Remittance.docstatus == 1)
-		.where(Remittance.remittance_date >= year_start)
-		.where(Remittance.remittance_date <= year_end)
-	)
-
-	remittances = remittances_query.run(as_dict=True)
-	remit_data = remittances[0] if remittances else {}
-
-	# Get expenses data
-	expenses_query = (
-		frappe.qb.from_(Expense)
-		.select(
-			Sum(Expense.total_amount).as_("total_expenses")
-		)
-		.where(Expense.docstatus == 1)
-		.where(Expense.expense_date >= year_start)
-		.where(Expense.expense_date <= year_end)
-	)
-
-	expenses = expenses_query.run(as_dict=True)
-	expense_data = expenses[0] if expenses else {}
+	# Get expenses data (only if Department Expense DocType exists)
+	try:
+		if frappe.db.exists("DocType", "Department Expense"):
+			Expense = DocType("Department Expense")
+			expenses_query = (
+				frappe.qb.from_(Expense)
+				.select(
+					Sum(Expense.total_amount).as_("total_expenses")
+				)
+				.where(Expense.docstatus == 1)
+				.where(Expense.expense_date >= year_start)
+				.where(Expense.expense_date <= year_end)
+			)
+			expenses = expenses_query.run(as_dict=True)
+			expense_data = expenses[0] if expenses else {}
+	except Exception:
+		expense_data = {}
 
 	# Combine all data
 	return {
@@ -300,7 +279,6 @@ def get_year_data(year):
 		"total_offerings": flt(contrib_data.get("total_offerings", 0)),
 		"total_camp_meeting": flt(contrib_data.get("total_camp_meeting", 0)),
 		"total_building": flt(contrib_data.get("total_building", 0)),
-		"total_remitted": flt(remit_data.get("total_remitted", 0)),
 		"total_expenses": flt(expense_data.get("total_expenses", 0))
 	}
 
@@ -346,6 +324,23 @@ def get_chart_data(data, filters):
 	}
 
 
+def parse_amount(value):
+	"""Parse amount from potentially HTML-formatted string"""
+	import re
+	if value is None or value == "":
+		return 0
+	if isinstance(value, (int, float)):
+		return float(value)
+	# Remove HTML tags
+	value = re.sub(r'<[^>]+>', '', str(value))
+	# Remove currency symbols and formatting
+	value = re.sub(r'[^\d.-]', '', value)
+	try:
+		return float(value) if value else 0
+	except (ValueError, TypeError):
+		return 0
+
+
 @frappe.whitelist()
 def get_category_breakdown_chart(data, filters):
 	"""Generate category breakdown pie chart"""
@@ -371,18 +366,16 @@ def get_category_breakdown_chart(data, filters):
 			continue
 
 		category = row.get("category", "")
-
-		# Convert amount to float, handling empty strings and None values
-		try:
-			amount = float(row.get("amount", 0) or 0)
-		except (ValueError, TypeError):
-			amount = 0
+		amount = parse_amount(row.get("amount"))
 
 		if (category and not category.startswith("<b>") and
 			category.strip() and amount > 0 and
-			any(keyword in category.upper() for keyword in ["TITHE", "OFFERING"])):
+			any(keyword in category.upper() for keyword in ["TITHE", "OFFERING", "CAMP", "BUILDING"])):
 			categories.append(category)
 			amounts.append(amount)
+
+	if not categories:
+		return None
 
 	return {
 		"data": {
@@ -488,7 +481,6 @@ def get_financial_health_metrics(data, filters):
 
 	total_income = 0
 	total_expenses = 0
-	total_remitted = 0
 	previous_income = 0
 
 	for row in data:
@@ -496,39 +488,25 @@ def get_financial_health_metrics(data, filters):
 			continue
 
 		category = row.get("category", "")
-
-		# Convert amounts to float, handling empty strings and None values
-		try:
-			current = float(row.get("amount", 0) or 0)
-		except (ValueError, TypeError):
-			current = 0
-
-		try:
-			previous = float(row.get("previous_year_amount", 0) or 0)
-		except (ValueError, TypeError):
-			previous = 0
+		current = parse_amount(row.get("amount"))
+		previous = parse_amount(row.get("previous_year_amount"))
 
 		if "INCOME" in category.upper() or any(keyword in category.upper() for keyword in ["TITHE", "OFFERING"]):
 			total_income += current
 			previous_income += previous
 		elif "EXPENSE" in category.upper():
 			total_expenses += current
-		elif "REMITTANCE" in category.upper():
-			total_remitted += current
 
-	net_income = total_income - total_expenses - total_remitted
+	net_income = total_income - total_expenses
 	income_growth = ((total_income - previous_income) / previous_income * 100) if previous_income > 0 else 0
 	expense_ratio = (total_expenses / total_income * 100) if total_income > 0 else 0
-	remittance_ratio = (total_remitted / total_income * 100) if total_income > 0 else 0
 
 	return {
 		"total_income": total_income,
 		"total_expenses": total_expenses,
-		"total_remitted": total_remitted,
 		"net_income": net_income,
 		"income_growth": income_growth,
-		"expense_ratio": expense_ratio,
-		"remittance_ratio": remittance_ratio
+		"expense_ratio": expense_ratio
 	}
 
 

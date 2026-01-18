@@ -223,13 +223,15 @@ function show_category_breakdown_chart(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.annual_report.annual_report.get_category_breakdown_chart',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Category Breakdown');
 				show_chart_modal(r.message, 'pie');
+			} else {
+				frappe.msgprint(__('No category data available to display'));
 			}
 		}
 	});
@@ -244,12 +246,14 @@ function show_financial_health_dashboard(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.annual_report.annual_report.get_financial_health_metrics',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				show_financial_health_modal(r.message, report.get_values().year);
+			} else {
+				frappe.msgprint(__('No financial data available to display'));
 			}
 		}
 	});
@@ -269,7 +273,7 @@ function show_financial_health_modal(metrics, year) {
 
 	const dashboard_html = `
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="card text-center">
 					<div class="card-body">
 						<h3 class="text-success">${frappe.format(metrics.total_income, {fieldtype: 'Currency'})}</h3>
@@ -280,7 +284,7 @@ function show_financial_health_modal(metrics, year) {
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="card text-center">
 					<div class="card-body">
 						<h3 class="text-danger">${frappe.format(metrics.total_expenses, {fieldtype: 'Currency'})}</h3>
@@ -289,16 +293,7 @@ function show_financial_health_modal(metrics, year) {
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="card text-center">
-					<div class="card-body">
-						<h3 class="text-warning">${frappe.format(metrics.total_remitted, {fieldtype: 'Currency'})}</h3>
-						<p class="card-text">Total Remitted</p>
-						<small>${metrics.remittance_ratio.toFixed(1)}% of income</small>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="card text-center">
 					<div class="card-body">
 						<h3 class="${metrics.net_income >= 0 ? 'text-success' : 'text-danger'}">${frappe.format(metrics.net_income, {fieldtype: 'Currency'})}</h3>
@@ -313,7 +308,7 @@ function show_financial_health_modal(metrics, year) {
 					<div class="card-header"><strong>Financial Health Indicators</strong></div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<h6>Income Growth</h6>
 								<div class="progress">
 									<div class="progress-bar ${metrics.income_growth >= 0 ? 'bg-success' : 'bg-danger'}"
@@ -322,20 +317,12 @@ function show_financial_health_modal(metrics, year) {
 									</div>
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<h6>Expense Ratio</h6>
 								<div class="progress">
 									<div class="progress-bar ${metrics.expense_ratio <= 70 ? 'bg-success' : metrics.expense_ratio <= 85 ? 'bg-warning' : 'bg-danger'}"
 										 style="width: ${metrics.expense_ratio}%">
 										${metrics.expense_ratio.toFixed(1)}%
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<h6>Remittance Ratio</h6>
-								<div class="progress">
-									<div class="progress-bar bg-info" style="width: ${metrics.remittance_ratio}%">
-										${metrics.remittance_ratio.toFixed(1)}%
 									</div>
 								</div>
 							</div>
@@ -353,7 +340,7 @@ function show_financial_health_modal(metrics, year) {
 function show_chart_modal(chart_data, chart_type) {
 	const dialog = new frappe.ui.Dialog({
 		title: chart_data.title || __('Chart'),
-		size: 'extra-large',
+		size: 'large',
 		fields: [
 			{
 				fieldtype: 'HTML',
@@ -365,28 +352,13 @@ function show_chart_modal(chart_data, chart_type) {
 	dialog.show();
 
 	setTimeout(() => {
-		let chart_config;
-		if (typeof stewardpro !== 'undefined' && stewardpro.charts && stewardpro.charts.create_chart_config) {
-			chart_config = stewardpro.charts.create_chart_config(chart_data.data, {
-				title: chart_data.title,
-				type: chart_type,
-				height: 400,
-				colors: stewardpro.charts.color_schemes.church || ['#8BC34A', '#03A9F4', '#FF5722', '#673AB7'],
-				...chart_data.options
-			});
-		} else {
-			// Fallback chart configuration
-			chart_config = {
-				title: chart_data.title,
-				data: chart_data.data,
-				type: chart_type,
-				height: 400,
-				colors: ['#8BC34A', '#03A9F4', '#FF5722', '#673AB7', '#E91E63'],
-				animate: true,
-				...chart_data.options
-			};
-		}
+		const chart_config = {
+			data: chart_data.data,
+			type: chart_type,
+			height: 300,
+			colors: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0']
+		};
 
 		new frappe.Chart(dialog.fields_dict.chart_html.$wrapper[0], chart_config);
-	}, 100);
+	}, 200);
 }
