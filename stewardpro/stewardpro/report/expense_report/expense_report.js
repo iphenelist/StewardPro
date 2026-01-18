@@ -76,7 +76,7 @@ frappe.query_reports["Expense Report"] = {
 		report.page.add_inner_button(__("Expense Summary"), function() {
 			let filters = report.get_values();
 			frappe.call({
-				method: "'stewardpro.stewardpro.report.expense_report.expense_report.get_expense_summary",
+				method: "stewardpro.stewardpro.report.expense_report.expense_report.get_expense_summary",
 				args: {
 					filters: filters
 				},
