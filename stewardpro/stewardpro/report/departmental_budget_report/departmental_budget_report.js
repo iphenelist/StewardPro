@@ -92,7 +92,7 @@ frappe.query_reports["Departmental Budget Report"] = {
 		report.page.add_inner_button(__("Budget Summary"), function() {
 			let filters = report.get_values();
 			frappe.call({
-				method: "'stewardpro.stewardpro.report.departmental_budget_report.departmental_budget_report.get_summary_data",
+				method: "stewardpro.stewardpro.report.departmental_budget_report.departmental_budget_report.get_summary_data",
 				args: {
 					filters: filters
 				},
@@ -238,13 +238,15 @@ function show_utilization_chart(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.departmental_budget_report.departmental_budget_report.get_utilization_chart_data',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Budget Utilization Analysis');
 				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No utilization data available to display'));
 			}
 		}
 	});
@@ -259,13 +261,15 @@ function show_department_comparison_chart(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.departmental_budget_report.departmental_budget_report.get_department_comparison_chart',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Department Budget Comparison');
-				show_chart_modal(r.message, 'pie');
+				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No department comparison data available to display'));
 			}
 		}
 	});
@@ -280,13 +284,15 @@ function show_status_breakdown_chart(report) {
 	frappe.call({
 		method: 'stewardpro.stewardpro.report.departmental_budget_report.departmental_budget_report.get_budget_status_breakdown',
 		args: {
-			data: report.data,
+			data: JSON.stringify(report.data),
 			filters: report.get_values()
 		},
 		callback: function(r) {
 			if (r.message) {
 				r.message.title = __('Budget Status Breakdown');
-				show_chart_modal(r.message, 'donut');
+				show_chart_modal(r.message, 'bar');
+			} else {
+				frappe.msgprint(__('No status breakdown data available to display'));
 			}
 		}
 	});
@@ -411,7 +417,7 @@ function show_budget_dashboard(report) {
 function show_chart_modal(chart_data, chart_type) {
 	const dialog = new frappe.ui.Dialog({
 		title: chart_data.title || __('Chart'),
-		size: 'extra-large',
+		size: 'large',
 		fields: [
 			{
 				fieldtype: 'HTML',
@@ -423,30 +429,15 @@ function show_chart_modal(chart_data, chart_type) {
 	dialog.show();
 
 	setTimeout(() => {
-		let chart_config;
-		if (typeof stewardpro !== 'undefined' && stewardpro.charts && stewardpro.charts.create_chart_config) {
-			chart_config = stewardpro.charts.create_chart_config(chart_data.data, {
-				title: chart_data.title,
-				type: chart_type,
-				height: 400,
-				colors: stewardpro.charts.color_schemes.default || ['#36A2EB', '#FF6384', '#4BC0C0', '#FF9F40'],
-				...chart_data.options
-			});
-		} else {
-			// Fallback chart configuration
-			chart_config = {
-				title: chart_data.title,
-				data: chart_data.data,
-				type: chart_type,
-				height: 400,
-				colors: ['#36A2EB', '#FF6384', '#4BC0C0', '#FF9F40', '#9966FF'],
-				animate: true,
-				...chart_data.options
-			};
-		}
+		const chart_config = {
+			data: chart_data.data,
+			type: chart_type,
+			height: 300,
+			colors: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0']
+		};
 
 		new frappe.Chart(dialog.fields_dict.chart_html.$wrapper[0], chart_config);
-	}, 100);
+	}, 200);
 }
 
 function get_budget_utilization_trend(data, smooth = false) {
