@@ -132,9 +132,15 @@ def get_data(filters):
 	
 	return data
 
-
+@frappe.whitelist()
 def get_contributor_summary(filters):
 	"""Get building fund contributions summary by contributor"""
+	import json
+	if isinstance(filters, str):
+		filters = json.loads(filters)
+	if not filters:
+		filters = {}
+
 	TithesOfferings = DocType("Tithes and Offerings")
 	Member = DocType("Member")
 	
@@ -185,17 +191,30 @@ def get_contributor_summary(filters):
 	return data
 
 
+@frappe.whitelist()
 def get_monthly_summary(filters):
 	"""Get building fund contributions summary by month - simplified version"""
+	import json
+	if isinstance(filters, str):
+		filters = json.loads(filters)
+	if not filters:
+		filters = {}
 	# Temporarily return empty data to avoid Year/Month function issues
 	# TODO: Implement proper monthly grouping without SQL date functions
 	return []
 
 
+@frappe.whitelist()
 def get_project_progress(filters):
 	"""Get building fund project progress"""
+	import json
+	if isinstance(filters, str):
+		filters = json.loads(filters)
+	if not filters:
+		filters = {}
+
 	TithesOfferings = DocType("Tithes and Offerings")
-	
+
 	# Get total contributions
 	query = (
 		frappe.qb.from_(TithesOfferings)
@@ -209,7 +228,7 @@ def get_project_progress(filters):
 		.where(TithesOfferings.docstatus == 1)
 		.where(TithesOfferings.church_building_offering > 0)
 	)
-	
+
 	# Apply filters
 	if filters.get("year"):
 		year = int(filters.get("year"))
@@ -230,10 +249,17 @@ def get_project_progress(filters):
 	return result[0] if result else {}
 
 
+@frappe.whitelist()
 def get_contribution_trends(filters):
 	"""Get contribution trends over time"""
+	import json
+	if isinstance(filters, str):
+		filters = json.loads(filters)
+	if not filters:
+		filters = {}
+
 	TithesOfferings = DocType("Tithes and Offerings")
-	
+
 	query = (
 		frappe.qb.from_(TithesOfferings)
 		.select(
@@ -247,7 +273,7 @@ def get_contribution_trends(filters):
 		.where(TithesOfferings.church_building_offering > 0)
 		.orderby(TithesOfferings.date)
 	)
-	
+
 	# Apply filters
 	if filters.get("year"):
 		year = int(filters.get("year"))
