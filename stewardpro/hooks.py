@@ -95,13 +95,11 @@ module_default_workspace = "stewardpro"
 after_install = [
     "stewardpro.patches.import_departments.execute",
     "stewardpro.patches.create_roles.execute",
-    "stewardpro.patches.create_demo_members.execute"
 ]
 
 after_migrate = [
     "stewardpro.patches.import_departments.execute",
     "stewardpro.patches.create_roles.execute",
-    "stewardpro.patches.create_demo_members.execute"
 ]
 
 # Uninstallation
