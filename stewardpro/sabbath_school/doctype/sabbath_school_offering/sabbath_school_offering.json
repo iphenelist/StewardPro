@@ -1,0 +1,201 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "offering_details_section",
+  "offering_date",
+  "sabbath_school_class",
+  "column_break_1",
+  "quarter",
+  "collected_by",
+  "offering_breakdown_section",
+  "regular_offering",
+  "thirteenth_sabbath",
+  "column_break_2",
+  "investment",
+  "birthday_thanksgiving",
+  "total_section",
+  "total_offering",
+  "remarks_section",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "SSO-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "offering_details_section",
+   "fieldtype": "Section Break",
+   "label": "Offering Details"
+  },
+  {
+   "default": "Today",
+   "fieldname": "offering_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Offering Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sabbath_school_class",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sabbath School Class",
+   "options": "Sabbath School Class",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quarter",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Quarter",
+   "options": "Sabbath School Quarter"
+  },
+  {
+   "fieldname": "collected_by",
+   "fieldtype": "Link",
+   "label": "Collected By",
+   "options": "Church Member"
+  },
+  {
+   "fieldname": "offering_breakdown_section",
+   "fieldtype": "Section Break",
+   "label": "Offering Breakdown"
+  },
+  {
+   "fieldname": "regular_offering",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Regular Offering"
+  },
+  {
+   "fieldname": "thirteenth_sabbath",
+   "fieldtype": "Currency",
+   "label": "Thirteenth Sabbath"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "investment",
+   "fieldtype": "Currency",
+   "label": "Investment"
+  },
+  {
+   "fieldname": "birthday_thanksgiving",
+   "fieldtype": "Currency",
+   "label": "Birthday Thanksgiving"
+  },
+  {
+   "fieldname": "total_section",
+   "fieldtype": "Section Break",
+   "label": "Total"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_offering",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Offering",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sabbath School Offering",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Sabbath School",
+ "name": "Sabbath School Offering",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SS Superintendent",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Treasurer",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "SS Teacher",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Pastor"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

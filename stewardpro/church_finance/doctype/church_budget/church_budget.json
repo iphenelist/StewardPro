@@ -1,0 +1,248 @@
+{
+ "actions": [],
+ "autoname": "field:budget_name",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "budget_details_section",
+  "budget_name",
+  "budget_year",
+  "column_break_1",
+  "budget_period",
+  "period_section",
+  "start_date",
+  "column_break_2",
+  "end_date",
+  "tab_break_income",
+  "budgeted_income_section",
+  "income_items",
+  "income_total_section",
+  "total_budgeted_income",
+  "tab_break_expense",
+  "budgeted_expenses_section",
+  "expense_items",
+  "expense_total_section",
+  "total_budgeted_expense",
+  "tab_break_summary",
+  "budget_summary_section",
+  "surplus_deficit",
+  "approval_section",
+  "approved_date",
+  "approved_by",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "budget_details_section",
+   "fieldtype": "Section Break",
+   "label": "Budget Details"
+  },
+  {
+   "fieldname": "budget_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Budget Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "budget_year",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Budget Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "budget_period",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Budget Period",
+   "options": "Annual\nQ1\nQ2\nQ3\nQ4",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_section",
+   "fieldtype": "Section Break",
+   "label": "Period"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tab_break_income",
+   "fieldtype": "Tab Break",
+   "label": "Income Budget"
+  },
+  {
+   "fieldname": "budgeted_income_section",
+   "fieldtype": "Section Break",
+   "label": "Budgeted Income"
+  },
+  {
+   "fieldname": "income_items",
+   "fieldtype": "Table",
+   "label": "Income Items",
+   "options": "Budget Line Item"
+  },
+  {
+   "fieldname": "income_total_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_budgeted_income",
+   "fieldtype": "Currency",
+   "label": "Total Budgeted Income",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tab_break_expense",
+   "fieldtype": "Tab Break",
+   "label": "Expense Budget"
+  },
+  {
+   "fieldname": "budgeted_expenses_section",
+   "fieldtype": "Section Break",
+   "label": "Budgeted Expenses"
+  },
+  {
+   "fieldname": "expense_items",
+   "fieldtype": "Table",
+   "label": "Expense Items",
+   "options": "Budget Line Item"
+  },
+  {
+   "fieldname": "expense_total_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_budgeted_expense",
+   "fieldtype": "Currency",
+   "label": "Total Budgeted Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tab_break_summary",
+   "fieldtype": "Tab Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "budget_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Budget Summary"
+  },
+  {
+   "bold": 1,
+   "description": "Income minus Expense",
+   "fieldname": "surplus_deficit",
+   "fieldtype": "Currency",
+   "label": "Surplus/Deficit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_section",
+   "fieldtype": "Section Break",
+   "label": "Approval"
+  },
+  {
+   "fieldname": "approved_date",
+   "fieldtype": "Date",
+   "label": "Approved Date"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Church Budget",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Finance",
+ "name": "Church Budget",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Treasurer",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Pastor",
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

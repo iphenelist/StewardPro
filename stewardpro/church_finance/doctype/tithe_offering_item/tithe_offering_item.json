@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "offering_type",
+  "amount",
+  "account"
+ ],
+ "fields": [
+  {
+   "fieldname": "offering_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Offering Type",
+   "options": "Offering Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "offering_type.income_account",
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account",
+   "options": "Church Account",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Finance",
+ "name": "Tithe Offering Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

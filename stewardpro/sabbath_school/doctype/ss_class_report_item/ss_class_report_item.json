@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sabbath_school_class",
+  "enrolled",
+  "average_attendance",
+  "total_offering",
+  "daily_study_percentage"
+ ],
+ "fields": [
+  {
+   "fieldname": "sabbath_school_class",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sabbath School Class",
+   "options": "Sabbath School Class",
+   "reqd": 1
+  },
+  {
+   "fieldname": "enrolled",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Enrolled"
+  },
+  {
+   "fieldname": "average_attendance",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Average Attendance",
+   "precision": "1"
+  },
+  {
+   "fieldname": "total_offering",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Offering"
+  },
+  {
+   "fieldname": "daily_study_percentage",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Daily Study Percentage"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Sabbath School",
+ "name": "SS Class Report Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

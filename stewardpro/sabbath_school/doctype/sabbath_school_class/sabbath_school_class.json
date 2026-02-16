@@ -1,0 +1,146 @@
+{
+ "actions": [],
+ "autoname": "field:class_name",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "class_details_section",
+  "class_name",
+  "class_type",
+  "column_break_1",
+  "is_active",
+  "leadership_section",
+  "leader",
+  "assistant_leader",
+  "column_break_2",
+  "secretary",
+  "class_members_section",
+  "members"
+ ],
+ "fields": [
+  {
+   "fieldname": "class_details_section",
+   "fieldtype": "Section Break",
+   "label": "Class Details"
+  },
+  {
+   "fieldname": "class_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Class Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "class_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Class Type",
+   "options": "\nAdult\nYouth\nEarliteen\nJunior\nPrimary\nKindergarten\nBeginner/Cradle Roll"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "leadership_section",
+   "fieldtype": "Section Break",
+   "label": "Leadership"
+  },
+  {
+   "fieldname": "leader",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Leader",
+   "options": "Church Member"
+  },
+  {
+   "fieldname": "assistant_leader",
+   "fieldtype": "Link",
+   "label": "Assistant Leader",
+   "options": "Church Member"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "secretary",
+   "fieldtype": "Link",
+   "label": "Secretary",
+   "options": "Church Member"
+  },
+  {
+   "fieldname": "class_members_section",
+   "fieldtype": "Section Break",
+   "label": "Class Members"
+  },
+  {
+   "fieldname": "members",
+   "fieldtype": "Table",
+   "label": "Members",
+   "options": "SS Class Member Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Sabbath School",
+ "name": "Sabbath School Class",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Pastor",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SS Superintendent",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "SS Teacher",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Church Clerk"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

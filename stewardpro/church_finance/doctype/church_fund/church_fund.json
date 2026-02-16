@@ -1,0 +1,141 @@
+{
+ "actions": [],
+ "autoname": "field:fund_name",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "fund_details_section",
+  "fund_name",
+  "fund_account",
+  "column_break_1",
+  "status",
+  "target_section",
+  "target_amount",
+  "current_balance",
+  "column_break_2",
+  "start_date",
+  "target_date",
+  "description_section",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "fund_details_section",
+   "fieldtype": "Section Break",
+   "label": "Fund Details"
+  },
+  {
+   "fieldname": "fund_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Fund Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "fund_account",
+   "fieldtype": "Link",
+   "label": "Fund Account",
+   "options": "Church Account"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Open\nClosed\nAchieved"
+  },
+  {
+   "fieldname": "target_section",
+   "fieldtype": "Section Break",
+   "label": "Target"
+  },
+  {
+   "fieldname": "target_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Target Amount"
+  },
+  {
+   "bold": 1,
+   "fieldname": "current_balance",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Current Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "target_date",
+   "fieldtype": "Date",
+   "label": "Target Date"
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Finance",
+ "name": "Church Fund",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Treasurer",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Pastor",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Church Elder"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

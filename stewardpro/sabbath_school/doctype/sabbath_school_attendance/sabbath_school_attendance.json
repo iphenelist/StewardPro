@@ -1,0 +1,203 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "class_and_date_section",
+  "attendance_date",
+  "sabbath_school_class",
+  "column_break_1",
+  "lesson",
+  "quarter",
+  "attendance_summary_section",
+  "members_present",
+  "members_absent",
+  "column_break_2",
+  "visitors",
+  "total_present",
+  "study_details_section",
+  "on_time_percentage",
+  "lesson_studied",
+  "column_break_3",
+  "recorded_by",
+  "member_wise_attendance_section",
+  "attendance_details"
+ ],
+ "fields": [
+  {
+   "default": "SSA-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "class_and_date_section",
+   "fieldtype": "Section Break",
+   "label": "Class & Date"
+  },
+  {
+   "default": "Today",
+   "fieldname": "attendance_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Attendance Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sabbath_school_class",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sabbath School Class",
+   "options": "Sabbath School Class",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lesson",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Lesson",
+   "options": "Sabbath School Lesson"
+  },
+  {
+   "fetch_from": "lesson.quarter",
+   "fieldname": "quarter",
+   "fieldtype": "Link",
+   "label": "Quarter",
+   "options": "Sabbath School Quarter",
+   "read_only": 1
+  },
+  {
+   "fieldname": "attendance_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Attendance Summary"
+  },
+  {
+   "fieldname": "members_present",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Members Present"
+  },
+  {
+   "fieldname": "members_absent",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Members Absent"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "visitors",
+   "fieldtype": "Int",
+   "label": "Visitors"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_present",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Present",
+   "read_only": 1
+  },
+  {
+   "fieldname": "study_details_section",
+   "fieldtype": "Section Break",
+   "label": "Study Details"
+  },
+  {
+   "description": "Percentage of members who studied the lesson daily",
+   "fieldname": "on_time_percentage",
+   "fieldtype": "Percent",
+   "label": "On Time Percentage"
+  },
+  {
+   "default": "1",
+   "fieldname": "lesson_studied",
+   "fieldtype": "Check",
+   "label": "Lesson Studied"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "__user",
+   "fieldname": "recorded_by",
+   "fieldtype": "Link",
+   "label": "Recorded By",
+   "options": "User"
+  },
+  {
+   "fieldname": "member_wise_attendance_section",
+   "fieldtype": "Section Break",
+   "label": "Member-wise Attendance"
+  },
+  {
+   "fieldname": "attendance_details",
+   "fieldtype": "Table",
+   "label": "Attendance Details",
+   "options": "SS Attendance Detail Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Sabbath School",
+ "name": "Sabbath School Attendance",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SS Superintendent",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "SS Teacher",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Pastor"
+  },
+  {
+   "read": 1,
+   "role": "Church Clerk"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

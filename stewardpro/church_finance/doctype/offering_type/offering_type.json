@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "autoname": "field:offering_name",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "offering_details_section",
+  "offering_name",
+  "offering_category",
+  "column_break_1",
+  "income_account",
+  "is_remittable",
+  "section_break_2",
+  "description",
+  "enabled"
+ ],
+ "fields": [
+  {
+   "fieldname": "offering_details_section",
+   "fieldtype": "Section Break",
+   "label": "Offering Details"
+  },
+  {
+   "fieldname": "offering_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Offering Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "offering_category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Offering Category",
+   "options": "\nTithe\nRegular Offering\nSpecial Offering\nFund",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "income_account",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "options": "Church Account"
+  },
+  {
+   "description": "If checked, this offering is remitted to the conference",
+   "fieldname": "is_remittable",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Remittable"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Finance",
+ "name": "Offering Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Treasurer",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Pastor"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

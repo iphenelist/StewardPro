@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "autoname": "field:department_name",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "department_details_section",
+  "department_name",
+  "abbreviation",
+  "column_break_details",
+  "department_type",
+  "enabled",
+  "description_section",
+  "description",
+  "leadership_section",
+  "leader"
+ ],
+ "fields": [
+  {
+   "fieldname": "department_details_section",
+   "fieldtype": "Section Break",
+   "label": "Department Details"
+  },
+  {
+   "fieldname": "department_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Department Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "abbreviation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Abbreviation"
+  },
+  {
+   "fieldname": "column_break_details",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "department_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Department Type",
+   "options": "\nMinistry\nService\nSupport"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "leadership_section",
+   "fieldtype": "Section Break",
+   "label": "Leadership"
+  },
+  {
+   "fieldname": "leader",
+   "fieldtype": "Link",
+   "label": "Leader",
+   "options": "Church Member"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Administration",
+ "name": "Church Department",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Pastor",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Church Clerk",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Church Elder"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

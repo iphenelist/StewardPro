@@ -1,0 +1,192 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "church_information_tab",
+  "basic_information_section",
+  "church_name",
+  "church_code",
+  "column_break_basic",
+  "conference",
+  "union_mission",
+  "location_contact_section",
+  "district",
+  "church_address",
+  "column_break_location",
+  "church_phone",
+  "church_email",
+  "logo",
+  "pastoral_information_tab",
+  "pastor_details_section",
+  "pastor_name",
+  "pastor_phone",
+  "finance_settings_tab",
+  "finance_configuration_section",
+  "fiscal_year_start_month",
+  "currency",
+  "column_break_finance",
+  "tithe_remit_percentage"
+ ],
+ "fields": [
+  {
+   "fieldname": "church_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Church Information"
+  },
+  {
+   "fieldname": "basic_information_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "church_name",
+   "fieldtype": "Data",
+   "label": "Church Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "church_code",
+   "fieldtype": "Data",
+   "label": "Church Code"
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "conference",
+   "fieldtype": "Data",
+   "label": "Conference"
+  },
+  {
+   "fieldname": "union_mission",
+   "fieldtype": "Data",
+   "label": "Union Mission"
+  },
+  {
+   "fieldname": "location_contact_section",
+   "fieldtype": "Section Break",
+   "label": "Location & Contact"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "church_address",
+   "fieldtype": "Small Text",
+   "label": "Church Address"
+  },
+  {
+   "fieldname": "column_break_location",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "church_phone",
+   "fieldtype": "Data",
+   "label": "Church Phone"
+  },
+  {
+   "fieldname": "church_email",
+   "fieldtype": "Data",
+   "label": "Church Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "pastoral_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Pastoral Information"
+  },
+  {
+   "fieldname": "pastor_details_section",
+   "fieldtype": "Section Break",
+   "label": "Pastor Details"
+  },
+  {
+   "fieldname": "pastor_name",
+   "fieldtype": "Data",
+   "label": "Pastor Name"
+  },
+  {
+   "fieldname": "pastor_phone",
+   "fieldtype": "Data",
+   "label": "Pastor Phone"
+  },
+  {
+   "fieldname": "finance_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Finance Settings"
+  },
+  {
+   "fieldname": "finance_configuration_section",
+   "fieldtype": "Section Break",
+   "label": "Finance Configuration"
+  },
+  {
+   "fieldname": "fiscal_year_start_month",
+   "fieldtype": "Select",
+   "label": "Fiscal Year Start Month",
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "default": "January"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "column_break_finance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tithe_remit_percentage",
+   "fieldtype": "Percent",
+   "label": "Tithe Remit Percentage",
+   "default": "100"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Administration",
+ "name": "Church Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Pastor",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Treasurer"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

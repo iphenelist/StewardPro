@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "autoname": "field:position_name",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "position_details_section",
+  "position_name",
+  "position_category",
+  "column_break_details",
+  "max_holders",
+  "enabled",
+  "description_section",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "position_details_section",
+   "fieldtype": "Section Break",
+   "label": "Position Details"
+  },
+  {
+   "fieldname": "position_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Position Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "position_category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Position Category",
+   "options": "\nLeadership\nOfficer\nDepartmental Leader\nBoard Member"
+  },
+  {
+   "fieldname": "column_break_details",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Maximum number of holders. 0 = unlimited",
+   "fieldname": "max_holders",
+   "fieldtype": "Int",
+   "label": "Max Holders"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Church Administration",
+ "name": "Church Position",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Pastor",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Church Clerk",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Church Elder"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

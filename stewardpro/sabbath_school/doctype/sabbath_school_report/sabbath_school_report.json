@@ -1,0 +1,267 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-02-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "report_details_section",
+  "quarter",
+  "report_date",
+  "column_break_1",
+  "prepared_by",
+  "enrollment_tab",
+  "enrollment_summary_section",
+  "total_classes",
+  "total_enrolled",
+  "column_break_2",
+  "average_attendance",
+  "average_visitors",
+  "offerings_tab",
+  "offering_summary_section",
+  "total_regular_offering",
+  "total_thirteenth_sabbath",
+  "column_break_3",
+  "total_investment",
+  "total_birthday_thanksgiving",
+  "grand_total_section",
+  "grand_total_offering",
+  "study_tab",
+  "study_summary_section",
+  "average_daily_study_percentage",
+  "class_reports_tab",
+  "class_breakdown_section",
+  "class_reports",
+  "remarks_section",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "SSR-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "report_details_section",
+   "fieldtype": "Section Break",
+   "label": "Report Details"
+  },
+  {
+   "fieldname": "quarter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Quarter",
+   "options": "Sabbath School Quarter",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "report_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Report Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "__user",
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User"
+  },
+  {
+   "fieldname": "enrollment_tab",
+   "fieldtype": "Tab Break",
+   "label": "Enrollment"
+  },
+  {
+   "fieldname": "enrollment_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Enrollment Summary"
+  },
+  {
+   "fieldname": "total_classes",
+   "fieldtype": "Int",
+   "label": "Total Classes"
+  },
+  {
+   "fieldname": "total_enrolled",
+   "fieldtype": "Int",
+   "label": "Total Enrolled"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "average_attendance",
+   "fieldtype": "Float",
+   "label": "Average Attendance",
+   "precision": "1"
+  },
+  {
+   "fieldname": "average_visitors",
+   "fieldtype": "Float",
+   "label": "Average Visitors",
+   "precision": "1"
+  },
+  {
+   "fieldname": "offerings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Offerings"
+  },
+  {
+   "fieldname": "offering_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Offering Summary"
+  },
+  {
+   "fieldname": "total_regular_offering",
+   "fieldtype": "Currency",
+   "label": "Total Regular Offering"
+  },
+  {
+   "fieldname": "total_thirteenth_sabbath",
+   "fieldtype": "Currency",
+   "label": "Total Thirteenth Sabbath"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_investment",
+   "fieldtype": "Currency",
+   "label": "Total Investment"
+  },
+  {
+   "fieldname": "total_birthday_thanksgiving",
+   "fieldtype": "Currency",
+   "label": "Total Birthday Thanksgiving"
+  },
+  {
+   "fieldname": "grand_total_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "grand_total_offering",
+   "fieldtype": "Currency",
+   "label": "Grand Total Offering",
+   "read_only": 1
+  },
+  {
+   "fieldname": "study_tab",
+   "fieldtype": "Tab Break",
+   "label": "Study"
+  },
+  {
+   "fieldname": "study_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Study Summary"
+  },
+  {
+   "fieldname": "average_daily_study_percentage",
+   "fieldtype": "Percent",
+   "label": "Average Daily Study Percentage"
+  },
+  {
+   "fieldname": "class_reports_tab",
+   "fieldtype": "Tab Break",
+   "label": "Class Reports"
+  },
+  {
+   "fieldname": "class_breakdown_section",
+   "fieldtype": "Section Break",
+   "label": "Class Breakdown"
+  },
+  {
+   "fieldname": "class_reports",
+   "fieldtype": "Table",
+   "label": "Class Reports",
+   "options": "SS Class Report Item"
+  },
+  {
+   "fieldname": "remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sabbath School Report",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-02-15 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Sabbath School",
+ "name": "Sabbath School Report",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SS Superintendent",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Pastor",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Treasurer"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

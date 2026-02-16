@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include stewardpro *.css
+recursive-include stewardpro *.csv
+recursive-include stewardpro *.html
+recursive-include stewardpro *.ico
+recursive-include stewardpro *.js
+recursive-include stewardpro *.json
+recursive-include stewardpro *.md
+recursive-include stewardpro *.png
+recursive-include stewardpro *.py
+recursive-include stewardpro *.svg
+recursive-include stewardpro *.txt
+recursive-exclude stewardpro *.pyc
