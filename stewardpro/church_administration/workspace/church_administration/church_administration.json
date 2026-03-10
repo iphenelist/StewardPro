@@ -1,0 +1,123 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"UefVSU5Giv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"Q3CQj9_syD\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Member\",\"col\":3}},{\"id\":\"dAi6U4KWPN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Department\",\"col\":3}},{\"id\":\"ToVfI6jHnn\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Settings\",\"col\":3}},{\"id\":\"NSxUTvgukY\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"3n0RAF4Spt\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Masters</b></span>\",\"col\":12}},{\"id\":\"3cFc0NPxss\",\"type\":\"card\",\"data\":{\"card_name\":\"Members\",\"col\":4}},{\"id\":\"WWn0QEUz3v\",\"type\":\"card\",\"data\":{\"card_name\":\"Administration\",\"col\":4}},{\"id\":\"6hzGFm-HMc\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
+ "creation": "2026-02-15 10:00:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "users",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Church Administration",
+ "links": [
+  {
+   "hidden": 0,
+   "icon": "users",
+   "is_query_report": 0,
+   "label": "Members",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Member",
+   "link_count": 0,
+   "link_to": "Church Member",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "building",
+   "is_query_report": 0,
+   "label": "Administration",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Department",
+   "link_count": 0,
+   "link_to": "Church Department",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "setting",
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Settings",
+   "link_count": 0,
+   "link_to": "Church Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SMS Log",
+   "link_count": 0,
+   "link_to": "SMS Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-26 10:06:39.638940",
+ "modified_by": "Administrator",
+ "module": "Church Administration",
+ "name": "Church Administration",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "format": "{} Active",
+   "label": "Church Member",
+   "link_to": "Church Member",
+   "stats_filter": "{\"membership_status\": \"Active\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "format": "{} Enabled",
+   "label": "Church Department",
+   "link_to": "Church Department",
+   "stats_filter": "{\"enabled\": 1}",
+   "type": "DocType"
+  },
+  {
+   "label": "Church Settings",
+   "link_to": "Church Settings",
+   "type": "DocType"
+  }
+ ],
+ "title": "Church Administration"
+}

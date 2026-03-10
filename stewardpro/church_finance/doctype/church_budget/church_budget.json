@@ -31,6 +31,7 @@
   "approved_date",
   "approved_by",
   "remarks",
+  "department_budget_request",
   "amended_from"
  ],
  "fields": [
@@ -179,6 +180,13 @@
    "fieldname": "remarks",
    "fieldtype": "Text",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "department_budget_request",
+   "fieldtype": "Link",
+   "label": "Department Budget Request",
+   "options": "Department Budget Request",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",

@@ -1,0 +1,180 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tithe and Offering Entry\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Conference Remittance\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Expense\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Church Account\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports & Masters</b></span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Income\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Expenses\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Remittance\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Budget\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Accounts\",\"col\":4}}]",
+ "creation": "2026-02-15 10:00:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "accounting",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Church Finance",
+ "links": [
+  {
+   "hidden": 0,
+   "icon": "transaction",
+   "is_query_report": 0,
+   "label": "Income",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tithe and Offering Entry",
+   "link_count": 0,
+   "link_to": "Tithe and Offering Entry",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "expense-claim",
+   "is_query_report": 0,
+   "label": "Expenses",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Expense",
+   "link_count": 0,
+   "link_to": "Church Expense",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Fund",
+   "link_count": 0,
+   "link_to": "Church Fund",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "transfer",
+   "is_query_report": 0,
+   "label": "Remittance",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Conference Remittance",
+   "link_count": 0,
+   "link_to": "Conference Remittance",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "budget",
+   "is_query_report": 0,
+   "label": "Budget",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Budget",
+   "link_count": 0,
+   "link_to": "Church Budget",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department Budget Request",
+   "link_count": 0,
+   "link_to": "Department Budget Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "accounting",
+   "is_query_report": 0,
+   "label": "Accounts",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Church Account",
+   "link_count": 0,
+   "link_to": "Church Account",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-26 10:06:33.535656",
+ "modified_by": "Administrator",
+ "module": "Church Finance",
+ "name": "Church Finance",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "Church Administration",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "format": "{} This Week",
+   "label": "Tithe and Offering Entry",
+   "link_to": "Tithe and Offering Entry",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "format": "{} Draft",
+   "label": "Conference Remittance",
+   "link_to": "Conference Remittance",
+   "stats_filter": "{\"docstatus\": 0}",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "label": "Church Expense",
+   "link_to": "Church Expense",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "label": "Church Account",
+   "link_to": "Church Account",
+   "type": "DocType"
+  }
+ ],
+ "title": "Church Finance"
+}

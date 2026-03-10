@@ -10,10 +10,10 @@
  "fields": [
   {
    "fieldname": "offering_type",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Offering Type",
-   "options": "Offering Type",
+   "options": "\nTithe\nSabbath School Offering\n13th Sabbath Offering\nInvestment Offering\nCamp Meeting Offering\nChurch Budget\nBuilding Fund\nEvangelism Fund\nBirthday & Thanksgiving\nSpecial Offering",
    "reqd": 1
   },
   {

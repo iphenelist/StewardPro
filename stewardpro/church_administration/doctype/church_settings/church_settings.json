@@ -1,7 +1,5 @@
 {
  "actions": [],
- "allow_rename": 0,
- "autoname": "",
  "creation": "2026-02-15 10:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -26,10 +24,26 @@
   "pastor_phone",
   "finance_settings_tab",
   "finance_configuration_section",
+  "fiscal_year",
   "fiscal_year_start_month",
-  "currency",
   "column_break_finance",
-  "tithe_remit_percentage"
+  "currency",
+  "tithe_remit_percentage",
+  "sms_settings_tab",
+  "sms_configuration_section",
+  "enable_sms",
+  "sms_api_token",
+  "column_break_sms",
+  "sms_sender_id",
+  "sms_notifications_section",
+  "enable_tithe_offering_sms",
+  "tithe_offering_sms_template",
+  "column_break_sms_notifications",
+  "enable_member_welcome_sms",
+  "member_welcome_sms_template",
+  "birthday_sms_section",
+  "enable_birthday_sms",
+  "birthday_sms_template"
  ],
  "fields": [
   {
@@ -45,6 +59,7 @@
   {
    "fieldname": "church_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Church Name",
    "reqd": 1
   },
@@ -133,11 +148,11 @@
    "label": "Finance Configuration"
   },
   {
+   "default": "January",
    "fieldname": "fiscal_year_start_month",
    "fieldtype": "Select",
    "label": "Fiscal Year Start Month",
-   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
-   "default": "January"
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
   },
   {
    "fieldname": "currency",
@@ -150,16 +165,117 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "100",
    "fieldname": "tithe_remit_percentage",
    "fieldtype": "Percent",
-   "label": "Tithe Remit Percentage",
-   "default": "100"
+   "label": "Tithe Remit Percentage"
+  },
+  {
+   "fieldname": "sms_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "SMS Settings"
+  },
+  {
+   "fieldname": "sms_configuration_section",
+   "fieldtype": "Section Break",
+   "label": "SMS Configuration"
+  },
+  {
+   "default": "0",
+   "description": "Enable or disable all SMS functionality in the system",
+   "fieldname": "enable_sms",
+   "fieldtype": "Check",
+   "label": "Enable SMS"
+  },
+  {
+   "depends_on": "eval:doc.enable_sms",
+   "description": "NotifyAfrica API token",
+   "fieldname": "sms_api_token",
+   "fieldtype": "Password",
+   "label": "SMS API Token"
+  },
+  {
+   "fieldname": "column_break_sms",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "StewardPro",
+   "depends_on": "eval:doc.enable_sms",
+   "fieldname": "sms_sender_id",
+   "fieldtype": "Data",
+   "label": "SMS Sender ID"
+  },
+  {
+   "depends_on": "eval:doc.enable_sms",
+   "fieldname": "sms_notifications_section",
+   "fieldtype": "Section Break",
+   "label": "SMS Notifications"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.enable_sms",
+   "fieldname": "enable_tithe_offering_sms",
+   "fieldtype": "Check",
+   "label": "Send Tithe & Offering Receipt SMS"
+  },
+  {
+   "default": "Dear {member_name}, your tithe & offering of {amount} has been received on {date}. Thank you for your faithfulness. - {church_name}",
+   "depends_on": "eval:doc.enable_sms && doc.enable_tithe_offering_sms",
+   "description": "Placeholders: {member_name}, {amount}, {date}, {church_name}",
+   "fieldname": "tithe_offering_sms_template",
+   "fieldtype": "Small Text",
+   "label": "Tithe & Offering SMS Template"
+  },
+  {
+   "fieldname": "column_break_sms_notifications",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.enable_sms",
+   "fieldname": "enable_member_welcome_sms",
+   "fieldtype": "Check",
+   "label": "Send Welcome SMS to New Members"
+  },
+  {
+   "default": "Welcome to {church_name}, {member_name}! We are glad to have you as part of our church family. God bless you.",
+   "depends_on": "eval:doc.enable_sms && doc.enable_member_welcome_sms",
+   "description": "Placeholders: {member_name}, {church_name}",
+   "fieldname": "member_welcome_sms_template",
+   "fieldtype": "Small Text",
+   "label": "Welcome SMS Template"
+  },
+  {
+   "depends_on": "eval:doc.enable_sms",
+   "fieldname": "birthday_sms_section",
+   "fieldtype": "Section Break",
+   "label": "Birthday SMS"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.enable_sms",
+   "fieldname": "enable_birthday_sms",
+   "fieldtype": "Check",
+   "label": "Send Birthday SMS"
+  },
+  {
+   "default": "Happy Birthday {member_name}! May God bless you abundantly on this special day. With love from {church_name}.",
+   "depends_on": "eval:doc.enable_sms && doc.enable_birthday_sms",
+   "description": "Placeholders: {member_name}, {church_name}",
+   "fieldname": "birthday_sms_template",
+   "fieldtype": "Small Text",
+   "label": "Birthday SMS Template"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Data",
+   "label": "Fiscal Year"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-02-15 10:00:00",
+ "modified": "2026-02-25 18:37:54.811367",
  "modified_by": "Administrator",
  "module": "Church Administration",
  "name": "Church Settings",
@@ -185,6 +301,7 @@
    "role": "Treasurer"
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

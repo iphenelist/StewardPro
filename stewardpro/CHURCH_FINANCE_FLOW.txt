@@ -1,0 +1,490 @@
+================================================================================
+  STEWARDPRO – CHURCH FINANCE MODULE
+  Complete Flow: Setup → Transactions → Remittance → Reporting
+================================================================================
+
+OVERVIEW
+--------
+The Church Finance module manages the full financial lifecycle of an SDA local
+church: chart of accounts, income collection (tithe & offerings), departmental
+budgeting, expense management, fund tracking, and weekly conference remittance.
+
+All financial documents follow Frappe's submittable-document workflow:
+  DRAFT → SUBMITTED → (AMENDED or CANCELLED)
+Only submitted documents affect reported balances and remittance calculations.
+
+================================================================================
+PHASE 1 – SETUP  (done once, at installation or first use)
+================================================================================
+
+STEP 1 : Church Settings
+  Doctype : Church Settings  (single document)
+  Path    : Church Administration → Church Settings
+  -------------------------------------------------------------------------
+  Configure before any finance work begins:
+    • Church Name, Church Code, Conference, Union/Mission, District
+    • Fiscal Year Start Month  (e.g. January)
+    • Currency                 (e.g. TZS, USD)
+    • Tithe Remit Percentage   (standard SDA: 100% to conference)
+    • SMS settings (optional)  – for receipt SMS on submission
+  -------------------------------------------------------------------------
+  WHY: These values are referenced throughout all finance documents and
+       the weekly auto-remittance scheduler.
+
+
+STEP 2 : Chart of Accounts
+  Doctype : Church Account  (tree / nested set)
+  Path    : Church Finance → Chart of Accounts
+  -------------------------------------------------------------------------
+  Root group accounts created automatically on install:
+    ┌── Church Assets     (group)
+    ├── Church Liabilities (group)
+    ├── Church Income      (group)
+    └── Church Expense     (group)
+
+  General accounts created on install under each root:
+    Church Income
+      ├── Tithe Income              (subtype: Tithe)
+      ├── Regular Offering Income   (subtype: Offering)
+      ├── Building Fund Income      (subtype: Fund)
+      └── Camp Meeting Income       (subtype: Offering)
+
+    Church Expense
+      ├── General Administration Expense  (subtype: Operating Expense)
+      └── Conference Remittance Expense   (subtype: Operating Expense)
+
+    Church Assets
+      ├── Church Cash           (subtype: Cash)
+      ├── Church Bank Account   (subtype: Bank)
+      └── Church Property       (subtype: Property)
+
+    Church Liabilities
+      └── Accounts Payable      (subtype: Payable)
+
+  Department accounts created automatically for every enabled department:
+    Church Income
+      └── <Department Name> Income   (subtype: Offering)
+    Church Expense
+      └── <Department Name> Expense  (subtype: Ministry Expense)
+    Church Assets
+      └── <Department Name> Fund     (subtype: Fund)
+
+  Account tree balance rules:
+    • Income accounts  – credits increase balance (receipts)
+    • Expense accounts – debits increase balance  (spending)
+    • Asset accounts   – increase on receipt, decrease when paid out
+    • Group accounts   – show sum of all leaf descendants
+  -------------------------------------------------------------------------
+  HOW TO ADD ACCOUNTS:
+    Open tree → click a group → "Add Child" → fill Account Name,
+    Account Type, Account Subtype → Save.
+    The tree view shows the computed balance next to every account in
+    colour: green (income/positive), orange (expense), red (negative).
+
+
+STEP 3 : Church Departments
+  Doctype : Church Department
+  Path    : Church Administration → Church Department
+  -------------------------------------------------------------------------
+  17 default departments created on install:
+    Adventist Youth, Dorcas/Community Services, Personal Ministries,
+    Health Ministries, Music Ministry, Sabbath School, Deacons Ministry,
+    Deaconesses Ministry, Children's Ministries, Family Ministries,
+    Communication, Education, Stewardship, Women's Ministries,
+    Men's Ministries, Prayer Ministries, Publishing Ministries.
+
+  When a department is saved (and enabled = Yes), three Church Accounts
+  are created automatically:
+    <Dept> Income  /  <Dept> Expense  /  <Dept> Fund
+  -------------------------------------------------------------------------
+
+
+STEP 4 : Church Members
+  Doctype : Church Member
+  Path    : Church Administration → Church Member
+  -------------------------------------------------------------------------
+  Members are the giving units for Tithe & Offering entries.
+  Key fields: First/Last Name, Phone, Membership Status, Membership Date,
+              How Joined (Baptism / Profession of Faith / Transfer In),
+              Baptism details.
+  On creation: welcome SMS sent automatically (if SMS enabled).
+  -------------------------------------------------------------------------
+
+
+STEP 5 : Church Funds  (optional)
+  Doctype : Church Fund
+  Path    : Church Finance → Church Fund
+  -------------------------------------------------------------------------
+  Used to track special fund-raising campaigns (e.g. Building Fund drive).
+  Fields: Fund Name, Fund Account (links to Church Account), Status
+          (Open / Closed / Achieved), Target Amount, Current Balance,
+          Start Date, Target Date.
+  Current Balance is updated manually or via reports.
+  -------------------------------------------------------------------------
+
+
+================================================================================
+PHASE 2 – BUDGETING  (annual or quarterly)
+================================================================================
+
+STEP 6 : Department Budget Request
+  Doctype : Department Budget Request  (submittable)
+  Path    : Church Finance → Department Budget Request
+  -------------------------------------------------------------------------
+  Each department submits its expense needs for a fiscal period.
+
+  Key fields:
+    • Department       – the requesting department
+    • Fiscal Year      – e.g. 2026
+    • Budget Period    – Annual / Q1 / Q2 / Q3 / Q4
+    • Items table      – each row: Expense Description, Account,
+                         Quantity, Unit Cost → Amount (auto-calculated)
+    • Total Requested Amount  (auto-summed, read-only)
+    • Status: Draft → Pending Approval → Budgeted
+
+  On Submit:
+    → Status set to "Pending Approval"
+    → A Church Budget document is auto-created from the request
+    → church_budget field on this document is populated with the link
+
+  On Cancel:
+    → Auto-created Church Budget (if still Draft) is deleted
+    → Status reverts to "Draft"
+  -------------------------------------------------------------------------
+
+
+STEP 7 : Church Budget
+  Doctype : Church Budget  (submittable)
+  Path    : Church Finance → Church Budget
+  -------------------------------------------------------------------------
+  The consolidated budget for a fiscal period. Can be created directly
+  or auto-generated from a Department Budget Request (Step 6).
+
+  Key fields:
+    • Budget Name, Budget Year, Budget Period
+    • Start Date / End Date
+    • Income Items table  – Account, Description, Budgeted Amount
+    • Expense Items table – Account, Description, Budgeted Amount
+    • Total Budgeted Income   (auto-summed)
+    • Total Budgeted Expense  (auto-summed)
+    • Surplus / Deficit       (Income – Expense, auto-calculated)
+    • Approved Date / Approved By
+    • Department Budget Request link (if auto-created)
+
+  Workflow: Draft → (Church Board approves) → Submit
+  -------------------------------------------------------------------------
+
+
+================================================================================
+PHASE 3 – INCOME COLLECTION  (weekly, each Sabbath)
+================================================================================
+
+STEP 8 : Tithe and Offering Entry
+  Doctype : Tithe and Offering Entry  (submittable)
+  Naming  : TOE-.YYYY.-.#####
+  Path    : Church Finance → Tithe and Offering Entry
+  -------------------------------------------------------------------------
+  One record per member (or envelope) per Sabbath service.
+  Can be entered by the Deacon, Treasurer, or Church Clerk.
+
+  ENTRY TAB – Member Details:
+    • Entry Date     (defaults to today)
+    • Member         (optional link to Church Member)
+    • Member Name    (auto-fetched from Member record)
+    • Envelope Number
+
+  ENTRY TAB – Tithe & Offerings (direct currency fields):
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ Field                │ Distribution                             │
+    ├─────────────────────────────────────────────────────────────────┤
+    │ Tithe                │ 100% → Conference                        │
+    │ Offering             │ 42% Local Church / 56% Conference        │
+    │ Camp Meeting         │ 100% → Conference                        │
+    │ Church Building Fund │ 100% → Local Church                      │
+    └─────────────────────────────────────────────────────────────────┘
+
+  OFFERING SPLIT SECTION (auto-calculated, read-only):
+    • Local Church Share %   = 42%
+    • Offering – Local (42%) = Offering × 0.42
+    • Conference Share %     = 56%
+    • Offering – Conference  = Offering × 0.56
+
+  TOTALS SECTION (auto-calculated, read-only):
+    • Total Tithe & Offerings  = Tithe + Offering + Camp + Building Fund
+    • Total for Conference     = Tithe + Offering(56%) + Camp Meeting
+    • Total for Local Church   = Offering(42%) + Building Fund
+    • Grand Total              = Total for Conference + Total for Local Church
+
+  PAYMENT TAB:
+    • Payment Method  – Cash / Mobile Money / Bank Transfer / Cheque
+    • Reference Number (shown for non-cash payments)
+    • Received By     (auto-filled with logged-in user)
+
+  Additional Offerings (custom items):
+    • Items table (Tithe Offering Item child):
+        - Offering Type  (Select: Tithe / Church Budget / Sabbath School
+          Offering / 13th Sabbath Offering / Investment Offering /
+          Birthday & Thanksgiving / Building Fund / Evangelism Fund /
+          Camp Meeting Offering / Special Offering)
+        - Amount
+        - Account  (manual link to Church Account)
+
+  On Save:
+    → Offering split recalculated
+    → All totals recalculated
+    → Negative amount validation
+
+  On Submit:
+    → Receipt SMS sent to member's phone (if SMS enabled)
+    → Record becomes immutable; amend if correction needed
+
+  ROLES allowed to create: Treasurer, Deacon, System Manager
+  ROLES allowed to read:   Pastor, Church Elder (read-only)
+  -------------------------------------------------------------------------
+
+
+================================================================================
+PHASE 4 – EXPENSE MANAGEMENT  (as needed)
+================================================================================
+
+STEP 9 : Church Expense
+  Doctype : Church Expense  (submittable)
+  Path    : Church Finance → Church Expense
+  -------------------------------------------------------------------------
+  Records payments made by the church.
+
+  Key fields:
+    • Expense Date
+    • Account       – the Expense account being debited
+                      (e.g. "Adventist Youth Expense")
+    • Amount
+    • Paid From     – the Asset account funds are drawn from
+                      (e.g. "Church Cash" or "Church Bank Account")
+    • Description   (required)
+    • Payment Method – Cash / Mobile Money / Bank Transfer / Cheque
+    • Requested By  – Church Member who requested the expense
+    • Approved By   – User who authorised payment
+    • Board Minute Reference
+    • Remarks
+
+  Balance impact (reflected in tree view):
+    • Account (Expense)  balance increases by Amount
+    • Paid From (Asset)  balance decreases by Amount
+
+  ROLES: Treasurer – full access; Pastor – read + submit; Others – read
+  -------------------------------------------------------------------------
+
+
+================================================================================
+PHASE 5 – WEEKLY REMITTANCE  (every Saturday night, automated)
+================================================================================
+
+STEP 10 : Conference Remittance  (auto-created by scheduler)
+  Doctype  : Conference Remittance  (submittable)
+  Naming   : REM-.YYYY.-.#####
+  Path     : Church Finance → Conference Remittance
+  -------------------------------------------------------------------------
+  Records the amounts sent from the local church to the Conference.
+
+  AUTO-CREATION (Saturday night scheduler):
+    Trigger  : Daily scheduler checks if today is Saturday (weekday 5)
+    Period   : Sunday through Saturday of the current week
+    Source   : All submitted Tithe and Offering Entries in the period
+
+    Logic:
+      Total Tithe          = SUM(tithe)  from all entries in period
+      Total Offering Conf  = SUM(offering_conference_amount)  (56% share)
+      Total Camp Meeting   = SUM(camp_meeting)  from all entries in period
+
+    Items created (one row per non-zero component):
+      ┌────────────────────────┬─────────────────────────┐
+      │ Offering Type          │ Amount                  │
+      ├────────────────────────┼─────────────────────────┤
+      │ Tithe                  │ Total Tithe             │
+      │ Sabbath School Offering│ Total Offering (56%)    │
+      │ Camp Meeting Offering  │ Total Camp Meeting      │
+      └────────────────────────┴─────────────────────────┘
+
+    Status on creation: Draft
+    Duplicate guard: if a remittance for the same period already exists
+                     (non-cancelled), creation is skipped.
+
+  MANUAL CREATION:
+    Treasurer can also create manually at any time.
+
+  Key fields:
+    • Remittance Date
+    • Period From / Period To
+    • Status: Draft → Sent → Acknowledged
+    • Items table (Remittance Item):
+        - Offering Type  (Select – same 10 options as above)
+        - Amount
+    • Total Remittance  (auto-summed from items)
+    • Payment Method    (default: Bank Transfer)
+    • Reference Number
+    • Receipt from Conference  (file attachment)
+
+  Workflow:
+    1. Draft created automatically each Saturday night
+    2. Treasurer reviews and verifies amounts
+    3. Payment sent to Conference → status set to "Sent"
+    4. Conference confirms receipt → file attached → status "Acknowledged"
+    5. Treasurer submits the document to lock it
+
+  ROLES: Treasurer – full access; Pastor – read + write + submit
+  -------------------------------------------------------------------------
+
+
+================================================================================
+PHASE 6 – ACCOUNT BALANCE VIEW
+================================================================================
+
+STEP 11 : Chart of Accounts Tree View
+  Path : Church Finance → Chart of Accounts
+  -------------------------------------------------------------------------
+  The tree view shows every account with its computed balance in real time.
+
+  Balance sources:
+    Income accounts
+      • "Tithe Income"            ← SUM(tithe) from submitted entries
+      • "Regular Offering Income" ← SUM(offering_local_amount) from entries
+      • "Building Fund Income"    ← SUM(church_building_fund) from entries
+      • "Camp Meeting Income"     ← SUM(camp_meeting) from entries
+      • Department income accts   ← SUM(tithe_offering_item.amount) where
+                                     account = this account
+
+    Expense accounts
+      • SUM(church_expense.amount) where account = this account
+
+    Asset accounts
+      • Reduced by SUM(church_expense.amount) where paid_from = this acct
+
+    Group accounts
+      • SUM of all leaf-account balances within their lft/rgt bounds
+
+  Colour coding:
+    Green  – Income / positive asset balance
+    Orange – Expense (spending shown positive)
+    Red    – Negative balance (overdraft)
+
+  Toolbar (Treasurer / System Manager only):
+    "Refresh Balances" button – recomputes and persists balance on every
+    account record in one pass.
+  -------------------------------------------------------------------------
+
+
+================================================================================
+SUMMARY – DOCUMENT FLOW DIAGRAM
+================================================================================
+
+  [Church Settings] ──────────────────────────────────────────────────┐
+  [Church Account Tree]                                               │
+  [Church Department] → (auto-creates 3 accounts per department)     │
+  [Church Member]                                                     │
+         │                                                            │
+         ▼                                                            │
+  ┌──────────────────────────────────────────────────────────────┐   │
+  │                  BUDGET CYCLE (Annual/Quarterly)             │   │
+  │  Department Budget Request ──submit──► Church Budget         │   │
+  └──────────────────────────────────────────────────────────────┘   │
+         │                                                            │
+         ▼                                                            │
+  ┌──────────────────────────────────────────────────────────────┐   │
+  │                  SABBATH INCOME CYCLE (Weekly)               │   │
+  │                                                              │   │
+  │  Tithe and Offering Entry (per member per Sabbath)           │   │
+  │    ├─ Tithe              (100% → Conference)                 │   │
+  │    ├─ Offering           (42% Local / 56% Conference)        │   │
+  │    ├─ Camp Meeting       (100% → Conference)                 │   │
+  │    └─ Building Fund      (100% → Local Church)               │   │
+  │         │                                                    │   │
+  │         └──submit──► SMS receipt to member                   │   │
+  └──────────────────────────────────────────────────────────────┘   │
+         │                                                            │
+         ▼                                                            │
+  ┌──────────────────────────────────────────────────────────────┐   │
+  │                  EXPENSE CYCLE (As needed)                   │   │
+  │  Church Expense ──submit──► reduces Asset account            │   │
+  └──────────────────────────────────────────────────────────────┘   │
+         │                                                            │
+         ▼                                                            │
+  ┌──────────────────────────────────────────────────────────────┐   │
+  │          REMITTANCE CYCLE (Every Saturday night, auto)       │   │
+  │                                                              │   │
+  │  Scheduler aggregates Sunday–Saturday entries:               │   │
+  │    Tithe + Offering(56%) + Camp Meeting                      │   │
+  │         │                                                    │   │
+  │         ▼                                                    │   │
+  │  Conference Remittance (Draft)                               │   │
+  │    ├─ Treasurer reviews & pays Conference                    │   │
+  │    ├─ Status → Sent                                          │   │
+  │    ├─ Conference confirms → attach receipt                   │   │
+  │    ├─ Status → Acknowledged                                  │   │
+  │    └─ Treasurer submits to lock                              │   │
+  └──────────────────────────────────────────────────────────────┘   │
+         │                                                            │
+         ▼                                                            │
+  [Chart of Accounts Tree] ← live balances from all transactions ────┘
+
+
+================================================================================
+ROLES & PERMISSIONS SUMMARY
+================================================================================
+
+  Role              │ Tithe Entry │ Expense │ Budget │ Remittance │ Accounts
+  ──────────────────┼─────────────┼─────────┼────────┼────────────┼─────────
+  System Manager    │  Full       │  Full   │  Full  │  Full      │  Full
+  Treasurer         │  Full       │  Full   │  Full  │  Full      │  Full
+  Pastor            │  Read       │  Read   │  R+W+S │  R+W+S     │  Read
+  Church Elder      │  Read       │  Read   │  Read  │  Read      │  Read
+  Deacon            │  Create+R+W │  –      │  –     │  –         │  –
+  Church Clerk      │  –          │  –      │  –     │  –         │  –
+  SS Superintendent │  –          │  –      │  –     │  –         │  –
+
+  R=Read  W=Write  S=Submit  Full=Create+Read+Write+Submit+Amend+Delete
+
+
+================================================================================
+NAMING CONVENTIONS
+================================================================================
+
+  Document                  Naming Series
+  ─────────────────────────────────────────────
+  Tithe and Offering Entry  TOE-.YYYY.-.#####
+  Conference Remittance     REM-.YYYY.-.#####
+  Church Member             MBR-.#####
+  Church Account            By field: account_name
+  Church Department         By field: department_name
+  Church Budget             By field: budget_name
+  Church Fund               By field: fund_name
+
+
+================================================================================
+KEY CALCULATED FIELDS  (all auto-computed, read-only)
+================================================================================
+
+  Tithe and Offering Entry:
+    offering_local_amount      = offering × 42%
+    offering_conference_amount = offering × 56%
+    total_tithe_and_offerings  = tithe + offering + camp_meeting + building_fund
+    total_for_conference       = tithe + offering_conference_amount + camp_meeting
+    total_for_local_church     = offering_local_amount + building_fund
+    grand_total                = total_for_conference + total_for_local_church
+
+  Church Budget:
+    total_budgeted_income  = SUM(income_items.budgeted_amount)
+    total_budgeted_expense = SUM(expense_items.budgeted_amount)
+    surplus_deficit        = total_budgeted_income – total_budgeted_expense
+
+  Department Budget Request:
+    total_requested_amount = SUM(items.amount)
+    item.amount            = quantity × unit_cost  (if both provided)
+
+  Conference Remittance:
+    total_remittance = SUM(items.amount)
+
+================================================================================
+END OF DOCUMENT
+File: CHURCH_FINANCE_FLOW.txt
+App:  StewardPro – SDA Church Management System
+================================================================================

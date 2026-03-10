@@ -9,11 +9,6 @@ def get_data():
 			"label": _("Church Administration"),
 		},
 		{
-			"module_name": "Membership",
-			"type": "module",
-			"label": _("Membership"),
-		},
-		{
 			"module_name": "Sabbath School",
 			"type": "module",
 			"label": _("Sabbath School"),

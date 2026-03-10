@@ -10,21 +10,32 @@
   "member_details_section",
   "entry_date",
   "member",
-  "column_break_1",
+  "column_break_member",
   "member_name",
   "envelope_number",
-  "tithe_offering_items_section",
-  "items",
+  "giving_section",
+  "tithe",
+  "camp_meeting",
+  "column_break_giving",
+  "offering",
+  "church_building_fund",
+  "offering_split_section",
+  "offering_local_share",
+  "offering_local_amount",
+  "column_break_split",
+  "offering_conference_share",
+  "offering_conference_amount",
   "totals_section",
-  "total_tithe",
-  "total_offerings",
-  "column_break_2",
+  "total_tithe_and_offerings",
+  "total_for_conference",
+  "column_break_totals",
+  "total_for_local_church",
   "grand_total",
   "tab_break_payment",
   "payment_details_section",
   "payment_method",
   "reference_number",
-  "column_break_3",
+  "column_break_payment",
   "received_by",
   "receipt_printed",
   "remarks_section",
@@ -33,7 +44,7 @@
  ],
  "fields": [
   {
-   "default": "TOE-.YYYY.-.#####",
+   "default": "TOE-.YYYY./.MM./.DD.-.#####",
    "fieldname": "naming_series",
    "fieldtype": "Data",
    "hidden": 1,
@@ -66,7 +77,7 @@
    "options": "Church Member"
   },
   {
-   "fieldname": "column_break_1",
+   "fieldname": "column_break_member",
    "fieldtype": "Column Break"
   },
   {
@@ -82,16 +93,76 @@
    "label": "Envelope Number"
   },
   {
-   "fieldname": "tithe_offering_items_section",
+   "fieldname": "giving_section",
    "fieldtype": "Section Break",
-   "label": "Tithe & Offering Items"
+   "label": "Tithe & Offerings"
   },
   {
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Items",
-   "options": "Tithe Offering Item",
-   "reqd": 1
+   "description": "100% remitted to conference",
+   "fieldname": "tithe",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Tithe"
+  },
+  {
+   "description": "Split: 42% local church, 56% conference",
+   "fieldname": "offering",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Offering"
+  },
+  {
+   "fieldname": "column_break_giving",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "100% remitted to conference",
+   "fieldname": "camp_meeting",
+   "fieldtype": "Currency",
+   "label": "Camp Meeting"
+  },
+  {
+   "description": "100% stays with local church",
+   "fieldname": "church_building_fund",
+   "fieldtype": "Currency",
+   "label": "Church Building Fund"
+  },
+  {
+   "fieldname": "offering_split_section",
+   "fieldtype": "Section Break",
+   "label": "Offering Split (Auto-Calculated)"
+  },
+  {
+   "default": "42",
+   "fieldname": "offering_local_share",
+   "fieldtype": "Percent",
+   "label": "Local Church Share %",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "offering_local_amount",
+   "fieldtype": "Currency",
+   "label": "Offering - Local Church (42%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_split",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "56",
+   "fieldname": "offering_conference_share",
+   "fieldtype": "Percent",
+   "label": "Conference Share %",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "offering_conference_amount",
+   "fieldtype": "Currency",
+   "label": "Offering - Conference (56%)",
+   "read_only": 1
   },
   {
    "fieldname": "totals_section",
@@ -99,23 +170,31 @@
    "label": "Totals"
   },
   {
+   "fieldname": "total_tithe_and_offerings",
+   "fieldtype": "Currency",
+   "label": "Total Tithe & Offerings",
+   "read_only": 1
+  },
+  {
    "bold": 1,
-   "fieldname": "total_tithe",
+   "description": "Tithe + Offering Conference Share + Camp Meeting",
+   "fieldname": "total_for_conference",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Total Tithe",
+   "label": "Total for Conference",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_totals",
+   "fieldtype": "Column Break"
   },
   {
    "bold": 1,
-   "fieldname": "total_offerings",
+   "description": "Offering Local Share + Building Fund",
+   "fieldname": "total_for_local_church",
    "fieldtype": "Currency",
-   "label": "Total Offerings",
+   "label": "Total for Local Church",
    "read_only": 1
-  },
-  {
-   "fieldname": "column_break_2",
-   "fieldtype": "Column Break"
   },
   {
    "bold": 1,
@@ -149,7 +228,7 @@
    "label": "Reference Number"
   },
   {
-   "fieldname": "column_break_3",
+   "fieldname": "column_break_payment",
    "fieldtype": "Column Break"
   },
   {
@@ -160,6 +239,7 @@
    "options": "User"
   },
   {
+   "default": "0",
    "fieldname": "receipt_printed",
    "fieldtype": "Check",
    "label": "Receipt Printed",
@@ -188,7 +268,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-15 10:00:00",
+ "modified": "2026-02-25 18:54:22.994536",
  "modified_by": "Administrator",
  "module": "Church Finance",
  "name": "Tithe and Offering Entry",
@@ -234,6 +314,7 @@
    "role": "Pastor"
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -243,6 +324,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

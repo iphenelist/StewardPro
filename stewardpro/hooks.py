@@ -6,17 +6,27 @@ app_publisher = "StewardPro"
 app_description = "SDA Church Management System - Membership, Sabbath School & Finance"
 app_email = "info@stewardpro.com"
 app_license = "mit"
+app_logo_url = "/assets/stewardpro/pwa/icons/stewardpro-icon.svg"
+
+add_to_apps_screen = [
+	{
+		"name": "stewardpro",
+		"logo": app_logo_url,
+		"title": app_title,
+		"route": "/app/church-administration",
+	}
+]
 
 # Includes in <head>
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/stewardpro/css/stewardpro.css"
-# app_include_js = "/assets/stewardpro/js/stewardpro.js"
+app_include_css = "/assets/stewardpro/pwa/stewardpro-pwa.css"
+app_include_js = "/assets/stewardpro/pwa/stewardpro-pwa.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/stewardpro/css/stewardpro.css"
-# web_include_js = "/assets/stewardpro/js/stewardpro.js"
+web_include_css = "/assets/stewardpro/pwa/stewardpro-pwa.css"
+web_include_js = "/assets/stewardpro/pwa/stewardpro-pwa.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "stewardpro/public/scss/website"
@@ -33,7 +43,7 @@ app_license = "mit"
 # 	"DocType": "public/js/doctype.js"
 # }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
+doctype_tree_js = {"Church Account": "public/js/church_account_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
 # Home Pages
@@ -67,6 +77,7 @@ app_license = "mit"
 
 after_install = "stewardpro.setup.after_install"
 # before_uninstall = "stewardpro.uninstall.before_uninstall"
+after_migrate = "stewardpro.setup.after_install"
 
 # Desk Notifications
 # ------------------
@@ -99,24 +110,24 @@ after_install = "stewardpro.setup.after_install"
 # Hook on document methods and events
 
 # doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
+# 	"Tithe and Offering Entry": {
+# 		"on_submit": "stewardpro.api.sms.send_tithe_offering_receipt"
+# 	},
+# 	"Church Member": {
+# 		"after_insert": "stewardpro.api.sms.send_member_welcome"
 # 	}
 # }
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"stewardpro.tasks.all"
-# 	],
-# 	"daily": [
-# 		"stewardpro.tasks.daily"
-# 	],
-# }
+scheduler_events = {
+	"daily": [
+		"stewardpro.api.sms.send_birthday_greetings",
+		# Runs every day but internally checks for Saturday before creating remittance
+		"stewardpro.api.remittance.create_weekly_remittance",
+	],
+}
 
 # Testing
 # -------

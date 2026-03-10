@@ -1,0 +1,120 @@
+.stewardpro-pwa-banner {
+	position: fixed;
+	right: 1rem;
+	bottom: 1rem;
+	z-index: 1045;
+	display: flex;
+	max-width: min(28rem, calc(100vw - 2rem));
+	align-items: flex-start;
+	gap: 0.875rem;
+	padding: 1rem 1rem 0.95rem;
+	border: 1px solid rgba(13, 92, 99, 0.16);
+	border-radius: 1rem;
+	background:
+		radial-gradient(circle at top right, rgba(206, 175, 93, 0.26), transparent 35%),
+		linear-gradient(135deg, rgba(253, 250, 242, 0.98), rgba(242, 247, 247, 0.98));
+	box-shadow: 0 20px 45px rgba(20, 40, 42, 0.18);
+	color: #173337;
+	backdrop-filter: blur(14px);
+}
+
+.stewardpro-pwa-banner[hidden] {
+	display: none;
+}
+
+.stewardpro-pwa-banner__icon {
+	flex: 0 0 3rem;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 0.9rem;
+}
+
+.stewardpro-pwa-banner__content {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.stewardpro-pwa-banner__title {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.stewardpro-pwa-banner__text {
+	margin: 0.3rem 0 0;
+	font-size: 0.875rem;
+	line-height: 1.45;
+	color: rgba(23, 51, 55, 0.82);
+}
+
+.stewardpro-pwa-banner__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.8rem;
+}
+
+.stewardpro-pwa-banner__button {
+	border: 0;
+	border-radius: 999px;
+	padding: 0.55rem 0.9rem;
+	font-size: 0.84rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.stewardpro-pwa-banner__button:hover {
+	transform: translateY(-1px);
+}
+
+.stewardpro-pwa-banner__button:focus-visible {
+	outline: 2px solid rgba(13, 92, 99, 0.28);
+	outline-offset: 2px;
+}
+
+.stewardpro-pwa-banner__button--primary {
+	background: #0d5c63;
+	box-shadow: 0 10px 18px rgba(13, 92, 99, 0.22);
+	color: #fff;
+}
+
+.stewardpro-pwa-banner__button--secondary {
+	background: rgba(13, 92, 99, 0.08);
+	color: #0d5c63;
+}
+
+.stewardpro-pwa-banner__close {
+	flex: 0 0 auto;
+	border: 0;
+	padding: 0.1rem;
+	background: transparent;
+	color: rgba(23, 51, 55, 0.65);
+	font-size: 1.1rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+@media (max-width: 640px) {
+	.stewardpro-pwa-banner {
+		left: 0.75rem;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		max-width: none;
+		padding: 0.9rem;
+	}
+
+	.stewardpro-pwa-banner__icon {
+		width: 2.75rem;
+		height: 2.75rem;
+	}
+
+	.stewardpro-pwa-banner__actions {
+		flex-direction: column;
+	}
+
+	.stewardpro-pwa-banner__button {
+		width: 100%;
+	}
+}

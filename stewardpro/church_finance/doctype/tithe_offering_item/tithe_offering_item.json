@@ -11,10 +11,10 @@
  "fields": [
   {
    "fieldname": "offering_type",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Offering Type",
-   "options": "Offering Type",
+   "options": "\nTithe\nChurch Budget\nSabbath School Offering\n13th Sabbath Offering\nInvestment Offering\nBirthday & Thanksgiving\nBuilding Fund\nEvangelism Fund\nCamp Meeting Offering\nSpecial Offering",
    "reqd": 1
   },
   {
@@ -25,13 +25,11 @@
    "reqd": 1
   },
   {
-   "fetch_from": "offering_type.income_account",
    "fieldname": "account",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Account",
-   "options": "Church Account",
-   "read_only": 1
+   "options": "Church Account"
   }
  ],
  "index_web_pages_for_search": 1,

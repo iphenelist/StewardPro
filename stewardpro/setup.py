@@ -4,8 +4,7 @@ import frappe
 def after_install():
 	create_roles()
 	create_default_departments()
-	create_default_positions()
-	create_default_offering_types()
+	create_default_accounts()
 
 
 def create_roles():
@@ -50,46 +49,116 @@ def create_default_departments():
 			doc.insert(ignore_permissions=True)
 
 
-def create_default_positions():
-	positions = [
-		{"position_name": "Pastor", "position_category": "Leadership"},
-		{"position_name": "Head Elder", "position_category": "Leadership"},
-		{"position_name": "Elder", "position_category": "Leadership"},
-		{"position_name": "Church Clerk", "position_category": "Officer"},
-		{"position_name": "Treasurer", "position_category": "Officer"},
-		{"position_name": "Head Deacon", "position_category": "Officer"},
-		{"position_name": "Head Deaconess", "position_category": "Officer"},
-		{"position_name": "Deacon", "position_category": "Officer"},
-		{"position_name": "Deaconess", "position_category": "Officer"},
-		{"position_name": "Sabbath School Superintendent", "position_category": "Departmental Leader"},
-		{"position_name": "AY Leader", "position_category": "Departmental Leader"},
-		{"position_name": "Personal Ministries Leader", "position_category": "Departmental Leader"},
-		{"position_name": "Dorcas Leader", "position_category": "Departmental Leader"},
-		{"position_name": "Health Ministries Leader", "position_category": "Departmental Leader"},
-		{"position_name": "Music Director", "position_category": "Departmental Leader"},
-		{"position_name": "Communication Secretary", "position_category": "Departmental Leader"},
-		{"position_name": "Church Board Member", "position_category": "Board Member"},
+def create_default_accounts():
+	"""Create root accounts and per-department accounts for all default departments."""
+	from stewardpro.church_finance.utils import ensure_root_accounts, create_department_accounts
+
+	# 1. Create root group accounts first
+	ensure_root_accounts()
+
+	# 2. Create general church-wide accounts (non-department)
+	from stewardpro.church_finance.utils import get_root_account
+
+	income_root = get_root_account("Income")
+	expense_root = get_root_account("Expense")
+	asset_root = get_root_account("Asset")
+	liability_root = get_root_account("Liability")
+
+	general_accounts = [
+		# Income accounts
+		{
+			"account_name": "Tithe Income",
+			"account_type": "Income",
+			"account_subtype": "Tithe",
+			"parent_account": income_root,
+			"is_group": 0,
+			"description": "All tithe receipts from members",
+		},
+		{
+			"account_name": "Regular Offering Income",
+			"account_type": "Income",
+			"account_subtype": "Offering",
+			"parent_account": income_root,
+			"is_group": 0,
+			"description": "Regular offering receipts (local share)",
+		},
+		{
+			"account_name": "Building Fund Income",
+			"account_type": "Income",
+			"account_subtype": "Fund",
+			"parent_account": income_root,
+			"is_group": 0,
+			"description": "Church building fund contributions",
+		},
+		{
+			"account_name": "Camp Meeting Income",
+			"account_type": "Income",
+			"account_subtype": "Offering",
+			"parent_account": income_root,
+			"is_group": 0,
+			"description": "Camp meeting offering receipts",
+		},
+		# Expense accounts
+		{
+			"account_name": "General Administration Expense",
+			"account_type": "Expense",
+			"account_subtype": "Operating Expense",
+			"parent_account": expense_root,
+			"is_group": 0,
+			"description": "General church administration expenses",
+		},
+		{
+			"account_name": "Conference Remittance Expense",
+			"account_type": "Expense",
+			"account_subtype": "Operating Expense",
+			"parent_account": expense_root,
+			"is_group": 0,
+			"description": "Tithe and offerings remitted to conference",
+		},
+		# Asset accounts
+		{
+			"account_name": "Church Cash",
+			"account_type": "Asset",
+			"account_subtype": "Cash",
+			"parent_account": asset_root,
+			"is_group": 0,
+			"description": "Cash on hand",
+		},
+		{
+			"account_name": "Church Bank Account",
+			"account_type": "Asset",
+			"account_subtype": "Bank",
+			"parent_account": asset_root,
+			"is_group": 0,
+			"description": "Church bank account balance",
+		},
+		{
+			"account_name": "Church Property",
+			"account_type": "Asset",
+			"account_subtype": "Property",
+			"parent_account": asset_root,
+			"is_group": 0,
+			"description": "Church property and buildings",
+		},
+		# Liability accounts
+		{
+			"account_name": "Accounts Payable",
+			"account_type": "Liability",
+			"account_subtype": "Payable",
+			"parent_account": liability_root,
+			"is_group": 0,
+			"description": "Amounts owed by the church",
+		},
 	]
-	for pos in positions:
-		if not frappe.db.exists("Church Position", {"position_name": pos["position_name"]}):
-			doc = frappe.get_doc({"doctype": "Church Position", "enabled": 1, **pos})
+
+	for acct in general_accounts:
+		if not frappe.db.exists("Church Account", {"account_name": acct["account_name"]}):
+			doc = frappe.get_doc({"doctype": "Church Account", "enabled": 1, **acct})
 			doc.insert(ignore_permissions=True)
 
+	frappe.db.commit()
 
-def create_default_offering_types():
-	offering_types = [
-		{"offering_name": "Tithe", "offering_category": "Tithe", "is_remittable": 1},
-		{"offering_name": "Church Budget", "offering_category": "Regular Offering", "is_remittable": 0},
-		{"offering_name": "Sabbath School Offering", "offering_category": "Regular Offering", "is_remittable": 1},
-		{"offering_name": "13th Sabbath Offering", "offering_category": "Special Offering", "is_remittable": 1},
-		{"offering_name": "Investment Offering", "offering_category": "Special Offering", "is_remittable": 1},
-		{"offering_name": "Birthday & Thanksgiving", "offering_category": "Regular Offering", "is_remittable": 0},
-		{"offering_name": "Building Fund", "offering_category": "Fund", "is_remittable": 0},
-		{"offering_name": "Evangelism Fund", "offering_category": "Fund", "is_remittable": 0},
-		{"offering_name": "Camp Meeting Offering", "offering_category": "Special Offering", "is_remittable": 1},
-		{"offering_name": "Special Offering", "offering_category": "Special Offering", "is_remittable": 0},
-	]
-	for ot in offering_types:
-		if not frappe.db.exists("Offering Type", {"offering_name": ot["offering_name"]}):
-			doc = frappe.get_doc({"doctype": "Offering Type", "enabled": 1, **ot})
-			doc.insert(ignore_permissions=True)
+	# 3. Create Income, Expense, and Fund accounts for every default department
+	department_names = frappe.get_all("Church Department", filters={"enabled": 1}, pluck="department_name")
+	for dept_name in department_names:
+		create_department_accounts(dept_name)

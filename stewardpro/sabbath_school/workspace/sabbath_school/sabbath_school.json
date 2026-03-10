@@ -1,0 +1,148 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sabbath School Class\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sabbath School Attendance\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sabbath School Offering\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sabbath School Report\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports & Masters</b></span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Classes\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}}]",
+ "creation": "2026-02-15 10:00:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "book",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Sabbath School",
+ "links": [
+  {
+   "hidden": 0,
+   "icon": "education",
+   "is_query_report": 0,
+   "label": "Classes",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sabbath School Class",
+   "link_count": 0,
+   "link_to": "Sabbath School Class",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "transaction",
+   "is_query_report": 0,
+   "label": "Transactions",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sabbath School Attendance",
+   "link_count": 0,
+   "link_to": "Sabbath School Attendance",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sabbath School Offering",
+   "link_count": 0,
+   "link_to": "Sabbath School Offering",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sabbath School Report",
+   "link_count": 0,
+   "link_to": "Sabbath School Report",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "book",
+   "is_query_report": 0,
+   "label": "Masters",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sabbath School Quarter",
+   "link_count": 0,
+   "link_to": "Sabbath School Quarter",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sabbath School Lesson",
+   "link_count": 0,
+   "link_to": "Sabbath School Lesson",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-26 10:06:33.580754",
+ "modified_by": "Administrator",
+ "module": "Sabbath School",
+ "name": "Sabbath School",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "Church Administration",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 4.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "label": "Sabbath School Class",
+   "link_to": "Sabbath School Class",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "label": "Sabbath School Attendance",
+   "link_to": "Sabbath School Attendance",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "label": "Sabbath School Offering",
+   "link_to": "Sabbath School Offering",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "label": "Sabbath School Report",
+   "link_to": "Sabbath School Report",
+   "type": "DocType"
+  }
+ ],
+ "title": "Sabbath School"
+}
