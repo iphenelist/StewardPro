@@ -168,7 +168,7 @@ def get_children(doctype, parent="", is_root=False, **kwargs):
 # ---------------------------------------------------------------------------
 
 @frappe.whitelist()
-def refresh_all_balances():
+def refresh_all_balances(silent=False):
 	"""
 	Recompute and persist the `balance` field on every Church Account.
 	Callable from bench console or the tree-view toolbar button.
@@ -189,4 +189,5 @@ def refresh_all_balances():
 		frappe.db.set_value("Church Account", acct.name, "balance", bal, update_modified=False)
 
 	frappe.db.commit()
-	frappe.msgprint("Account balances refreshed successfully.", alert=True)
+	if not silent:
+		frappe.msgprint("Account balances refreshed successfully.", alert=True)

@@ -82,6 +82,7 @@ def create_department_accounts(department_name):
 			"account_name": f"{department_name} Income",
 			"account_type": "Income",
 			"account_subtype": "Offering",
+			"department": department_name,
 			"parent_account": income_root,
 			"is_group": 0,
 			"description": f"Income account for {department_name} department",
@@ -90,6 +91,7 @@ def create_department_accounts(department_name):
 			"account_name": f"{department_name} Expense",
 			"account_type": "Expense",
 			"account_subtype": "Ministry Expense",
+			"department": department_name,
 			"parent_account": expense_root,
 			"is_group": 0,
 			"description": f"Expense account for {department_name} department",
@@ -98,6 +100,7 @@ def create_department_accounts(department_name):
 			"account_name": f"{department_name} Fund",
 			"account_type": "Asset",
 			"account_subtype": "Fund",
+			"department": department_name,
 			"parent_account": asset_root,
 			"is_group": 0,
 			"description": f"Fund/reserve account for {department_name} department",
@@ -118,3 +121,19 @@ def create_department_accounts(department_name):
 		)
 
 	return created
+
+
+def sync_department_account_tags():
+	"""Backfill department values on standard department-specific accounts."""
+	for department_name in frappe.get_all("Church Department", filters={"enabled": 1}, pluck="name"):
+		for suffix in ("Income", "Expense", "Fund"):
+			account_name = f"{department_name} {suffix}"
+			if frappe.db.exists("Church Account", account_name):
+				frappe.db.set_value(
+					"Church Account",
+					account_name,
+					"department",
+					department_name,
+					update_modified=False,
+				)
+	frappe.db.commit()

@@ -8,10 +8,12 @@
   "naming_series",
   "expense_details_section",
   "expense_date",
+  "department",
   "account",
   "column_break_1",
   "amount",
   "paid_from",
+  "approval_status",
   "description_section",
   "description",
   "payment_details_section",
@@ -23,6 +25,7 @@
   "requested_by",
   "approved_by",
   "column_break_3",
+  "approved_on",
   "board_minute_reference",
   "remarks",
   "amended_from"
@@ -49,12 +52,21 @@
    "reqd": 1
   },
   {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Church Department",
+   "reqd": 1
+  },
+  {
    "description": "Expense account to debit",
    "fieldname": "account",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Account",
+   "label": "Expense Account",
    "options": "Church Account",
    "reqd": 1
   },
@@ -73,9 +85,21 @@
    "description": "Cash or bank account",
    "fieldname": "paid_from",
    "fieldtype": "Link",
-   "label": "Paid From",
+   "in_standard_filter": 1,
+   "label": "Paid From Account",
    "options": "Church Account",
    "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "approval_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Approval Status",
+   "no_copy": 1,
+   "options": "Draft\nPending Approval\nApproved\nRejected",
+   "read_only": 1
   },
   {
    "fieldname": "description_section",
@@ -121,6 +145,8 @@
    "label": "Approval"
   },
   {
+   "fetch_from": "department.leader",
+   "fetch_if_empty": 1,
    "fieldname": "requested_by",
    "fieldtype": "Link",
    "label": "Requested By",
@@ -130,11 +156,18 @@
    "fieldname": "approved_by",
    "fieldtype": "Link",
    "label": "Approved By",
-   "options": "User"
+   "options": "User",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Approved On",
+   "read_only": 1
   },
   {
    "fieldname": "board_minute_reference",
